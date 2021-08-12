@@ -1,6 +1,6 @@
 function displayBlocking()
 
-    hFigureHandle = generateFigure(11,3.8);
+    hFigureHandle = generateFigure(13.12,6);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
