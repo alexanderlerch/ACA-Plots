@@ -3,7 +3,7 @@ function plotF0Cepstrum()
     hFigureHandle = generateFigure(13.12,8);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
-    cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
+    cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
 
@@ -31,7 +31,7 @@ function plotF0Cepstrum()
     xticklabel(xtick == T0) = {'$T_0$'};
     set(gca,'XTickLabel', xticklabel)
 
-    printFigure(hFigureHandle, cOutputPath)
+    printFigure(hFigureHandle, cOutputFilePath)
 end
 
 function [f,X,q,C, T0] = getData (cInputFilePath)
