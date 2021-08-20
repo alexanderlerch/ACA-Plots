@@ -3,10 +3,10 @@ function plotF0Auditory()
     hFigureHandle = generateFigure(13.12,8);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
-    cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
+    cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % read sample data
-    [t,x, f,X]  = generateSampleData();
+    [t,x, f,X]  = getData();
 
     cXLabel     = char('$t / \mathrm{s}$','$f / \mathrm{Hz}$');
     cYLabelTime = char('$x(i)$','$x_\mathrm{HWR}(i)$','$x_\mathrm{S,HWR}(i)$');
@@ -45,10 +45,10 @@ function plotF0Auditory()
         if (i==3) xlabel(deblank(cXLabel(2,:))); end;
     end
 
-    printFigure(hFigureHandle, cOutputFilePath)
+    printFigure(hFigureHandle, cOutputPath)
 end
 
-function [t,x, f,X] = generateSampleData()
+function [t,x, f,X] = getData()
     
     iBlockSize  = 2048;
     fs          = 192000;
