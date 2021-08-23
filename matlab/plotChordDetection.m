@@ -9,7 +9,7 @@ function plotChordDetection  ()
     cName = 'chord_analysis.mp3';
 
     [t,P_E, P_T, p, chord_labels] = getData ([cAudioPath,'/',cName]);
-
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
