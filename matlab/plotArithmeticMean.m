@@ -20,7 +20,7 @@ function plotArithmeticMean ()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
-    cYLabel1 = '$v(n)$';
+    cYLabel1 = '$v_\mathrm{SC}(n)$';
     cYLabel2 = '$RFD(v)$';
 
     subplot(211), 
@@ -28,7 +28,7 @@ function plotArithmeticMean ()
     axis([tv(1) tv(end) 0 max(v)])
     hold on;
     line([tv(1) tv(end)],mu_v*ones(1,2),'LineWidth', 2,'Color',[234/256 170/256 0])
-    line([tv(1) tv(end)],q_v*ones(1,2),'LineWidth', 2,'Color',[1 0 0])
+    line([tv(1) tv(end)],q_v*ones(1,2),'LineWidth', 2,'Color',[0 0 1])
     hold off;
 %     text(1.7, 2700, sprintf('$\\mu_x =%2.1f$',mean(v)));
 %     text(1.7, q_v-500, sprintf('$Q_v(0.5)=%2.1f$',mean(v)));
@@ -42,13 +42,13 @@ function plotArithmeticMean ()
     %h.EdgeColor = 'w';
     hold on;
     h1 = line(mu_v*ones(1,2), [0 0.06],'LineWidth', 2.5,'Color',[234/256 170/256 0]);
-    h2 = line(q_v*ones(1,2), [0 0.06],'LineWidth', 2.5,'Color',[1 0 0]);
+    h2 = line(q_v*ones(1,2), [0 0.06],'LineWidth', 2.5,'Color',[0 0 1]);
     hold off;
 %     text(2250, 0.05,);
 %     text(q_v-1250, 0.05, );
     cLegend1 =  sprintf('$\\mu_v =%2.1f$',mu_v);
     cLegend2 = sprintf('$Q_v(0.5)=%2.1f$',q_v);
-    xlabel('$v$')
+    xlabel('$v_\mathrm{SC}$')
     ylabel(cYLabel2)
     legend([h1 h2],cLegend1,cLegend2)
     
