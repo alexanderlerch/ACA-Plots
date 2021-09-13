@@ -24,8 +24,9 @@ function plotLogMelSpecgram  ()
     set(gca,'XTickLabel',{})
     set(gca,'XTick',[0 5 10 15 20 25])
 
-    subplot(212), imagesc(t,f/1000,X)
+    subplot(212), imagesc(t,[],X)
     axis xy;
+    set(gca,'YTickLabel', round(f([21 41,61,81,101,121]))/1000);
     set(gca,'XTick',[0 5 10 15 20 25])
     xlabel(cXLabel)
     ylabel(cYLabel2)
