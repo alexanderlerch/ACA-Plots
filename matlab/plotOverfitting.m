@@ -30,7 +30,7 @@ end
 
 function [x,y,t,m1,m2] = getData (iNumObs)
 
-    rng(42);
+    rng(10);
     fScale = .1;
     iNumSamples = 10000;
     

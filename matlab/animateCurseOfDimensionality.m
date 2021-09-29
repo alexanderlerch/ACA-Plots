@@ -1,6 +1,6 @@
 function animateCurseOfDimensionality()
 
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,6);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/animation/' strrep(cName, 'animate', '')];
@@ -13,12 +13,13 @@ function animateCurseOfDimensionality()
     set(gca,'XTickLabel',[],'YTickLabel',[])
     set(gca,'XTick',-100:10:100,'YTick',-100:10:100)
     axis([ 0 100 -50 50])
+    box on;
     printFigure(hFigureHandle, [cOutputPath '-00']); 
     
     %hFigureHandle = generateFigure(13.12,7);
-    plot(0:.1:100,zeros(1,1001))
+    plot(0:.1:100,zeros(1,1001),'LineWidth', 0.5)
     hold on;
-    area(0:.1:10, 10*ones(1,101),'FaceColor', [234/256 170/256 0])
+    area(0:.1:10, 10*ones(1,101),'FaceColor', [234/256 170/256 0],'EdgeColor', [1 1 1])
     hold off;
     set(gca,'XTickLabel',[],'YTickLabel',[])
     set(gca,'XTick',-100:10:100,'YTick',-100:10:100)
@@ -27,7 +28,7 @@ function animateCurseOfDimensionality()
     printFigure(hFigureHandle, [cOutputPath '-01']); 
     
     %hFigureHandle = generateFigure(8,4);
-    plot3(0:.1:100,zeros(1,1001),zeros(1,1001))
+    plot3(0:.1:100,zeros(1,1001),zeros(1,1001),'LineWidth', 0.5)
     hold on;
     ver = [1 1 0;
     0 1 0;
@@ -50,6 +51,7 @@ function animateCurseOfDimensionality()
     set(gca,'XTickLabel',[],'YTickLabel',[],'ZTickLabel',[])
     set(gca,'XTick',0:10:100,'YTick',0:10:100,'ZTick',0:10:100)
     axis([ 0 100 0 100 0 100])
+    grid on
     view(19,25)
     box on;
     
