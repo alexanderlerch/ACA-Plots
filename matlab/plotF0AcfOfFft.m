@@ -17,20 +17,19 @@ function plotF0AcfOfFft()
     axis([f(1) f(iPlotLength) -100 0])
     
     subplot(212)
-    plot(f(1:iPlotLength),Rxx(1:iPlotLength))
+    line(f0*ones(1,2), [0 1],'LineWidth', 2.5,'Color',[234/256 170/256 0])
     xlabel('$\eta_f/ \mathrm{kHz}$')
     ylabel('$r_\mathrm{XX}(\eta_f)$')
     axis([f(1) f(iPlotLength) 0 1])
     hold on;
-    line(f0*ones(1,2), [0 1],'LineWidth', 2.5,'Color',[234/256 170/256 0])
-    %plot(eta,rc,'k'),
+    plot(f(1:iPlotLength),Rxx(1:iPlotLength))
     hold off;
     
     xtick = get(gca,'XTick');
     xtick = sort([xtick f0]);
     set(gca,'XTick', xtick);
     xticklabel = get(gca,'XTickLabel');
-    xticklabel(xtick == f0) = {'$f_0$'};
+    xticklabel(xtick == f0) = {'$\hat{f}_0$'};
     set(gca,'XTickLabel', xticklabel)
 
 

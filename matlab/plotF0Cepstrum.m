@@ -16,19 +16,18 @@ function plotF0Cepstrum()
     axis([f(1) f(round(end/4)) -100 0])
     
     subplot(212)
-    plot(q,C)
+    line(T0*ones(1,2), [-.5 1.5],'LineWidth', 2.5,'Color',[234/256 170/256 0])
     xlabel('Quefrency / samples')
     ylabel('$\hat{c}_x(i)$')
     axis([q(1) q(end/2) -.5 1.5])
     hold on;
-    line(T0*ones(1,2), [-.5 1.5],'LineWidth', 2.5,'Color',[234/256 170/256 0])
-    %plot(eta,r,'k'),
+    plot(q,C)
     hold off;
     xtick = get(gca,'XTick');
     xtick = sort([xtick(xtick~=100) T0]);
     set(gca,'XTick', xtick);
     xticklabel = get(gca,'XTickLabel');
-    xticklabel(xtick == T0) = {'$T_0$'};
+    xticklabel(xtick == T0) = {'$\hat{T}_0$'};
     set(gca,'XTickLabel', xticklabel)
 
     printFigure(hFigureHandle, cOutputFilePath)

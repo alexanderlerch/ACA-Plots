@@ -25,7 +25,7 @@ function plotF0Hps()
     semilogx(f,P)
     hold on;
     line(f0*ones(1,2), [-210 -90],'LineWidth', 2.5,'Color',[234/256 170/256 0])
-    %plot(eta,rc,'k'),
+    semilogx(f,P,'k')
     hold off;
     
     axis([.1 f(end) -210 -90])
@@ -33,7 +33,7 @@ function plotF0Hps()
     xtick = sort([xtick f0]);
     set(gca,'XTick', xtick);
     xticklabel = get(gca,'XTickLabel');
-    xticklabel(xtick == f0) = {'$f_0$'};
+    xticklabel(xtick == f0) = {'$\hat{f}_0$'};
     set(gca,'XTickLabel', xticklabel)
 
     xlabel('$f / \mathrm{kHz}$')

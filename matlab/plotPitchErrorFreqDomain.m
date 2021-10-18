@@ -10,8 +10,8 @@ function plotPitchErrorFreqDomain()
     plot(f,e_p,'LineWidth',.5);
     axis([f(1) 2000 -1000 1000])
     
-    xlabel('$f$/Hz');
-    ylabel('$1200\cdot\log_2\left(\frac{f_\mathrm{Q}}{f}\right)$ [cent]');
+    xlabel('$f_0$/Hz');
+    ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ [cent]');
     lh = legend(cLegend);
     set(lh,'Location','NorthEast','Interpreter','latex')
 

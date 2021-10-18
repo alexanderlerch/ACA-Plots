@@ -11,8 +11,8 @@ function plotPitchErrorTimeDomain()
     semilogx(f,e_p,'LineWidth',.5);
     axis([f(1) f(end) -90 90])
     
-    xlabel('$f$/Hz');
-    ylabel('$1200\cdot\log_2\left(\frac{f_\mathrm{Q}}{f}\right)$ [cent]');
+    xlabel('$f_0$/Hz');
+    ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ [cent]');
     lh = legend(cLegend);
     set(lh,'Location','NorthWest','Interpreter','latex')
 
