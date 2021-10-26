@@ -116,6 +116,6 @@ function [t,x,xc,eta,r,rc,T0] = getData (cInputFilePath)
 
     % T0 in samples
     T0 = (T0 + eta_min);
-%     f0 = f_s ./ (f0 + eta_min);
+    f0 = f_s ./ T0;
 
 end
