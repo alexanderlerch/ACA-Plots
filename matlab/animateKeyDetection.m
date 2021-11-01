@@ -1,6 +1,6 @@
 function animateKeyDetection()
 
-     hFigureHandle = generateFigure(13.12,5);
+     hFigureHandle = generateFigure(13.12,7);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/animation/' strrep(cName, 'animate', '')];
@@ -25,6 +25,7 @@ function animateKeyDetection()
         bar(dist,'k')
         set(gca,'XTick',1:12),xlim([.5 12.5]),grid on
         set(gca,'XTickLabel',{'C M', 'C# M', 'D M', 'D# M', 'E M','F M', 'F# M', 'G M', 'G# M', 'A M', 'A# M','B M'})
+        axis([.5 12.5 0 0.3])
         xlabel('Key');
         ylabel('Distance');
 
