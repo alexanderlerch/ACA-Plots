@@ -17,6 +17,7 @@ function plotBeatGrid()
     subplot(3,1,1)
     plot(t,x);
     axis([t(1)-.05 t(end) -1 1])
+    ylabel('x(t)')
     set(gca,'YTickLabels',{})
     set(gca,'XTickLabels',{})
 
@@ -27,6 +28,7 @@ function plotBeatGrid()
     line([tdb tdb], [0 .33],'Color', [0 0 0],'LineWidth',4)
     hold off;
     xlabel(cXLabel);
+    box on;
     axis([t(1)-.05 t(end) 0 1])
     set(gca, 'YTick', [.166 .5 .834])
     set(gca,'YTickLabels',{'Downbeat','Beat','Onset'})

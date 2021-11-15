@@ -11,20 +11,21 @@ function plotBeatHistogram()
     [B,f] = getData ([cAudioPath,cName1],[cAudioPath,cName2]);
 
     cXLabel = 'Tempo / BPM';
-    cYLabel = 'Beat Histogram';
+    cYLabel1 = '$|B_\mathrm{SQ}({T})|$';
+    cYLabel2 = '$|B_\mathrm{POP}({T})|$';
 
     % plot data
     subplot(121)
     plot(f,B(1,:));
     xlabel(cXLabel);
-    ylabel(cYLabel);
+    ylabel(cYLabel1);
     axis([30 120 .1 .35])
     set(gca,'YTickLabels',{})
 
     subplot(122)
     plot(f,B(2,:));
     xlabel(cXLabel);
-    ylabel(cYLabel);
+    ylabel(cYLabel2);
     axis([30 120 .1 .35])
     set(gca,'YTickLabels',{})
 
