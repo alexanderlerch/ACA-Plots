@@ -39,6 +39,7 @@ function plotF0Amdf ()
     set(gca,'XTick', xtick);
     xticklabel = get(gca,'XTickLabel');
     xticklabel(xtick == T0) = {'$\hat{T}_0$'};
+    xticklabel(xtick == 1000) = {'~'};
     set(gca,'XTickLabel', xticklabel)
     xlabel(cXLabel2)
     ylabel(cYLabel2)

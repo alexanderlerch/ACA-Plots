@@ -54,13 +54,13 @@ function plotKmeans ()
         end
        
         k = 1;
-        scatter(state.m(1,k),state.m(2,k), iMarkerSize*4,[0 0 0],'filled','s');
-        hold on;
         scatter(v(1,clusterIdx==k),v(2,clusterIdx==k), iMarkerSize,[0 0 0],'filled','o');
+        hold on;
+        scatter(state.m(1,k),state.m(2,k), iMarkerSize*5,'MarkerFaceColor',[0 0 0],'MarkerEdgeColor','r','Marker','s');
         
         k = 2;
-        scatter(state.m(1,k),state.m(2,k), iMarkerSize*4,[234/256 170/256 0],'filled','s');
         scatter(v(1,clusterIdx==k),v(2,clusterIdx==k), iMarkerSize,[234/256 170/256 0],'filled','o');
+        scatter(state.m(1,k),state.m(2,k), iMarkerSize*5,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor','r','Marker','s');
         hold off;
         axis([0.04 1 0 .9]);
         text(.1,.85, ['iteration = ' num2str(i)]);

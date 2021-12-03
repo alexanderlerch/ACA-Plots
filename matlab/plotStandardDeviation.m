@@ -41,7 +41,7 @@ function plotStandardDeviation ()
     hold on;
     annotation(hFigureHandle,'doublearrow',[0.27 0.37],[0.35 0.35],'Color',[234/256 170/256 0]);
     hold off;
-    text(2250, 0.055, sprintf('$\\sqrt{\\sigma_v} =%2.1f$',sigma_v));
+    text(2250, 0.052, sprintf('$\\sqrt{\\sigma_v^2} =%2.1f$',sigma_v));
     %text(2250, 25, sprintf('$\\mu_v =%2.1f$',sigma_v));
     xlabel('$v$')
     ylabel(cYLabel2)
