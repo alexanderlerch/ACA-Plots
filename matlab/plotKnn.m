@@ -49,8 +49,7 @@ function plotKnn ()
     iMarkerSize = 8;
     scatter(v_music(1,:),v_music(2,:), iMarkerSize,[0 0 0],'filled','o');
     axis([.2 .4 0.05 .45]);
-%    xlabel('mean spectral centroid')
-%    ylabel('std rms')
+    box on;
     set(gca,'XTickLabel',[],'YTickLabel',[]);
     hold on;
     scatter(v_speech(1,:),v_speech(2,:), iMarkerSize,[234/256 170/256 0],'filled','o');

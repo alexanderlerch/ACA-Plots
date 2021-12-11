@@ -36,6 +36,7 @@ function plotLinearRegression  ()
     set(gca,'YTickLabel',{})
     set(gca,'XTickLabel',{})
     text(.1,.9,['MSE=' num2str(e23,2)]);
+    box on;
 
     subplot(122)
     scatter(v(2,:),v(1,:),iMarkerSize), 
@@ -49,6 +50,7 @@ function plotLinearRegression  ()
     set(gca,'YTickLabel',{})
     set(gca,'XTickLabel',{})
     text(.6,.9,['MSE=' num2str(e21,2)]);
+    box on;
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

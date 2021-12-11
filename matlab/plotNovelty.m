@@ -28,6 +28,7 @@ function plotNovelty (cLang, cSubPath)
     set(gca,'YTickLabel',[])
     ylabel(cYLabel)
     axis([tx(1) tx(end) 0 1.01])
+    box on;
     
     subplot(212),
     plot(td,d)

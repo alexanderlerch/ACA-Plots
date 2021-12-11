@@ -50,7 +50,7 @@ function plotFeaturespace (cDatasetPath)
     iMarkerSize = 8;
     subplot(5,5,[6:9,11:14,16:19,21:24])
     scatter(v_music(1,:),v_music(2,:), iMarkerSize,[0 0 0],'filled','o');
-    %axis square;
+    box on
     xlabel('$\mu_\mathrm{SC}$')
     ylabel('$\sigma_\mathrm{RMS}$')
     set(gca,'XTickLabel',[],'YTickLabel',[]);

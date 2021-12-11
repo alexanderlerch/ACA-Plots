@@ -23,6 +23,7 @@ function plotF0Cepstrum()
     hold on;
     plot(q,C)
     hold off;
+    box on;
     xtick = get(gca,'XTick');
     xtick = sort([xtick(xtick~=100) T0]);
     set(gca,'XTick', xtick);

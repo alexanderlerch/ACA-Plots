@@ -24,6 +24,7 @@ function plotF0AcfOfFft()
     hold on;
     plot(f(1:iPlotLength),Rxx(1:iPlotLength))
     hold off;
+    box on;
     
     xtick = get(gca,'XTick');
     xtick = sort([xtick f0]);

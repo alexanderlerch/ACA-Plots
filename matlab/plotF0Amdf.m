@@ -33,6 +33,7 @@ function plotF0Amdf ()
     hold on;
     plot(eta,amdf,'LineWidth', .5),
     hold off;
+    box on;
 
     xtick = get(gca,'XTick');
     xtick = sort([xtick T0]);
@@ -56,6 +57,7 @@ function plotF0Amdf ()
     hold on;
     plot(eta,ra,'LineWidth', .5),
     hold off;
+    box on;
 
     xtick = get(gca,'XTick');
     xtick = sort([xtick(xtick ~=0) T0A]);

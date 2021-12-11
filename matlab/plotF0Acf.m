@@ -34,6 +34,7 @@ function plotF0Acf ()
     hold on;
     plot(eta,r,'LineWidth', .5),
     hold off;
+    box on;
 
     xtick = get(gca,'XTick');
     xtick = sort([xtick(xtick ~=0) T0]);
@@ -56,6 +57,7 @@ function plotF0Acf ()
     hold on;
     plot(eta,rc,'LineWidth', .5),
     hold off;
+    box on;
 
     xtick = get(gca,'XTick');
     xtick = sort([xtick(xtick ~=0) T0]);
