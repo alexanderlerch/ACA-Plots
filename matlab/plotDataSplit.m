@@ -9,17 +9,17 @@ function plotDataSplit()
     [x,labels] = getData ();
 
     % plot
-    pie(x, [0 1 1], labels);
+    p = pie(x, [0 1 1], labels);
     colormap([0.5                      0.5                      0.5
              0                         0                         1
              234/256                    170/256                 0]);
-                             
+
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
 function [x, labels] = getData ()
 
-    x = [.7 .15 .15];
+    x = [.75 .1 .15];
     labels = {'Train','Validation','Test'};
 
 end
