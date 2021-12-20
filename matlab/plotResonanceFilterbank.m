@@ -1,6 +1,6 @@
 function plotResonanceFilterbank()
 
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,4);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];

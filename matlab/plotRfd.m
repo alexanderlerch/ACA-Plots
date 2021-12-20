@@ -1,6 +1,6 @@
 function plotRfd()
 
-    hFigureHandle = generateFigure(13.12,5);
+    hFigureHandle = generateFigure(13.12,4);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];

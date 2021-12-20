@@ -1,6 +1,6 @@
 function plotFourierSeries()
 
-    hFigureHandle = generateFigure(13.12,6);
+    hFigureHandle = generateFigure(13.12,5);
     
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
@@ -29,7 +29,7 @@ function plotFourierSeries()
     stem(f_sa(:,3),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
     hold on;
     stem(f_sa(:,2),'fill','MarkerSize',2,'MarkerFaceColor',[0 0 1],'MarkerEdgeColor',[0 0 1],'Color',[0 0 1])
-    stem(f_sa(:,1),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
+    stem(f_sa(f_sa(:,1)>0,1),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
     hold off;
     ylabel(cYLabel3)
     axis([1 aiOrder(end) 0 1.3])
@@ -49,7 +49,7 @@ function plotFourierSeries()
     stem(f_re(:,3),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
     hold on;
     stem(f_re(:,2),'fill','MarkerSize',2,'MarkerFaceColor',[0 0 1],'MarkerEdgeColor',[0 0 1],'Color',[0 0 1])
-    stem(f_re(:,1),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
+    stem(f_re(1:find(f_re(:,1)>0,1,'last'),1),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
     hold off;
     xlabel(cXLabel2)
     ylabel(cYLabel4)

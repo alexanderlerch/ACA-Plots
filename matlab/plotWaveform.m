@@ -1,5 +1,5 @@
 function plotWaveform  ()
-    hFigureHandle = generateFigure(13.12,5);
+    hFigureHandle = generateFigure(13.12,4);
 
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
