@@ -31,12 +31,13 @@ function plotPitchHelix()
  
     cPitchNames = char('C','C\#','D','D\#','E','F','F\#','G','G\#','A','A\#','B');
     for (k = 1:12)
-        phase = j*(k-1)*2*pi/12;
+        phase = -j*(k-1)*2*pi/12;
         text(real(.7*exp(phase)),imag(.8*exp(phase)),deblank(cPitchNames(k,:)),'Color',[234/256 170/256 0]);
     end
     hold off;
 
     axis('tight')
+    view(-103,30)
 
     printFigure(hFigureHandle, cOutputFilePath)
 end
@@ -45,6 +46,6 @@ function [x,y,z] = generateSampleData()
     
     t= linspace(0,8*pi,16384);%0.00:0.01:8*pi;
     x=cos(t);
-    y=sin(t);
+    y=sin(-t);
     z = 2.^(t/(2*pi));
 end

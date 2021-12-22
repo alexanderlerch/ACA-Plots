@@ -1,7 +1,7 @@
 function plotTimeInterp()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,6);
+    hFigureHandle = generateFigure(13.12,4);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -17,6 +17,8 @@ function plotTimeInterp()
     axis([tx(range(1,1)) tx(range(1,2)) -.35 -.18])    
     xlabel('samples')
     ylabel('$x(i)$')
+    
+    legend('original','interpol')
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

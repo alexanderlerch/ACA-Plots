@@ -1,7 +1,7 @@
 function plotPitchErrorTimeDomain()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,6);
+    hFigureHandle = generateFigure(13.12,5);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -14,7 +14,7 @@ function plotPitchErrorTimeDomain()
     semilogx(f,e_p,'LineWidth',.5);
     axis([f(1) f(end) -90 90])
     xlabel('$f_0$/Hz');
-    ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ [cent]');
+    ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ / Cent');
     lh = legend(cLegend);
     set(lh,'Location','NorthWest','Interpreter','latex')
 
@@ -24,7 +24,7 @@ end
 
 function [f,e_p,cLegend] = getData()
 
-    fs      = [44100,48000,96000];
+    fs      = [44100,96000];
     f       = linspace(100, 5000, 2^16);
     cLegend = {};
     

@@ -1,7 +1,7 @@
 function plotFreqInterp()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12,7);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -22,14 +22,14 @@ function plotFreqInterp()
     axis([f(range(1,1)) f(range(1,2)) 0 45])    
     xlabel(cXLabel)
     ylabel('$|X_\mathrm{ZP}(f)|$')
-    legend('normal','zeropad')
+    legend('original','zeropad')
     subplot(212);
     plot(f,X,fi,Xi);
     axis([f(range(1,1)) f(range(1,2)) 0 45])    
     
     xlabel(cXLabel)
     ylabel('$|X_\mathrm{IP}(f)|$')
-    legend('normal','interpol')
+    legend('original','interpol')
     
     % write output file
     printFigure(hFigureHandle, cOutputPath)
