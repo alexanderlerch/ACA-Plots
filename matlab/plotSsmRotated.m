@@ -1,5 +1,6 @@
 function plotSsmRotated ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -7,6 +8,7 @@ function plotSsmRotated ()
     % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -14,24 +16,10 @@ function plotSsmRotated ()
     % file name
     cName = 'bad.mp3';
 
+    % read audio and get plot data
     [tv, Dv, tannot,annot,partidx] = getData(cAudioPath, cName);
 
-%     subplot(4,5,[5 10 15 20])
-%     plot(novelty,tv)
-%     for i=2:length(tannot)-1
-%         line([0 1],[tannot(i) tannot(i)], 'Color', [234/256 170/256 0],'LineWidth',1)
-%     end
-%     hold on
-%     plot(novelty,tv,'k')
-%     hold off
-%     axis([ 0 1 0 tv(end)])
-%     xlabel('Novelty')
-%     set(gca,'YTick', tannot(2:end-1,1))
-%     set(gca,'YTickLabels', char(annot(2:end-1,:)))
-%     set(gca,'XTick', [])
-%     set(gca, 'YDir','reverse')
-%     set(gca, 'yaxislocation', 'right');
-%     
+    % plot     
     subplot(121)
     imagesc(tv,tv,nonlinearity(Dv))
     c=colormap('jet');
@@ -44,23 +32,14 @@ function plotSsmRotated ()
     imagesc(tv,tv,nonlinearity(Dv))
     c=colormap(ax,'gray');
     colormap(ax,flipud(c));
-%     h = [];
-%     mylegend = [];
-%     for i = 2:max(partidx)
-%         h(i) = plot(nan, nan,'color',color(partidx(i),:));
-%         mylegend = [mylegend; annot(min(find(partidx==i)),:)];
-%     end
-%     legend(h, mylegend);
-    hold on;
     for (i = 2: length(partidx))
-        %mycolor = myColorMap(mod(parts(i,1),size(myColorMap,1)),:);
-            plot([1 1], [tannot(i,1) tannot(i,2)],'color',color(partidx(i),:),'linewidth',3);
-            for (k=2:length(partidx))
-                if (partidx(i)~= partidx(k)||i>=k)
-                    continue;
-                end
-                plot([tannot(k,1)-tannot(i,1) tannot(k,1)-tannot(i,1)], [tannot(i,1) tannot(i,2)],'color',color(partidx(i),:),'linewidth',3);
+        plot([1 1], [tannot(i,1) tannot(i,2)],'color',color(partidx(i),:),'linewidth',3);
+        for (k=2:length(partidx))
+            if (partidx(i)~= partidx(k)||i>=k)
+                continue;
             end
+            plot([tannot(k,1)-tannot(i,1) tannot(k,1)-tannot(i,1)], [tannot(i,1) tannot(i,2)],'color',color(partidx(i),:),'linewidth',3);
+        end
     end
     hold off;
     xlabel('lag $/ \mathrm{s}$')
@@ -70,8 +49,7 @@ function plotSsmRotated ()
     set(gca,'YTick', tannot(2:end-1,1))
     set(gca,'YTickLabels', char(annot(2:end-1,:)))
 
-    %legend(mylegend,'Location','SouthEast')
-    
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
@@ -136,8 +114,8 @@ function [tv, Dv, tannot, annot, partidx] = getData(cAudioPath, cName)
         5
         5];
 
-    iWindowLength = 65536; %65536
-    iHopLength = 4096; %4096
+    iWindowLength = 65536; 
+    iHopLength = 4096; 
     
     % read sample data
     [x,fs]  = audioread([cAudioPath '/' cName]);

@@ -1,5 +1,6 @@
 function plotSsmNovelty ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -7,6 +8,7 @@ function plotSsmNovelty ()
     % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -14,8 +16,10 @@ function plotSsmNovelty ()
     % file name
     cName = 'bad.mp3';
 
+    % read audio file and get plot data
     [tv, Dv, novelty, tannot,annot] = getData(cAudioPath, cName);
 
+    %plot
     subplot(4,5,[5 10 15 20])
     plot(novelty,tv)
     for i=2:length(tannot)-1
@@ -39,6 +43,7 @@ function plotSsmNovelty ()
     xlabel('$t / \mathrm{s}$')
     ylabel('$t / \mathrm{s}$')
 
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
@@ -85,18 +90,19 @@ function [tv, Dv, novelty, tannot, annot] = getData(cAudioPath, cName)
         'refrain'
         'silence'];
 
-    iWindowLength = 65536; %65536
-    iHopLength = 4096; %4096
+    iWindowLength = 65536; 
+    iHopLength = 4096;
     
-    % read sample data
+    % read audio
     [x,fs]  = audioread([cAudioPath '/' cName]);
     x       = mean(x,2); 
     x       = x/max(abs(x));
-    
-    t = (0:(length(x)-1))/fs;
+    t       = (0:(length(x)-1))/fs;
  
+    % extract feature
     [v, tv] = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs, [], iWindowLength, iHopLength);
 
+    % distance matrix
     Dv      = zeros(length(tv));
     for (i=1:length(tv))
         Dv(i,:)  = sqrt(sum((repmat(v(:,i),1,length(tv))-v).^2));

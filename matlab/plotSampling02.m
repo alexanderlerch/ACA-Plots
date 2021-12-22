@@ -1,14 +1,19 @@
 function plotSampling02()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
- 
+
+    % label string
+    cXLabel = '$t / \mathrm{ms}$';
+
     % generate sample data
     [t,x,ts,xs,f0,fs] = getData ();
 
-    cXLabel = '$t / \mathrm{ms}$';
+    % plot
     for (i = 1:size(x,1))
         subplot(3,size(x,1),i)
         plot(t,x(i,:))
@@ -32,6 +37,7 @@ function plotSampling02()
     stem(ts, xs(1,:), 'k-','MarkerFaceColor',[0 0 0],'MarkerSize',5)
     hold off;
  
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
@@ -47,6 +53,7 @@ function [t,x,ts,xs,f0,fs] = getData()
     T_0                 = round(iLength/iNumOfBasePeriods);
     f0                  = fBaseFreqRatio * fs;
 
+    % number of frequencies
     for i=2:iNumOfFreqs
         if (mod(i,2)==0)
             f0 = [f0; -fBaseFreqRatio * fs + floor(i/2)*fs];
@@ -55,6 +62,7 @@ function [t,x,ts,xs,f0,fs] = getData()
         end
     end
 
+    % sine wave generation
     for i=1:iNumOfFreqs
         x(i,:)  = (-1)^(i+1)*sin (2*pi*f0(i)/fs*linspace(0,iNumOfBasePeriods-iNumOfBasePeriods/iLength,iLength));
     end
@@ -63,5 +71,4 @@ function [t,x,ts,xs,f0,fs] = getData()
     xs(1,:) = x(1,1:T_0:end);
     xs(2,:) = xs(1,:);
     xs(3,:) = xs(1,:);
-
 end

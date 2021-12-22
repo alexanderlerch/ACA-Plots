@@ -1,11 +1,14 @@
 function displayPcaExample()
 
+    % check for dependency
     if (exist('ComputeFeature') ~= 2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
@@ -18,12 +21,10 @@ function displayPcaExample()
     subplot(2,2,1)
     plot(v'), 
     grid on, 
-    %legend(cFeatureNames,'Location','SouthOutside')
     xlabel('$n$')
     ylabel('$v(n)$')
     axis([1 size(v,2) min(min(v)) max(max(v))])
-    %printFigure(hFigureHandle, [cOutputFilePath '_input'])
- 
+    
     score = score(:,1:2);
     subplot(222)
     plot(score), 
@@ -42,8 +43,9 @@ function displayPcaExample()
     ylabel('eigenvalue');
     set(gca,'XTick', 1:length(latent))
     axis([1 length(latent) 0 max(latent)+.1 ])
+    
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
-
 end
 
 function [v,score, latent,cFeatureNames] = getData(cInputPath)
@@ -56,10 +58,11 @@ function [v,score, latent,cFeatureNames] = getData(cInputPath)
 
     iNumBlocks = 500;
     
-    % read sample data
+    % read audio
     [x,fs] = audioread(cInputPath);
-    x       = x/max(abs(x));
+    x      = x/max(abs(x));
 
+    % exract features
     [tmp, t] = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs);
     v = tmp(:,1:iNumBlocks);
     for (i = 2:size(cFeatureNames,1))
@@ -75,6 +78,6 @@ function [v,score, latent,cFeatureNames] = getData(cInputPath)
         v(i,:)  = v(i,:) / s;
     end
     
+    % pca
     [coeff, score, latent] = ToolPca(v');
-
 end

@@ -1,5 +1,6 @@
 function plotDtwPath ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -7,6 +8,7 @@ function plotDtwPath ()
     % generate new figure
     hFigureHandle = generateFigure(13.12,11);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -15,8 +17,10 @@ function plotDtwPath ()
     cName1 = 'sq1.wav';
     cName2 = 'sq2.wav';
 
+    % read audio and generate plot data
     [seq1, seq2, D, p, C] = getData(cAudioPath, cName1, cName2);
 
+    % plot
     subplot(5,5,22:25)
     plot(0:length(seq1)-1, seq1);
     xlabel('$n_\mathrm{A}$')
@@ -41,24 +45,21 @@ function plotDtwPath ()
     set(gca,'YTickLabels',[]);
     set(gca,'XTickLabels',[]);
 
-%     yticks = get(gca,'YTick');
-%     yTickLabels = get(gca,'YTickLabel');
-%     set(s2Axis, 'ytick', fliplr(length(seq2)-yticks));
-%     set(s2Axis, 'yticklabel', flipud(yTickLabels));
-
-%     set(pathAxis,'YTickLabel',[]);
-%     set(pathAxis,'XTick',[]);
-
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
 function [seq1, seq2, D, p, C] = getData(cAudioPath, cName1, cName2)
+
+% read audio
     [seq1]      = audioread([cAudioPath '/' cName1]);
     [seq2]      = audioread([cAudioPath '/' cName2]);
     N           = length(seq2);
     M           = length(seq1);
 
+    % compute distance
     D           = (repmat(seq1(:),1,N)-repmat(seq2(:)',M,1))'.^2;
 
+    % compute path
     [p, C]      = ToolSimpleDtw(D);    
 end

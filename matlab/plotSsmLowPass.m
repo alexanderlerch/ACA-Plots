@@ -1,9 +1,6 @@
 function plotSsmLowPass ()
 
-    if(exist('ComputeFeature') ~=2)
-        error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
-    end
-
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -11,6 +8,7 @@ function plotSsmLowPass ()
     % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -18,8 +16,10 @@ function plotSsmLowPass ()
     % file name
     cName = 'bad.mp3';
 
+    % read audio and get plot data
     [tv, Dv, homogeneity, tannot,annot] = getData(cAudioPath, cName);
 
+    % plot
     subplot(4,5,[5 10 15 20])
     plot(homogeneity,tv)
     for i=2:length(tannot)-1
@@ -43,13 +43,13 @@ function plotSsmLowPass ()
     xlabel('$t / \mathrm{s}$')
     ylabel('$t / \mathrm{s}$')
 
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
 function [tv, Dv, homogeneity, tannot, annot] = getData(cAudioPath, cName)
 
-    cFeatureNames = char('SpectralPitchChroma','SpectralMfccs','TimeAcfCoeff');%char('TimeAcfCoeff');
-
+    cFeatureNames = char('SpectralPitchChroma','SpectralMfccs','TimeAcfCoeff');
     tannot = [
         0.000	0.365
         0.365	18.825
@@ -99,8 +99,10 @@ function [tv, Dv, homogeneity, tannot, annot] = getData(cAudioPath, cName)
     
     t = (0:(length(x)-1))/fs;
  
+    % extract features
     [v, tv] = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs, [], iWindowLength, iHopLength);
 
+    % compute distance matrix
     Dv      = zeros(length(tv));
     for (i=1:length(tv))
         Dv(i,:)  = sqrt(sum((repmat(v(:,i),1,length(tv))-v).^2));
@@ -113,11 +115,9 @@ function [tv, Dv, homogeneity, tannot, annot] = getData(cAudioPath, cName)
     iFilterSize = 64;
     g = computeFilter(iFilterSize);
     homogeneity = diag(filter2(g,Dv));
-    %homogeneity = abs(diff([ homogeneity(1); homogeneity]));
 
     homogeneity = homogeneity-min(homogeneity);
     homogeneity = homogeneity/max(homogeneity);
-    
 end
 
 function [D] = nonlinearity(D)

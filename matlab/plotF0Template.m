@@ -1,19 +1,22 @@
 function plotF0Template ()
 
+    % check for dependency
     if(exist('ToolMidi2Freq') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
     
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
 
+    % read audio and generate plot data
     [f,Template,f_hr,Template_hr,X, f_c,p_coeff,f0] = getData ([cAudioPath,cName]);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel1 = '$t / \mathrm{s}$';
     cXLabel2 = '$\eta / \mathrm{samples}$';
@@ -22,6 +25,7 @@ function plotF0Template ()
     cYLabel12 = '$x_\mathrm{clip}(t)$';
     cYLabel22 = '$r_{x_cx_c}(\eta)$';
 
+    % plot
     for c = 1:11
         subplot(11,6,[1:4]+(c-1)*6)
         plot(f_hr,Template_hr(c,:))
@@ -38,9 +42,7 @@ function plotF0Template ()
     view(90,90)
     set(gca,'XTickLabel',[])
     set(gca,'YTickLabel',[])
-%     xlabel('$f$')
     ylabel('$|X(f)|$')
-
     
     subplot(11,6,[1:11]*6)
     line(f0*ones(1,2), [0 max(p_coeff)],'LineWidth', 2.5,'Color',[234/256 170/256 0])
@@ -67,17 +69,17 @@ function plotF0Template ()
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-% example function for data generation, substitute this with your code
 function [f,Template,f_hr,Template_hr,X, f_c,p_coeff,f0] = getData (cInputFilePath)
 
-    % read sample data
     iStart  = 66000;
     iLength = 4096;
+    
+    % read audio
     [x,f_s] = audioread(cInputFilePath, [iStart iStart+iLength-1]);
     t       = linspace(0,length(x)/f_s,length(x));
     x       = x/max(abs(x));
 
-    [f,Template, f_hr,Template_hr,f_c] = locGenerateTemplate(iLength, f_s, 11, 440);
+    [f,Template, f_hr,Template_hr,f_c] = GenerateTemplate_I(iLength, f_s, 11, 440);
 
     X(1,:)  = (abs(fft(hann(iLength).*x))*2/iLength).^2;
     X = X(1:iLength/2+1);
@@ -89,7 +91,7 @@ function [f,Template,f_hr,Template_hr,X, f_c,p_coeff,f0] = getData (cInputFilePa
 
 end
 
-function [f_fft,H,f_fft_hr,H_hr,f_c] = locGenerateTemplate (iFftLength, f_s, iNumFilters, f_A4)
+function [f_fft,H,f_fft_hr,H_hr,f_c] = GenerateTemplate_I (iFftLength, f_s, iNumFilters, f_A4)
 
     % initialization
     iNumHarmonics = 8;

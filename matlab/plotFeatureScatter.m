@@ -5,6 +5,7 @@ function plotFeatureScatter(cDatasetPath)
         % this path needs to be edited
         cDatasetPath = 'D:\dataset\GTZAN\genres/'; 
     end
+    % check for dependencies
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -15,24 +16,26 @@ function plotFeatureScatter(cDatasetPath)
     % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
+    % generate plot data
     [v, class, classlabel] = getData(cDatasetPath);
 
     iMarkerSize = 6;
-    myColorMap  = [
-                             0                         0                         0
-                             234/256                    170/256                 0
-                             0                         0                         1
-                             1                         0                         0
-                             0                       0.5                         0
-                             0                      0.75                      0.75
-                          0.75                         0                      0.75
-                          0.75                      0.75                         0
-                          0.25                      0.25                      0.25
-                          .33                        .66                         1];
+    myColorMap  = [ 0       0           0
+                    234/256 170/256     0
+                    0       0           1
+                    1       0           0
+                    0       0.5         0
+                    0       0.75        0.75
+                    0.75    0           0.75
+                    0.75    0.75        0
+                    0.25    0.25        0.25
+                    .33     .66         1];
 
+    % plot
     for i = 1:size(classlabel,1)
         hold on;
         scatter(v(1,(i-1)*100+1:i*100),v(2,(i-1)*100+1:i*100),iMarkerSize,myColorMap(class((i-1)*100+1:i*100),:),'filled','o')
@@ -46,6 +49,7 @@ function plotFeatureScatter(cDatasetPath)
     axis([min(v(1,:)) 1275 min(v(2,:)) 12.1])
     box on
 
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 

@@ -1,22 +1,25 @@
 function plotBeatHierarchy()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cAudioName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cAudioName, 'plot', '')];
 
+    % generate plot data
     [b44,b22,b34,b68] = getData ();
 
+    % label string
     cXLabel = 'Tatum Ticks';
 
-    % plot data
+    % plot
     subplot(221)
     hold on;
     line([find(b44(1,:)==1); find(b44(1,:)==1)], [.66 1],'Color', [0 0 0],'LineWidth',4)
     line([find(b44(2,:)==1); find(b44(2,:)==1)], [.33 .66],'Color', [0.3 0.3 0.3],'LineWidth',3)
     line([find(b44(3,:)==1); find(b44(3,:)==1)], [0 .33],'Color', [0.6 0.6 0.6],'LineWidth',2)
     hold off;
-    %xlabel(cXLabel);
     axis([1 16 0 1])
     set(gca, 'YTick', [.166 .5 .834])
     set(gca,'YTickLabels',{'Subbeat','Beat','Downbeat'})
@@ -28,7 +31,6 @@ function plotBeatHierarchy()
     line([find(b22(2,:)==1); find(b22(2,:)==1)], [.33 .66],'Color', [0.3 0.3 0.3],'LineWidth',3)
     line([find(b22(3,:)==1); find(b22(3,:)==1)], [0 .33],'Color', [0.6 0.6 0.6],'LineWidth',2)
     hold off;
-    %xlabel(cXLabel);
     axis([1 16 0 1])
     set(gca, 'YTick', [.166 .5 .834])
     set(gca,'YTickLabels',{'Subbeat','Beat','Downbeat'})
@@ -58,8 +60,8 @@ function plotBeatHierarchy()
     set(gca,'YTickLabels',{'Subbeat','Beat','Downbeat'})
     title('6/8')
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
-
 end
 
 function     [b44,b22,b34,b68] = getData ()

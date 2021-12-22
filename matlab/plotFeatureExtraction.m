@@ -1,6 +1,9 @@
 function plotFeatureExtraction ()
+
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -8,16 +11,16 @@ function plotFeatureExtraction ()
     % file path
     cName = 'sax_example.wav';
 
+    % generate plot data
     [t,x,tw,f,X] = getData ([cAudioPath,'/',cName]);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$t$';
     cYLabel1 = '$x(t)$';
     cYLabel2 = '$f$';
     cYLabel3 = '$|X(k)|$';
 
-    % plot data
+    % plot 
     subplot(311), plot(t,x)
     ylabel(cYLabel1)
     axis([t(1) t(end) -max(abs(x)) max(abs(x))])
@@ -59,21 +62,21 @@ function plotFeatureExtraction ()
     'HorizontalAlignment','center',...
     'FontSize',8,...
     'EdgeColor','none');
-    
-    
-    
+     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-% example function for data generation, substitute this with your code
 function [t,x,tw,f,X] = getData (cInputFilePath)
 
     iFFTLength = 4096;
+    
+    % read audio data
     [x, fs] = audioread(cInputFilePath);
     t       = linspace(0,length(x)/fs,length(x));
 
-    [X,f,tw] = spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
+    % compute spectrogram
+    [X,f,tw]= spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
     X       = abs(X);
 
     X       = 10*log10(abs((X(1:iFFTLength/16,:))));

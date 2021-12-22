@@ -4,11 +4,13 @@ function plotOnset()
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,4);
     
     iStart  = 800;
     iLength = 65536;
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -16,8 +18,10 @@ function plotOnset()
     % file path
     cName = 'sax_example.wav';
 
+    % read audio and get plot data
     [t,x,td,d,iOnsetIdx,iAcOnsetIdx] = getData ([cAudioPath,'/',cName], [iStart iStart+iLength-1]);
  
+    % plot
     plot(t,abs(x),'Color', [.6 .6 .6]);
     hold on
     plot(td,d, 'LineWidth',2);
@@ -31,6 +35,7 @@ function plotOnset()
     text(td(iAcOnsetIdx)-0.01,d(iAcOnsetIdx)+.1,'AOT');
     text(0.035,1.0,'$\leftarrow$ att.\ time $\rightarrow$');
     
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -41,17 +46,19 @@ function[t,x,td,d,iOnsetIdx,iAcOnsetIdx] = getData(cFilePath, aiSampleIdx)
     iBlockLength = 256;
     iHopLength = 16;
 
+    % read audio
     [x, fs] = audioread(cFilePath, aiSampleIdx);
     t       = linspace(0,(iLength-1)/fs,iLength);
     if (size(x,2)> 1)
         x = mean(x,2);
     end
-    % pre-processing: normalization
     x = x/max(abs(x));
 
+    % extract feature
     [d,td]   = ComputeFeature ('TimePeakEnvelope', x, fs, hann(iBlockLength,'periodic'), iBlockLength, iHopLength);
     d = 10.^(d(1,:)*.05);
 
+    % smooth
     L = 8;
     d = filtfilt(1/L*ones(1,L),1,d);
     n = diff([d(1) d]);
@@ -60,10 +67,9 @@ function[t,x,td,d,iOnsetIdx,iAcOnsetIdx] = getData(cFilePath, aiSampleIdx)
     x = x(1:iPlotLength);
     td = td(td<=t(end));
     d = d(1:length(td));
-%plot(to,d)
 
+    % pick onsets
     iAcOnsetIdx = find(d > 10^(-28/20));
     iAcOnsetIdx = iAcOnsetIdx(1);
-
     [dummy,iOnsetIdx] = max(n);
 end

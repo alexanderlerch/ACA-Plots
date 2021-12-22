@@ -1,22 +1,26 @@
 function plotResonanceFilterbank()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,4);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
-    % generate data
-    [f,H] = generateSampleData();
+    % get plot data
+    [f,H] = getData();
 
+    % plot
     plot(f,H)
     axis([0 1800 -40 0])
     xlabel('$f / \mathrm{Hz}$')
     ylabel('$|H(f)|$ [dB]')
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-function [f,H] = generateSampleData()
+function [f,H] = getData()
     fs              = 8192;
     iNumFilters     = 48;
     freq            = zeros(1,iNumFilters);

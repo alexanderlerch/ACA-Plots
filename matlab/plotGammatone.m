@@ -1,7 +1,9 @@
 function plotGammatone()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
@@ -10,9 +12,10 @@ function plotGammatone()
     cYLabel1 = '$h(t)$';
     cYLabel2 = '$|H(f)| [\mathrm{dB}]$';
     
-    % generate sample data
-    [t,h, f,H] = generateSampleData();
+    % generate plot data
+    [t,h, f,H] = getData();
     
+    % plot
     subplot(211),
     plot(t,h)
     axis([t(1) t(end) -1.05 1.05])
@@ -27,10 +30,11 @@ function plotGammatone()
     xlabel(cXLabel2)
     ylabel( cYLabel2)
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-function [t,h, f,H] = generateSampleData()
+function [t,h, f,H] = getData()
     fc  = 1000;
     b   = 125;
     O   = 4;
@@ -53,10 +57,6 @@ function [t,h, f,H] = generateSampleData()
        H(i,:)   = 20*log10(H(i,:)/max(H(i,:)));
     end
 
-%     fCoefs  = MakeERBFilters(iSampleRate,iNumOfBands,fLowFreq);
-%     H       = ERBFilterBank([1 zeros(1,iFFTLength-1)], fCoefs);
-%     H       = 20*log10(abs(fft(H')));
     H       = H(:,1:(iFFTLength/2))';
     f       = (0:(iFFTLength/2-1))*fs/iFFTLength/1000;
-    
 end

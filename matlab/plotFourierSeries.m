@@ -1,10 +1,13 @@
 function plotFourierSeries()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
+    % label strings
     cXLabel1        = '$t / T_0$';
     cXLabel2        = '$f / f_0$';
     cYLabel1        = '$x_\mathrm{saw}$';
@@ -12,13 +15,12 @@ function plotFourierSeries()
     cYLabel3        = '$a_\mathrm{saw}$';
     cYLabel4        = '$a_\mathrm{rect}$';
 
+    % generate plot data
     aiOrder = [3 50];
-
-    % configuration
     [t, x_sa, x_re, f_sa, f_re] = getData (aiOrder);  
 
+    % plot
     subplot(221)
-    %subplot(2,5,1:3)
     plot(t,x_sa)
     ylabel(cYLabel1)
     axis([t(1) t(end) -1.3 1.3])
@@ -37,14 +39,12 @@ function plotFourierSeries()
     set(gca,'YTickLabels',[])
  
     subplot(223)
-    %subplot(2,5,6:8)
     plot(t,x_re)
     xlabel(cXLabel1)
     ylabel(cYLabel2)
     axis([t(1) t(end) -1.3 1.3])
 
     subplot(224)
-    %subplot(2,5,9:10)
     stem(f_re)
     stem(f_re(:,3),'fill','MarkerSize',2,'MarkerFaceColor',[234/256 170/256 0],'MarkerEdgeColor',[234/256 170/256 0],'Color',[234/256 170/256 0])
     hold on;
@@ -57,13 +57,12 @@ function plotFourierSeries()
     set(gca,'YTickLabels',[])
     
     Legend = cell(length(aiOrder),1);
-    %Legend{1}='perfect'
     for i=1:length(aiOrder)
         Legend{i}=strcat(num2str(aiOrder(i)), ' harmonics');
     end
     legend(Legend)
-    %legend('boxoff')
-
+    
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -84,7 +83,6 @@ function [t, x_sa, x_re, f_sa, f_re] = getData (aiOrder)
         curr_sa = curr_sa + 2/pi/i * -sin(2*pi*i*t);
         f_sa(iIdx-1,i) = 2/pi/i;
         if (mod(i,2))
-%            curr_re = curr_re + 4/pi/(2*i-1) * -sin(2*pi*(2*i-1)*t);
             curr_re = curr_re + 4/pi/i * -sin(2*pi*i*t);
             f_re(iIdx-1,i) = 4/pi/i;
         else

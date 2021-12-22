@@ -1,11 +1,14 @@
 function plotLinearRegression  ()
 
+    % check for dependency
     if (exist('ComputeFeature') ~= 2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
     
+    % generate new figure
     hFigureHandle = generateFigure(13.12,5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -13,15 +16,15 @@ function plotLinearRegression  ()
     % file path
     cName = 'sax_example.wav';
 
+    % read audio and get plot data
     [v,m21,b21,m23,b23,e21,e23] = getData ([cAudioPath,'/',cName]);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$v_\mathrm{RMS}$';
     cYLabel1 = '$v_\mathrm{Peak}$';
     cYLabel2 = '$v_\mathrm{SC}$';
 
-    % plot data
+    % plot 
     iMarkerSize = 8;
     
     subplot(121)
@@ -56,12 +59,14 @@ function plotLinearRegression  ()
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-% example function for data generation, substitute this with your code
 function [v, m21,b21,m23,b23,e21,e23] = getData (cInputFilePath)
 
     iFFTLength = 4096;
+    
+    % read audio
     [x, fs] = audioread(cInputFilePath);
     
+    % extract features
     [v1, t] = ComputeFeature ('SpectralCentroid', x, fs);
     [v2, t] = ComputeFeature ('TimeRms', x, fs);
     [v3, t] = ComputeFeature ('TimePeakEnvelope', x, fs);
@@ -70,7 +75,8 @@ function [v, m21,b21,m23,b23,e21,e23] = getData (cInputFilePath)
     v2 = (v2(1,:)-min(v2(1,:))) / (max(v2(1,:))-min(v2(1,:)));
     v3 = (v3(1,:)-min(v3(1,:))) / (max(v3(1,:))-min(v3(1,:)));
     v = [v1;v2;v3];
-    
+ 
+    % compute slope and offset and model error
     mu = mean(v,2);
     m21 = ((v(1,:)-mu(1))*(v(2,:)-mu(2))')/((v(2,:)-mu(2))*(v(2,:)-mu(2))');
     b21 = mu(1) - m21*mu(2);
@@ -79,5 +85,4 @@ function [v, m21,b21,m23,b23,e21,e23] = getData (cInputFilePath)
     m23 = ((v(3,:)-mu(3))*(v(2,:)-mu(2))')/((v(2,:)-mu(2))*(v(2,:)-mu(2))');
     b23 = mu(3) - m23*mu(2);
     e23 = mean((v(3,:) - m23*v(2,:) - b23).^2);
-    
 end

@@ -1,14 +1,18 @@
 function plotF0AcfOfFft()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
 
+    % read audio and generate plot data    
     [f,X,Rxx,f0] = getData ([cAudioPath,cName]);
 
+    % plot
     iPlotLength = round(length(f)/4);    
     subplot(211)
     plot(f(1:iPlotLength),X(1:iPlotLength))
@@ -33,21 +37,23 @@ function plotF0AcfOfFft()
     xticklabel(xtick == f0) = {'$\hat{f}_0$'};
     set(gca,'XTickLabel', xticklabel)
 
-
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
 function [f,X,Rxx, f0] = getData (cInputFilePath)
 
-    % read sample data
     iStart  = 66000;
     iLength = 4096;
+
+    % read audio
     [x,f_s] = audioread(cInputFilePath, [iStart iStart+iLength-1]);
     x       = x/max(abs(x));
 
     f_min   = 120;
     k_min   = round(f_min/f_s*iLength);
     
+    % fft
     X(1,:)  = (abs(fft(hann(iLength).*x))*2/iLength).^2;
     X(1) = max(X); % make it easier to detect 'periodicity'
 

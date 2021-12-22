@@ -1,12 +1,14 @@
 function exportKeyProfiles  ()
 
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../tables/' strrep(cName, 'export', '')];
 
+    % generate plot data
     [y,d,circ] = getData ();
 
     tablesize = [7,13];
-    astTable(tablesize(1),tablesize(2))    = struct('sValue', '');
+    astTable(tablesize(1),tablesize(2)) = struct('sValue', '');
 
     astTable(1,1).sValue = '';
     astTable(2,1).sValue = '$\nu_\mathrm{o}$';

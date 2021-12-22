@@ -1,13 +1,16 @@
 function plotQuantizationError()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % generate sample data
     [x,xq,xqTick,xqTickLabel,q,qTick,qTickLabel] = getData();
 
+    % plot
     subplot(121)
     plot(x,xq)
     xlabel('$x$')
@@ -22,22 +25,25 @@ function plotQuantizationError()
     axis([x(1) x(end) qTick(1) qTick(end)])
     set(gca, 'XTick',[-1 -.5 0 .5 1], 'YTick',qTick, 'YTickLabel',qTickLabel)
 
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
 function [x, xq, xqTick,xqTickLabel,q,qTick,qTickLabel] = getData()
 
+    % parametrization
     iNumOfBits      = 4;
     iNumOfSteps     = 2^iNumOfBits;
     iNumOfSamples   = 2048;
 
     x               = linspace(-1,1-1/(iNumOfSteps/2),iNumOfSamples);
     xq              = quantizeAudio(x, iNumOfBits);
-    xqTick           = -1:2/(iNumOfSteps):1;
+    xqTick          = -1:2/(iNumOfSteps):1;
     while (length(xqTick) > 9)
-        xqTick       = xqTick(1:2:end);
+        xqTick      = xqTick(1:2:end);
     end
 
+    % quantization error
     q               = x-xq;
     qTick           = [-2/(iNumOfSteps) -1/(iNumOfSteps) 0 1/(iNumOfSteps) 2/(iNumOfSteps)];
 

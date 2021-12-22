@@ -1,14 +1,16 @@
 function plotLogEpsilon()
 
+    % generate new figure
     hFigureHandle = generateFigure(12,4);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
+    % generate plot data
     [x,deltadb, epsilon] = getData ();
 
-
-    % plot data
+    % plot 
     plot (x, deltadb(1,:),...
         x, deltadb(2,:),...
         x, deltadb(3,:),...
@@ -16,7 +18,6 @@ function plotLogEpsilon()
 
     % data formatting
     axis([x(end) x(1) -.5 20]);
-    % add legend
     lh = legend(['$\epsilon = ' num2str(epsilon(1)','%1.0e') '$'],...
         ['$\epsilon = ' num2str(epsilon(2)','%1.0e') '$'],...
         ['$\epsilon = ' num2str(epsilon(3)','%1.0e') '$'],...
@@ -24,6 +25,7 @@ function plotLogEpsilon()
     xlabel('$v_\mathrm{dB} / dBFS$');
     ylabel('$(v_\mathrm{approx,dB}-v_\mathrm{dB}) / dB$');
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 
 end

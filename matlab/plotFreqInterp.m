@@ -1,16 +1,21 @@
 function plotFreqInterp()
 
-   hFigureHandle = generateFigure(13.12,8);
+    % generate new figure
+    hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
 
+    % read audio and generate plot data
     [f,X,fi,Xi,Xiz] = getData ([cAudioPath,cName]);
  
+    % label strings
     cXLabel = '$f / \mathrm{Hz}$';
 
+    % plot
     range   = [1 15];
     subplot(211);
     plot(f,X,fi,Xiz);
@@ -26,6 +31,7 @@ function plotFreqInterp()
     ylabel('$|X_\mathrm{IP}(f)|$')
     legend('normal','interpol')
     
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 

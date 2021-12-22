@@ -1,7 +1,9 @@
 function plotPeriodic()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,4);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
@@ -9,18 +11,16 @@ function plotPeriodic()
     iStart  = 66000;
     iLength = 1024;
 
-    % retrieve plotdata
+    % read audio and generate plot data
     [t,x] = getData ([cAudioPath,cName], iStart, iLength);
 
     %plot
     plot(t,x);
-    
     xlabel('$t/\mathrm{s}$');
     ylabel('$x_\mathrm{periodic}(t)$');
     set(gca,'XTickLabel',[])
     set(gca,'YTickLabel',[])
     axis([t(1) t(end) floor(-10*max(abs(x)))/10 ceil(10*max(abs(x)))/10])
-    
     colorGtGold = [234, 170, 0]/256;
     annotation(hFigureHandle,'doublearrow',[0.397983358739837 0.497983358739837],...
         [0.873541666666667 0.873541666666667],'Color',colorGtGold,...
@@ -34,7 +34,7 @@ function plotPeriodic()
         'String',{'$T_0$'},...
         'interpreter','latex');
 
-
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -42,6 +42,5 @@ function [t,x] = getData(cAudioPath, iStart, iLength)
 
     [x,fs] = audioread(cAudioPath, [iStart iStart+iLength-1]);
     t      = linspace(0,iLength/fs,iLength);
-
 end
 

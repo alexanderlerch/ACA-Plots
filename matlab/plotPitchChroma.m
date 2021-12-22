@@ -1,11 +1,14 @@
 function plotPitchChroma  ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
     
+    % generate new figure
     hFigureHandle = generateFigure(12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -13,9 +16,9 @@ function plotPitchChroma  ()
     % file path
     cName = 'sax_example.wav';
 
+    % read audio and generate plot data
     [t,f,X,pclabel,pc,pcm] = getData ([cAudioPath,'/',cName]);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
     cYLabel1 = '$f / \mathrm{kHz}$';
@@ -24,7 +27,6 @@ function plotPitchChroma  ()
     % plot data
     subplot(2,10,1:9), imagesc(t,f/1000,X)
     axis xy;
-    %xlabel(cXLabel)
     ylabel(cYLabel1)
     set(gca,'XTickLabel',[])
 
@@ -44,7 +46,6 @@ function plotPitchChroma  ()
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-% example function for data generation, substitute this with your code
 function [tw,f,X, pclabel, vpc,vpcm] = getData (cInputFilePath)
 
     iFFTLength = 4096;
@@ -52,11 +53,12 @@ function [tw,f,X, pclabel, vpc,vpcm] = getData (cInputFilePath)
     t       = linspace(0,length(x)/fs,length(x));
     x       = x/max(abs(x));
 
-    
+    % fft
     [X,f,tw] = spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
     X       = abs(X);
 
-    [vpc, tv]         = ComputeFeature (deblank('SpectralPitchChroma'), x, fs);
+    % extract pitch chroma
+    [vpc, tv] = ComputeFeature (deblank('SpectralPitchChroma'), x, fs);
 
     % avg pitch chroma
     vpcm = mean(vpc,2);

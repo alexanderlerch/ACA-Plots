@@ -1,16 +1,19 @@
 function plotRandomProcess()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % parametrization
     iLength = 512;
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % generate sample data
     x_r = getData(5,iLength);
     
-    
+    % plot
     for (i = 2:size(x_r,1)-1)
         subplot(size(x_r,1),1,i)
         plot(x_r(i,:),'Linewidth',1)
@@ -18,8 +21,6 @@ function plotRandomProcess()
         axis([1 iLength -ceil(10*max(max(abs(x_r))))/10 ceil(10*max(max(abs(x_r))))/10])
         set(gca,'XTick',[])
         set(gca,'YTick',[])
-%         set(gca,'xcolor',[1 1 1])
-%         set(gca,'ycolor',[1 1 1])
     end
     xlabel('$t / \mathrm{s}$')
     
@@ -52,11 +53,10 @@ function plotRandomProcess()
     'String',{'.','.','.'},...
     'LineStyle','none');
 
-
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-% generate sample data
 function    [x_r] = getData (iRank,iLength)
     x_r = randn(iRank,iLength);
 end

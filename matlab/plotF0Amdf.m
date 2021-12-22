@@ -1,19 +1,22 @@
 function plotF0Amdf ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
     
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
 
+    % read audio and generate plot data
     [t,x,eta,amdf,ra,T0,T0A] = getData ([cAudioPath,cName]);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel1 = '$t / \mathrm{s}$';
     cXLabel2 = '$\eta / \mathrm{samples}$';
@@ -21,6 +24,7 @@ function plotF0Amdf ()
     cYLabel2 = '$AMDF(\eta)$';
     cYLabel22 = '$r_{xx}(\eta)/AMDF(\eta)$';
 
+    % plot
     subplot(221), 
     plot(t,x,'LineWidth', .5),
     axis([t(1) t(end) -1 1])
@@ -68,17 +72,16 @@ function plotF0Amdf ()
     xlabel(cXLabel2)
     ylabel(cYLabel22)
 
-
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-% example function for data generation, substitute this with your code
 function [t,x,eta,afAMDF,ra,T0,T0A] = getData (cInputFilePath)
 
-    % read sample data
     iStart  = 66000;
     iLength = 4096;
+    
+    % read audio
     [x,f_s] = audioread(cInputFilePath, [iStart iStart+iLength-1]);
     t       = linspace(0,length(x)/f_s,length(x));
     x       = x/max(abs(x));
@@ -115,8 +118,8 @@ function [t,x,eta,afAMDF,ra,T0,T0A] = getData (cInputFilePath)
 
     % copied from ACA-Code/PitchTimeAcf.m
     % calculate the acf maximum
-    afAMDF          = amdf(x, eta_max);
-    [fDummy, T0]  = min(afAMDF(1+eta_min:end));
+    afAMDF      = amdf_I(x, eta_max);
+    [fDummy, T0]= min(afAMDF(1+eta_min:end));
 
     ra = r./(afAMDF+1)';
     [fDummy,T0A] = max(ra(1+eta_min:end));
@@ -124,11 +127,9 @@ function [t,x,eta,afAMDF,ra,T0,T0A] = getData (cInputFilePath)
     % T0 in samples
     T0 = (T0 + eta_min);
     T0A = (T0A + eta_min);
-%     f0 = f_s ./ (f0 + eta_min);
-
 end
 
-function [AMDF] = amdf(x, eta_max)
+function [AMDF] = amdf_I(x, eta_max)
     K   = length(x);
  
     AMDF    = ones(1, K-1);

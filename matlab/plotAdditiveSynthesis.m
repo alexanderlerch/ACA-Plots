@@ -1,7 +1,9 @@
 function plotAdditiveSynthesis()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 

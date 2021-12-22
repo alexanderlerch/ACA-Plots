@@ -1,5 +1,6 @@
 function plotStructure ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -7,6 +8,7 @@ function plotStructure ()
     % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -14,12 +16,13 @@ function plotStructure ()
     % file path
     cName = 'structure_example_1.mp3';
 
+    % read audio and get plot data
     [segments, fill, labels, t, x,tvrms,vrms] = getData([cAudioPath,'/',cName]);
 
+    %plot
     subplot(211)
     h = barh(segments,fill,0.99,'stacked','k');
     set(h([1 3 5 7]),'Visible','off')
-
     set(gca,'YTick', segments)
     set(gca,'YTickLabels', deblank(char(labels)))
     set(gca, 'YDir','reverse')
@@ -34,29 +37,32 @@ function plotStructure ()
     axis([t(1) t(end) -1.1 1.1 ])
     xlabel('$t$ / s')
     
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
 function [segments, fill, labels,t,x,tvrms,vrms] = getData(cInputFilePath)
 
     %from HarmonixSet 0916_sowhat.txt
-% 0.08823525 intro
-% 11.51679525 verse
-% 34.37391525 chorus
-% 68.65959525 verse
-% 91.51671525 chorus
-% 125.80239525 bridge
-% 144.84999525 chorus
-% 175.32615525 outro
-% 212.94516525 end
+    % 0.08823525 intro
+    % 11.51679525 verse
+    % 34.37391525 chorus
+    % 68.65959525 verse
+    % 91.51671525 chorus
+    % 125.80239525 bridge
+    % 144.84999525 chorus
+    % 175.32615525 outro
+    % 212.94516525 end
+    
+    % set ground truth
     labels = [
         'intro '
         'verse '
         'chorus'
         'bridge'
         'outro '];
-segments = 0:size(labels,1)-1;
-     tannot = [
+    segments = 0:size(labels,1)-1;
+    tannot = [
         0.08823525 0
         11.51679525 1
         34.37391525 2
@@ -68,7 +74,7 @@ segments = 0:size(labels,1)-1;
         212.94516525 -1];
     
     dt = diff(tannot(:,1));
-   fill = [ tannot(1,1), dt(1),                             tannot(end,1)-dt(1), 0, 0, 0, 0
+    fill = [tannot(1,1), dt(1),                             tannot(end,1)-dt(1), 0, 0, 0, 0
             tannot(2,1), dt(2), dt(3), dt(4),               tannot(end,1)-dt(4), 0, 0
             tannot(3,1), dt(3), dt(4), dt(5), dt(6), dt(7), tannot(end,1)-dt(7)
             tannot(6,1), dt(6),                             tannot(end,1)-dt(6), 0, 0, 0, 0
@@ -77,15 +83,13 @@ segments = 0:size(labels,1)-1;
     
     % read audio
     [x, fs] = audioread(cInputFilePath);
-    
     x = mean(x,2);
     x = x/max(x);
+    
+    % extract features
     t = linspace(0,length(x)/fs,length(x));
     [vrms, tvrms] = ComputeFeature (deblank('TimeRms'), x, fs, [], 65536, 4096);
     vrms = 10.^(vrms(1,:)*.05);
     vrms = vrms/max(vrms);
-
-
-
 end
 

@@ -1,13 +1,16 @@
 function plotF0Auditory()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % read sample data
     [t,x, f,X]  = getData();
 
+    % label strings
     cXLabel     = char('$t / \mathrm{s}$','$f / \mathrm{Hz}$');
     cYLabelTime = char('$x(i)$','$x_\mathrm{HWR}(i)$','$x_\mathrm{S,HWR}(i)$');
     cYLabelFreq = char('$|X(k)|$','$|X_\mathrm{HWR}(k)|$','$|X_\mathrm{S,HWR}(k)|$');
@@ -15,7 +18,7 @@ function plotF0Auditory()
                     0 2 4
                     0 .5 1];
 
-
+    % plot
     for (i = 1:3)
         subplot(3,2,2*i-1)
         plot(t,x(i,:));
@@ -45,6 +48,7 @@ function plotF0Auditory()
         if (i==3) xlabel(deblank(cXLabel(2,:))); end;
     end
 
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
@@ -60,9 +64,9 @@ function [t,x, f,X] = getData()
     f_0     = 187.5;
     f       = f_0*[13 14 15 16 17];
 
-    [x,t]   = generateSineWave(f(1), dLengthInS, fs);
+    [x,t]   = generateSineWave_I(f(1), dLengthInS, fs);
     for (i = 2:length(f))
-        x   = x + generateSineWave(f(i), dLengthInS, fs);
+        x   = x + generateSineWave_I(f(i), dLengthInS, fs);
     end
 
     % periodic continuation
@@ -90,15 +94,9 @@ function [t,x, f,X] = getData()
     timesig = repmat(x(3,:),1, numReps);
     tmp     = abs(fft(timesig))*2/fftSize;
     X(3,:)  = tmp(1:length(f));
-
-%     % flip them
-%     x = x';
-%     X = X';
-%     t = t';
-%     f = f';
 end
 
-function [x,t] = generateSineWave(fFreq, fLengthInS, fSampleRateInHz)
+function [x,t] = generateSineWave_I(fFreq, fLengthInS, fSampleRateInHz)
 
     [m n]   = size(fFreq);
     if (min(m,n)~=1)

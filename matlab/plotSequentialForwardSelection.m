@@ -1,5 +1,6 @@
 function plotSequentialForwardSelection(cDatasetPath)
 
+    % check dependencies
     if (nargin<1)
         % this script is written for the GTZAN music/speech dataset
         % modify this path or use the function parameter to specify your
@@ -13,14 +14,17 @@ function plotSequentialForwardSelection(cDatasetPath)
         error('Dataset path wrong or does not contain music/speech folders!')
     end
     
+    % generate new figure
     hFigureHandle = generateFigure(13.12,5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % generate data
     [Acc, selectedFeatures,cFeatureLabels] = getData(cDatasetPath);
 
+    % plot
     plot(Acc)
     xlabel('\# of Features')
     ylabel('classification accuracy')  
@@ -30,6 +34,7 @@ function plotSequentialForwardSelection(cDatasetPath)
     cFeatureLabels = char('\textbf{Top 10 Features}',cFeatureLabels);
     annotation('textbox',[0.84, 0.83, 0.1, 0.1],'String',cFeatureLabels([1 selectedFeatures(1:10)+1],:),'FontSize',6.5,'EdgeColor',[1 1 1],'FitBoxToText','on','Interpreter','latex');
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -37,7 +42,7 @@ function [Acc, selectedFeatures,cFeatureLabels] = getData(cDatasetPath)
     
     iNumFeatures    = 62;
     
-    % read music data
+    % read list of files
     music_files     = dir([cDatasetPath 'music/*.au']);
     speech_files    = dir([cDatasetPath 'speech/*.au']);
  
@@ -51,18 +56,17 @@ function [Acc, selectedFeatures,cFeatureLabels] = getData(cDatasetPath)
     for (i=1:size(speech_files,1))
         [v_speech(:,i),cFeatureLabels]   = ExtractFeaturesFromFile([cDatasetPath 'speech/' speech_files(i).name]);
     end
-    %load('c:/temp/fs');
-    
+
+    % normalize
     v = [v_music,v_speech];
     m = mean(v,2);
     s = std(v,0,2);
     
-    v     = (v - repmat(m,1,size(music_files,1)+size(speech_files,1)))./repmat(s,1,size(music_files,1)+size(speech_files,1));
-    C     = [zeros(1,size(music_files,1)) ones(1,size(speech_files,1))];
+    v = (v - repmat(m,1,size(music_files,1)+size(speech_files,1)))./repmat(s,1,size(music_files,1)+size(speech_files,1));
+    C = [zeros(1,size(music_files,1)) ones(1,size(speech_files,1))];
 
     %select features
     [Acc, selectedFeatures] =  ToolSeqFeatureSel(v, C);
-
 end
 
 function [v,cFeatureLabels] = ExtractFeaturesFromFile(cFilePath)
@@ -104,9 +108,11 @@ function [v,cFeatureLabels] = ExtractFeaturesFromFile(cFilePath)
         'ZC');
 
     cSubFeatureNames = char('$\mu_\mathrm{','$\sigma_\mathrm{');
-    
+ 
+    % read audio
     [x,fs]  = audioread(cFilePath);
-  
+ 
+    % extract features
     cFeatureLabels = [];
     v = [];
     for (i=1:size(cFeatureNames,1))

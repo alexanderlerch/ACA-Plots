@@ -1,13 +1,16 @@
 function plotPdfExamples()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
-    % generate sample data
+    % generate plot data
     [x,pdf,cTitle] = getData();
 
+    % plot
     for ( i=1:size(pdf,1))
         subplot(2,2,i)
         plot(x,pdf(i,:))
@@ -16,7 +19,6 @@ function plotPdfExamples()
         if (i==1)
             hold on
             stem(x(pdf(i,:)~=0),pdf(i, pdf(i,:)~=0), 'Marker', '^','MarkerFaceColor','k','MarkerEdgeColor','k','Color','k','MarkerSize',5)
-            %stem(x(end),pdf(i,end-iAdd), 'k-', 'LineWidth', iPlotLineWidth, 'Marker', '^','MarkerFaceColor','k','MarkerSize',5)
             hold off
         end
         if (i>2)
@@ -24,9 +26,6 @@ function plotPdfExamples()
         else
             set(gca,'XTickLabels',[])
         end
-%         if (mod(i,2)==1)
-%             ylabel('$p_x(x)$');
-%         end
         ylabel('$p_x(x)$');
 
         title(deblank(cTitle(i,:)));
@@ -35,6 +34,8 @@ function plotPdfExamples()
         axis([x(1) x(end) 0 1.5])
         grid on 
     end
+    
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 

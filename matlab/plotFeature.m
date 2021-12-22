@@ -1,5 +1,6 @@
 function plotFeature ()
  
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -42,17 +43,16 @@ function plotFeature ()
     '$v_\mathrm{Peak}(n)$',...
     '$v_\mathrm{MFCC}^{1-4}(n)$');
 
-    %cFeatureNames = char('SpectralMfccs');
-        
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cAudioPath = [cPath '/../audio'];
 
-    % file path
+    % file name
     cFile = 'sax_example.wav';
 
+    % read audio and generate plot data
     [t,x,tf,f,X,tv,v] = getData ([cAudioPath,'/',cFile], cFeatureNames);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
     cYLabel1 = '$x(t)$';
@@ -60,8 +60,12 @@ function plotFeature ()
 
     iIndexInc = 0;
     
+    % plot
     for (i=1:size(cFeatureNames,1))
+        % generate new figure
         hFigureHandle = generateFigure(13.12,6);
+
+        % set output path relative to script location and to script name
         cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '') deblank(cFeatureNames(i,:))];
 
         subplot(211), 
@@ -116,32 +120,33 @@ function plotFeature ()
             axis([0 max(t(end),tv(end)) min(min(v(i+iIndexInc+iMFCCIndices,:))) max(max(v(i+iIndexInc+iMFCCIndices,:)))])
             ylabel(deblank(cFeatureSymbols(i,:)))
             iIndexInc = iIndexInc + length(iMFCCIndices) -1;
-
         end     
 
+        % write output file
         printFigure(hFigureHandle, cOutputFilePath)
     end
 end
 
-% example function for data generation, substitute this with your code
 function [t,x,tw,f,X,tv,v] = getData (cInputFilePath, cFeatureNames)
 
     iReduction = 8;
     iFFTLength = 4096;
+    
+    % read audio 
     [x, fs] = audioread(cInputFilePath);
     t       = linspace(0,length(x)/fs,length(x));
-%    x       = x/max(abs(x));
 
+    % compute spectrogram
     [X,f,tw] = spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
     X       = abs(X);
 
     X       = 10*log10(abs((X(1:iFFTLength/iReduction,:))));
     f       = f(1:iFFTLength/iReduction,:);
 
+    % extract features
     v = [];
     for (i=1:size(cFeatureNames,1))
         [temp, tv]         = ComputeFeature (deblank(cFeatureNames(i,:)), x, fs);
         v = [v;temp];
     end
-    
 end

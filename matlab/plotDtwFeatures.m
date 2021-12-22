@@ -1,5 +1,6 @@
 function plotDtwFeatures ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -7,6 +8,7 @@ function plotDtwFeatures ()
     % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -14,8 +16,10 @@ function plotDtwFeatures ()
     % file name
     cName = 'originals_splanky.mp3';
 
+    % read audio and generate plot data
     [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cName);
 
+    % plot
     ax = subplot(131);
     imagesc(tv2,tv1,nonlinearity(Dpc,2))
     c=colormap(ax,'jet');
@@ -43,6 +47,7 @@ function plotDtwFeatures ()
     hold on; plot(tv2(pmfcc(:,2)),tv1(pmfcc(:,1)),'Color',[0 0 0]); hold off
     ylabel('$t_1 / \mathrm{s}$')
 
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
@@ -60,6 +65,7 @@ function [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cNam
     x1 = ToolStripZeros(x(:,1)/max(abs(x(:,1))));
     x2 = ToolStripZeros(x(:,2)/max(abs(x(:,2))));
     
+    % extract features
     [vpc1, tv1] = ComputeFeature (deblank(cFeatureNames(1,:)), x1, fs, [], iBlockLength, iHopLength);
     [vrms1, trms] = ComputeFeature (deblank(cFeatureNames(2,:)), x1, fs, [], iBlockLength, iHopLength);
     vrms1 = 10.^(vrms1*.05);
@@ -76,6 +82,7 @@ function [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cNam
     vmfcc2 = 10.^(vmfcc2*.05);
     vmfcc2 = vmfcc2/max(max(vmfcc2));
 
+    % compute distance matrices
     Dpc = zeros(length(tv1),length(tv2));
     Drms = zeros(length(tv1),length(tv2));
     Dmfcc = zeros(length(tv1),length(tv2));
@@ -89,6 +96,7 @@ function [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cNam
     Drms = normalize(Drms);
     Dmfcc = normalize(Dmfcc);
     
+    % compute path
     [ppc, C]      = ToolSimpleDtw(Dpc);    
     [prms, C]     = ToolSimpleDtw(Drms);    
     [pmfcc, C]    = ToolSimpleDtw(Dmfcc);    

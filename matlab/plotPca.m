@@ -1,13 +1,16 @@
 function plotPca()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
     % generate sample data
-    [x, pc] = generateSampleData();
+    [x, pc] = getData();
 
+    % plot
     fig(1) = subplot(121);
     scatter(x(:,1),x(:,2),2,'k');
     set(gca,'XAxisLocation','origin','YAxisLocation','origin');
@@ -19,7 +22,6 @@ function plotPca()
     xlabel('$x_1$')
     ylabel('$x_2$')
  
-    
     fig(2) = subplot(122);
     scatter(x(:,1),x(:,2),2,'k');
     set(gca,'XAxisLocation','origin','YAxisLocation','origin');
@@ -38,11 +40,13 @@ function plotPca()
     text (3.3,3,'$p_1$','Color',[234/256 170/256 0]);
     text (-3,3.3,'$p_2$','Color',[234/256 170/256 0]);
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-function [x, pc] = generateSampleData ()
+function [x, pc] = getData ()
 
+    % random data generation
     iNum    = 512;
     rng(12);
     x(1,:)  = randn(1,iNum)-.5;
@@ -52,5 +56,7 @@ function [x, pc] = generateSampleData ()
         x(i,:) = (x(i,:)-mean(x(i,:)))./std(x(i,:));
     end
     x = x';
+    
+    % pca
     [pc,a,b] = ToolPca(x);
 end

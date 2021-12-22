@@ -1,7 +1,9 @@
 function plotBeatGrid()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cAudioName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cAudioName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
@@ -9,11 +11,13 @@ function plotBeatGrid()
     cAnnoBeatName = 'MusicDelta_Britpop_MIX.beats';
     cAnnoOnsetName = 'MusicDelta_Britpop_class.txt';
 
+    % read audio and generate plot data
     [x,t,to,tb,tdb] = getData ([cAudioPath,cAudioName], [cAudioPath,cAnnoBeatName] , [cAudioPath,cAnnoOnsetName]);
 
+    % label string
     cXLabel = 'time / s';
 
-    % plot data
+    % plot 
     subplot(3,1,1)
     plot(t,x);
     axis([t(1)-.05 t(end) -1 1])
@@ -33,6 +37,7 @@ function plotBeatGrid()
     set(gca, 'YTick', [.166 .5 .834])
     set(gca,'YTickLabels',{'Downbeat','Beat','Onset'})
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 
 end

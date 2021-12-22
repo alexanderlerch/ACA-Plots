@@ -3,11 +3,13 @@ function plotNovelty (cLang, cSubPath)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
     iStart  = 800;
     iLength = 65536;
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -15,11 +17,14 @@ function plotNovelty (cLang, cSubPath)
     % file path
     cName = 'sax_example.wav';
 
+    % label strings
     cYLabel = 'Envelope';
     cLegend = 'Threshold';
 
+    % read audio and generate plot data 
     [tx,x,tv,v,td,d,tg,g,onsetidx] = getData ([cAudioPath,'/',cName]);
 
+    % plot
     subplot(211),
     hold on;
     plot(tx,abs(x),'Color',.8*[1 1 1]);
@@ -34,7 +39,6 @@ function plotNovelty (cLang, cSubPath)
     plot(td,d)
     hold on;
     plot(tg,g(1,:))
-%     plot(tg,g(2,:),'Color',.8*[1 1 1])
     stem(td(onsetidx),d(onsetidx),'fill','b');
     hold off;
     xlabel('$t / \mathrm{s}$')

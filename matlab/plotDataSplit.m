@@ -1,7 +1,9 @@
 function plotDataSplit()
 
-    hFigureHandle = generateFigure(9,7);
+    % generate new figure
+    hFigureHandle = generateFigure(6.5,4.5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
@@ -14,6 +16,7 @@ function plotDataSplit()
              0                         0                         1
              234/256                    170/256                 0]);
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -21,6 +24,5 @@ function [x, labels] = getData ()
 
     x = [.75 .1 .15];
     labels = {'Train','Validation','Test'};
-
 end
 

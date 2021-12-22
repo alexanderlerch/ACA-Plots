@@ -1,7 +1,9 @@
 function plotF0Nmf()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
@@ -9,16 +11,16 @@ function plotF0Nmf()
     cName2 = 'Oboe.ff.F4.wav';
     cName3 = 'Violin.arco.ff.sulD.B4.wav';
 
+    % read audio and generate plot data
     [t,f,X, W,H] = getData ([cAudioPath,cName1],[cAudioPath,cName2],[cAudioPath,cName3]);
 
-    
+    % plot
     subplot(6,6,[4:6,10:12,16:18]), 
     imagesc(t,f/1000,X)
     axis xy;
     set(gca,'XTickLabel',[])
     set(gca,'YTick',[0 2 4 6])
     ylabel('$f/\mathrm{kHz}$')
-
 
     subplot(6,6,[19,25,31])
     plot(f/1000,W(:,1))
@@ -78,7 +80,7 @@ function plotF0Nmf()
     xlabel('$t/\mathrm{s}$')
     ylabel('$\mathbf{h}_2$')
      
-  
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 function [tw,f,X, W,H] = getData (cInputFilePath1,cInputFilePath2,cInputFilePath3)
@@ -99,12 +101,14 @@ function [tw,f,X, W,H] = getData (cInputFilePath1,cInputFilePath2,cInputFilePath
     x(end-length(x2)+1:end) = x(end-length(x2)+1:end) + .5*x2; 
     x(end-length(x3)+1:end) = x(end-length(x3)+1:end) + .5*x3; 
     
+    % compute spectrogram
     [X,f,tw] = spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
     X       = abs(X);
+    
+    % compute factorization
     [W,H,D] = ToolSimpleNmf(X*2/iFFTLength,3); 
 
     X       = 20*log10(X(1:iFFTLength/iPlotDecimation,:));
     f       = f(1:iFFTLength/iPlotDecimation,:);
     W       = W(1:iFFTLength/iPlotDecimation,:);
-    
 end

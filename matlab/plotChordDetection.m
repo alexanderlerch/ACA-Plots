@@ -1,6 +1,9 @@
 function plotChordDetection  ()
+    
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
@@ -8,23 +11,20 @@ function plotChordDetection  ()
     % file path
     cName = 'chord_analysis.mp3';
 
+    % read audio and generate plot data
     [t,P_E, P_T, p, chord_labels] = getData ([cAudioPath,'/',cName]);
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
     cYLabel = 'Chord';
     
     YTick = [1  5  8  13  17  20  24]-1;
 
-    % plot data
+    % plot 
     subplot(221), 
     imagesc(t,0:23,P_E)
     ylabel(cYLabel)
     xlabel(cXLabel)
-%     axis([t(1) t(end) -max(abs(x)) max(abs(x))])
-%     set(gca,'YTickLabel',{})
-%     set(gca,'XTickLabel',{})
     set(gca,'YTick',YTick)
     set(gca,'YTickLabel',deblank(chord_labels(YTick+1,:)));
 
@@ -58,7 +58,6 @@ function plotChordDetection  ()
     set(gca,'YTick',YTick)
     set(gca,'YTickLabel',deblank(chord_labels(YTick+1,:)));
     
-    
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
@@ -67,7 +66,7 @@ end
 function [t,P_E, P_T, p, chord_labels] = getData (cInputFilePath)
 
     % initialize chord transition probs
-    P_T = getChordTransProb();
+    P_T = getChordTransProb_I();
     chord_labels  = char ('C Maj','C# Maj','D Maj','D# Maj','E Maj','F Maj',...
         'F# Maj','G Maj','G# Maj','A Maj','A# Maj','B Maj', 'c min',...
         'c# min','d min','d# min','e min','f min','f# min','g min',...
@@ -81,7 +80,7 @@ function [t,P_E, P_T, p, chord_labels] = getData (cInputFilePath)
 
 end
 
-function [P_T] = getChordTransProb()
+function [P_T] = getChordTransProb_I()
     
     circ = [0 -5 2 -3 4 -1 6 1 -4 3 -2 5,...
             -3 4 -1 6 1 -4 3 -2 5 0 -5 2];

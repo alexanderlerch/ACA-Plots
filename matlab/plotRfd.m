@@ -1,22 +1,16 @@
 function plotRfd()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,4);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % read sample data
-    load handel.mat
-
-    rdf     = histogram(y,128,'Normalization','probability','EdgeColor',[.4 .4 .4],'FaceColor',[.6 .6 .6]);
-
-    b = .16;
-    y2  = 1/(2*b)*exp(-abs(rdf.BinLimits(1):rdf.BinWidth:rdf.BinLimits(2))./b);
-    y2  = y2/sum(y2); % only approx.
+    [rdf,y2,y3] = getData ();
     
-    sigma = .15;
-    %sigma = 0.038499222027882;
-    y3 = 1/(sigma*sqrt(2*pi))/75*exp(-((rdf.BinLimits(1):rdf.BinWidth:rdf.BinLimits(2)).^2)/(2*sigma.^2));
+    % plot
     hold on;
     plot(rdf.BinLimits(1):rdf.BinWidth:rdf.BinLimits(2),y2)
     plot(rdf.BinLimits(1):rdf.BinWidth:rdf.BinLimits(2),y3)
@@ -25,6 +19,25 @@ function plotRfd()
     legend('measured RFD', 'Laplace', 'Gaussian');
     xlabel('$x$')
     ylabel('rel. num. of occurences')
-    
+   
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
+end
+
+function [rdf,y2,y3] = getData ()
+
+    % get matlab default audio
+    load handel.mat
+
+    % create histogram
+    rdf = histogram(y,128,'Normalization','probability','EdgeColor',[.4 .4 .4],'FaceColor',[.6 .6 .6]);
+
+    % approximate laplace
+    b = .16;
+    y2  = 1/(2*b)*exp(-abs(rdf.BinLimits(1):rdf.BinWidth:rdf.BinLimits(2))./b);
+    y2  = y2/sum(y2); % only approx.
+    
+    % approximate gauss
+    sigma = .15;
+    y3 = 1/(sigma*sqrt(2*pi))/75*exp(-((rdf.BinLimits(1):rdf.BinWidth:rdf.BinLimits(2)).^2)/(2*sigma.^2));
 end

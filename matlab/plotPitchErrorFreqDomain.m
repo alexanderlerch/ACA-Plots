@@ -1,20 +1,23 @@
 function plotPitchErrorFreqDomain()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     % read sample data
     [f,e_p,cLegend]  = generateSampleData();
     
+    % plot
     plot(f,e_p,'LineWidth',.5);
     axis([f(1) 2000 -1000 1000])
-    
     xlabel('$f_0$/Hz');
     ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ [cent]');
     lh = legend(cLegend);
     set(lh,'Location','NorthEast','Interpreter','latex')
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 

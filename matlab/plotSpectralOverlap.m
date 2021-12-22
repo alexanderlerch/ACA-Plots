@@ -1,15 +1,21 @@
 function plotSpectralOverlap()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
-    fs  = 300;
-    i   = 1;
-    f_max = [100 250];
+    % parametrization
+    fs      = 300;
+    i       = 1;
+    f_max   = [100 250];
 
+    % get plot data
     [X] = getData(f_max(1),fs);
+    
+    % plot
     subplot(221)
     plot((0:length(X)-1)/fs,X(1,:));
     axis([0 2 0 1.1]);
@@ -21,7 +27,10 @@ function plotSpectralOverlap()
     X   = [fliplr(X) X];
     plotOverlap(X,f_max(1),fs)
     
+    % get plot data
     [X] = getData(f_max(2),fs);
+    
+    % plot
     subplot(223)
     plot((0:length(X)-1)/fs,X(1,:));
     axis([0 2 0 1.1]);
@@ -33,11 +42,8 @@ function plotSpectralOverlap()
     X   = [fliplr(X) X];
     plotOverlap(X,f_max(2),fs)
     
-    
+    % write output file
     printFigure(hFigureHandle, cOutputPath); 
-        
-%        i=i+1;
-    %end
 end
 
 function [X] = getData(fmax,fs)

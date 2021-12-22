@@ -1,19 +1,22 @@
 function plotPitchChromaLeakage()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
   
-    % read sample data
+    % get plot data
     [x,y,pc] = getData ();
 
+    % label strings
     cXLabel1 = '$f / \mathrm{Hz}$';
     cXLabel2 = 'pitch class';
     cYLabel1 = '$|X(k)|$';
     cYLabel2 = '$v_\mathrm{PC}$';
 
-    % plot data
+    % plot
     subplot(211),
     stem(x,y, 'k','fill')
     grid on
@@ -31,6 +34,7 @@ function plotPitchChromaLeakage()
     set(gca,'XTickLabel',{'C','C#','D','D#','E','F','F#','G','G#','A','A#','B'})
     set(gca,'YTick',0:.5:1)
     
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -44,6 +48,7 @@ function [f,A,pc] = getData()
 
     pc = zeros(1,12);
 
+    % create pitch chroma
     for (i = 1:numHarmonics)
         idx = mod(round(69 + 12*log2(f(i)/f_A4)), 12) + 1;
         pc(idx) = pc(idx) + A(i);

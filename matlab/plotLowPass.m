@@ -1,10 +1,13 @@
 function plotLowPass ()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
+    % generate plor data
     [f,HMA,HSP] = getData();
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -13,7 +16,7 @@ function plotLowPass ()
     cYLabel1 = '$|H_\mathrm{MA}(f)| /\mathrm{dB}$';
     cYLabel2 = '$|H_\mathrm{SP}(f)| /\mathrm{dB}$';
 
-    % plot data
+    % plot 
     h(1) = subplot(121);
     plot(f, HMA')
     axis([f(1) f(end) -50 1]),grid on 
@@ -39,7 +42,7 @@ function    [f,HMA,HSP] = getData()
     HMA(1,:) = 10*log10(abs(freqz(ones(1,2)/2,1))); %rect
     HMA(2,:) = 10*log10(abs(freqz(ones(1,10)/10,1))); %rect
     HMA(3,:) = 10*log10(abs(freqz(ones(1,50)/50,1))); %rect
-    HSP(1,:) = 10*log10(abs(freqz(.5,[1 -.5]))); %rect
-    HSP(2,:) = 10*log10(abs(freqz(.1,[1 -.9]))); %rect
-    HSP(3,:) = 10*log10(abs(freqz(.001,[1 -.999]))); %rect
+    HSP(1,:) = 10*log10(abs(freqz(.5,[1 -.5]))); %sp
+    HSP(2,:) = 10*log10(abs(freqz(.1,[1 -.9]))); %sp
+    HSP(3,:) = 10*log10(abs(freqz(.001,[1 -.999]))); %sp
 end

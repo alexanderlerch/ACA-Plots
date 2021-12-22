@@ -1,16 +1,18 @@
 function plotLoudnessWeighting()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.2,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
-    % read sample data
+    % generate plot data
     [f, H, fLogFreq, fFletcherMunson,fPhon2Plot]  = getData();
 
+    % plot
     subplot(121)
     semilogx(f,H)
-    
     legend ('BS.1770 MC','A Weighting','C Weighting','ITU-R BS.468','Location','SouthEast');
     xlabel('$f/ \mathrm{Hz}$');
     ylabel('$|H(f)| / \mathrm{dB}$')
@@ -23,10 +25,10 @@ function plotLoudnessWeighting()
     for (i = 1:length(fPhon2Plot))
         text(1000, fPhon2Plot(i)+(3+i), [num2str(fPhon2Plot(i)) ' phon'])
     end
-
     xlabel('$f/ \mathrm{Hz}$');
     ylabel('$SPL / \mathrm{dB}$');
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
@@ -97,7 +99,7 @@ function [f,H, fLogFreq, fLevelIntp, fPhon2Plot] = getData()
 
     H(:,6) = 0;
     
-    % omit BS1770 and z
+    % discard BS1770 and z
     H = H(:,2:end-1);
 
     % tables from iso-226
@@ -128,5 +130,4 @@ function [f,H, fLogFreq, fLevelIntp, fPhon2Plot] = getData()
         fLevel(i,:) = 10./fAlpha.*log10(A_f)-Lu+94;
         fLevelIntp(i,:) = interp1(fFreq,fLevel(i,:),fLogFreq,'PCHIP');
     end
-    
 end

@@ -1,18 +1,21 @@
 function plotAcfExample (fDimensions)
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
+    % generate plot data
     [acfn,acfs,eta] = getData();
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel  = '$\eta / 10^3$';
     cYLabel1 = '$r_{xx}$ (Sine)';
     cYLabel2 = '$r_{xx}$ (Noise)';
 
+    % plot
     subplot(211)
     plot(eta,acfs)
     grid on,

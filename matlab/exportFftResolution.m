@@ -1,5 +1,6 @@
 function exportFftResolution ()
 
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../tables/' strrep(cName, 'export', '')];
 

@@ -1,7 +1,9 @@
 function animateFA4Filterbank()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,5);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/animation/' strrep(cName, 'animate', '')];
 

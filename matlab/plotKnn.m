@@ -6,6 +6,7 @@ function plotKnn ()
         cDatasetPath = 'd:\dataset\music_speech\';  
     end
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -14,13 +15,13 @@ function plotKnn ()
     end
     fDimensionsInCm = [ 8.5, 6 ];
 
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
   
     cMusic = 'music';
     cSpeech = 'speech';
     hist_axis = 0:.05:1;
-
 
     % generate new figure
     hFigureHandle = generateFigure(fDimensionsInCm(1), fDimensionsInCm(2));
@@ -64,8 +65,7 @@ function plotKnn ()
     scatter(test(1),test(2), 6600,[.5 .5 .5],'o');
     text(.35, .17,'$k=7$','Color',[0 0 0])
 
-
-
+    % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
@@ -74,14 +74,17 @@ function [v] = ExtractFeaturesFromFile(cFilePath)
     cFeatureNames = char('SpectralCentroid',...
     'TimeRms');
 
+    % read audio
     [x,fs]  = audioread(cFilePath);
     x       = x/max(abs(x));
+    
+    % spectrogram
     [X,f,tf]= spectrogram(x, hann(2048,'periodic'),1024,2048,fs);
     
+    % extract features and aggregate
     feature = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs);
     v(1,1)    = mean(feature(1,:));
     
     feature = ComputeFeature (deblank(cFeatureNames(2,:)), x, fs);
     v(2,1)    = std(feature(1,:));
-    
 end    

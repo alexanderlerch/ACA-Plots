@@ -1,7 +1,9 @@
 function displayBlocking()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
@@ -9,9 +11,10 @@ function displayBlocking()
     % file path
     cName = 'sax_example.wav';
  
+    % read audio and generate plot data
     [t,x,xb,wb] = getData([cAudioPath cName]);
     
-
+    % plot
     subplot(211),
     plot(t,x)
     hold on;
@@ -30,9 +33,9 @@ function displayBlocking()
         set(gca,'XTickLabel',[]);
         set(gca,'YTickLabel',[]);
     end
-        
     xlabel('$t / \mathrm{s}$')
 
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 

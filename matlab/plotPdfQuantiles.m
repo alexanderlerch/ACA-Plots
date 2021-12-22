@@ -1,37 +1,34 @@
 function plotPdfQuantiles()
 
-    
+    % generate new figure
     hFigureHandle = generateFigure(13.12,6);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % generate sample data
     [x1, normal, x2, chi2, qp,qidx] = getData();
 
-    color = [
-                             234/256                    170/256                 0
-                             200/256                    150/256                 .2
-                             150/256                    120/256                 .4
-                             100/256                    80/256                 .6
-                             50/256                    40/256                 .8
-                             0/256                    0                 1
-                             ];
+    color = [   234/256	170/256 0
+                200/256 150/256 .2
+                150/256 120/256 .4
+                100/256 80/256  .6
+                50/256  40/256  .8
+                0/256   0       1];
+     
+    % plot        
     subplot(211)
     plot(x1,normal)
     y_annot = [.45 .55];
     x_fill  = find(x1<=-1,1,'last');
     axis([x1(x_fill) 2.5 0 max(y_annot)+.1]);
     hold on;
-    
     for (i = 1:length(qp))
         h = area(x1(x_fill:qidx(1,i)-1),normal(x_fill:qidx(1,i)-1),'LineStyle','none');x_fill = qidx(1,i);
         h(1).FaceColor = color(i,:);
         line([x1(qidx(1,i)) x1(qidx(1,i))],[0 y_annot(mod(i+1,2)+1)],'Color',[.5 .5 .5],'LineWidth',.5);
         text(x1(qidx(1,i))-.5,y_annot(mod(i+1,2)+1),['$Q_x(' num2str(qp(i),2) ')=' num2str(x1(qidx(1,i)),2) '$'],'Color',color(i,:), 'FontSize',6);
-%         [figx figy] = dsxy2figxy([x1(qidx(1,i))-.1 x1(qidx(1,i))],[y_annot(mod(i+1,2)+1) y_annot(mod(i+1,2)+1)]);
-%         annotation('textarrow',figx,figy, 'String', ['$Q_x(' num2str(qp(i),2) ')=' num2str(x1(qidx(1,i)),2) '$'],...
-%             'Color',color(i,:), 'FontSize',6,'Headlength',5,'HeadWidth',4,'interpreter','latex') 
     end
     ylabel('Gaussian')
     hold off;
@@ -42,21 +39,17 @@ function plotPdfQuantiles()
     x_fill  = find(x2<=0,1,'last');
     axis([x2(1) 11 0 max(y_annot)+.1]);
     hold on;
-    
     for (i = 1:length(qp))
         h = area(x2(x_fill:qidx(2,i)-1),chi2(x_fill:qidx(2,i)-1),'LineStyle','none');x_fill = qidx(2,i);
         h(1).FaceColor = color(i,:);
         line([x2(qidx(2,i)) x2(qidx(2,i))],[0 y_annot(mod(i+1,2)+1)],'Color',[.5 .5 .5],'LineWidth',.5);
         text(x2(qidx(2,i))-1.5,y_annot(mod(i+1,2)+1),['$Q_x(' num2str(qp(i),2) ')=' num2str(x2(qidx(2,i)),2) '$'],'Color',color(i,:), 'FontSize',6);
-%         [figx figy] = dsxy2figxy([x2(qidx(2,i))-.1 x2(qidx(2,i))],[y_annot(mod(i+1,2)+1) y_annot(mod(i+1,2)+1)]);
-%         annotation('textarrow',figx,figy, 'String', ['$Q_x(' num2str(qp(i),2) ')=' num2str(x2(qidx(2,i)),2) '$'],...
-%             'Color',color(i,:), 'FontSize',6,'Headlength',5,'HeadWidth',4,'interpreter','latex') 
     end
     ylabel('Chi$^2$')    
     xlabel('$x$')
-    
     hold off;
  
+    % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 

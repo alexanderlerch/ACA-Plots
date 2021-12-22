@@ -1,17 +1,19 @@
 function plotChordTemplates  ()
 
+    % generate new figure
     hFigureHandle = generateFigure(13.2,7);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
+    % generate plot data
     [T] = getData ();
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cYLabel2 = 'pitch class';
     
-    % plot data
+    % plot 
     imagesc(T)
     xlabel('Pitch Class')
     ylabel('Chord Template $\Gamma$')
@@ -19,10 +21,8 @@ function plotChordTemplates  ()
     set(gca,'XTickLabel',{'C','C#','D','D#','E','F','F#','G','G#','A','A#','B'})
     set(gca,'YTick',[1 3 5 6 8 10 12 13 15 17 18 20 22 24])
     set(gca,'YTickLabel',{'C Maj.', 'D Maj.', 'E Maj.', 'F Maj.', 'G Maj.', 'A Maj.', 'B Maj.', 'c min.', 'd min.', 'e min.', 'f min.', 'g min.', 'a min.', 'b min.'})
-    
     colormap([1 1 1; 0 0 0]); 
     
-
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end

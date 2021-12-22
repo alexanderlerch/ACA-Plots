@@ -1,19 +1,22 @@
 function plotF0Acf ()
 
+    % check for dependency
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
     
+    % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
+    % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
 
+    % read audio and generate plot data
     [t,x,xc,eta,r,rc,T0] = getData ([cAudioPath,cName]);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
     cXLabel1 = '$t / \mathrm{s}$';
     cXLabel2 = '$\eta / \mathrm{samples}$';
@@ -67,7 +70,6 @@ function plotF0Acf ()
     set(gca,'XTickLabel', xticklabel)
     xlabel(cXLabel2)
     ylabel(cYLabel22)
-
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
