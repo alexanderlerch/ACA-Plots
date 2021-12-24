@@ -1,7 +1,7 @@
 function plotKeyProfiles  ()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.2,10);
+    hFigureHandle = generateFigure(13.2,8);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));

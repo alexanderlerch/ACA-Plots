@@ -6,7 +6,7 @@ function plotPitchChroma  ()
     end
     
     % generate new figure
-    hFigureHandle = generateFigure(12,7);
+    hFigureHandle = generateFigure(12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -35,12 +35,21 @@ function plotPitchChroma  ()
     set(gca,'YDir','normal','YTick',[0 2 4 6 8 10],'YTickLabel',{'C', 'D', 'E', 'F\#', 'G\#', 'A\#'})
     xlabel(cXLabel)
     ylabel(cYLabel2)
+
+    % fix label that is weirdly outside of plot
+    p = get(gca,'Position');
+    set(gca,'Position',[p(1) p(2)+0.05 p(3) p(4)]);
     
     subplot(2,10,20)
-    plot(pcm,pclabel)
+    bar(pclabel,pcm,'k')
+    view(90,-90)
     set(gca,'YTickLabel',{})
     set(gca,'XTickLabel',{})
-    axis([0 max(pcm) -.5 11.5])
+    axis([ -.5 11.5 0 1.1*max(pcm)])
+
+    % fix label that is weirdly outside of plot
+    p = get(gca,'Position');
+    set(gca,'Position',[p(1) p(2)+0.05 p(3) p(4)]);
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

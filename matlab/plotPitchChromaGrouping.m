@@ -1,7 +1,7 @@
 function plotPitchChromaGrouping()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,5);
+    hFigureHandle = generateFigure(13.12,4);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -22,8 +22,10 @@ function plotPitchChromaGrouping()
     set(get(AX(1),'Ylabel'),'String','$|X(k,n)|$');
     set(get(AX(2),'Ylabel'),'String','$w_\mathrm{E}$');
     xlabel('MIDI Pitch')
+    
+    % fix label that is weirdly outside of plot
     p = get(gca,'Position');
-    set(gca,'Position',[p(1) p(2)+0.1 p(3) p(4)-.1]);
+    set(gca,'Position',[p(1) p(2)+0.15 p(3) p(4)-.15]);
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
@@ -43,7 +45,7 @@ function [px,X,pw,W,ptick] = getData(cFilePath)
     X       = (abs(fft(hann(length(x)).*x)));
     X       = X(1:length(x)/2+1);
     px       = 69+12*log2(linspace(0, fs/2, length(x)/2+1)/fA4);
-    X       = X/max(X);
+    X       = X/(1.1*max(X)); % factor for nicer plotting
 
     % midi pitch
     w = [61.5 62.5
@@ -51,6 +53,7 @@ function [px,X,pw,W,ptick] = getData(cFilePath)
         85.5 86.5
         97.5 98.5] + 2;
 
+    % labels
     tickbase = [60 62  65 67 69 ];
     ptick   = [];
     for (i = 1:size(w,1))
@@ -60,6 +63,7 @@ function [px,X,pw,W,ptick] = getData(cFilePath)
     pw = 60:0.1:round(ptick(end));
     W  = zeros(size(pw));
 
+    % filter bank
     for (i = 1:size(w,1))
         W ((w(i,1)-pw(1))*10:(w(i,2)-pw(1))*10) = 1;
     end

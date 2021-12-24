@@ -27,6 +27,8 @@ function plotChordDetection  ()
     xlabel(cXLabel)
     set(gca,'YTick',YTick)
     set(gca,'YTickLabel',deblank(chord_labels(YTick+1,:)));
+%     pos = get(gca,'Position');
+%     set(gca,'Position',[pos(1) pos(2)-.01 pos(3) pos(4)+.03]);
 
     subplot(222), 
     imagesc(0:23,0:23,P_T)
@@ -37,6 +39,8 @@ function plotChordDetection  ()
     set(gca,'YTickLabel',deblank(chord_labels(YTick+1,:)));
     set(gca,'XTick',YTick)
     set(gca,'XTickLabel',deblank(chord_labels(YTick+1,:)));
+%     pos = get(gca,'Position');
+%     set(gca,'Position',[pos(1) pos(2)-.01 pos(3) pos(4)+.03]);
 
     ax=subplot(223); 
     imagesc(t,0:23,P_E)
@@ -47,6 +51,8 @@ function plotChordDetection  ()
     xlabel(cXLabel)
     set(gca,'YTick',YTick)
     set(gca,'YTickLabel',deblank(chord_labels(YTick+1,:)));
+    pos = get(gca,'Position');
+    set(gca,'Position',[pos(1) pos(2)-.01 pos(3) pos(4)+.03]);
 
     ax =subplot(224); 
     imagesc(t,0:23,P_E)
@@ -57,6 +63,8 @@ function plotChordDetection  ()
     xlabel(cXLabel)
     set(gca,'YTick',YTick)
     set(gca,'YTickLabel',deblank(chord_labels(YTick+1,:)));
+    pos = get(gca,'Position');
+    set(gca,'Position',[pos(1) pos(2)-.01 pos(3) pos(4)+.03]);
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

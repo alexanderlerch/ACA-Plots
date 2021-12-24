@@ -1,7 +1,7 @@
 function plotBeatGrid()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cAudioName]  = fileparts(mfilename('fullpath'));
@@ -36,6 +36,8 @@ function plotBeatGrid()
     axis([t(1)-.05 t(end) 0 1])
     set(gca, 'YTick', [.166 .5 .834])
     set(gca,'YTickLabels',{'Downbeat','Beat','Onset'})
+    pos = get(gca,'Position');
+    set(gca,'Position',[pos(1) pos(2)+.05 pos(3) pos(4)]);
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

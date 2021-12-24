@@ -28,7 +28,7 @@ function plotNovelty (cLang, cSubPath)
     subplot(211),
     hold on;
     plot(tx,abs(x),'Color',.8*[1 1 1]);
-    plot(tv,v);
+    plot(tv,v,'Color',.3*[1 1 1]);
     hold off;
     set(gca,'YTickLabel',[])
     ylabel(cYLabel)

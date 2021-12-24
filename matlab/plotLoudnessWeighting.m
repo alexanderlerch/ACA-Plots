@@ -1,7 +1,7 @@
 function plotLoudnessWeighting()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.2,7);
+    hFigureHandle = generateFigure(13.2,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));

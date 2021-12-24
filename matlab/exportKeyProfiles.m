@@ -11,11 +11,11 @@ function exportKeyProfiles  ()
     astTable(tablesize(1),tablesize(2)) = struct('sValue', '');
 
     astTable(1,1).sValue = '';
-    astTable(2,1).sValue = '$\nu_\mathrm{o}$';
-    astTable(3,1).sValue = '$\nu_\mathrm{d}$';
-    astTable(4,1).sValue = '$\nu_\mathrm{5}$';
-    astTable(5,1).sValue = '$\nu_\mathrm{p}$';
-    astTable(6,1).sValue = '$\nu_\mathrm{t}$';
+    astTable(2,1).sValue = '$\vec{\nu}_\mathrm{o}$';
+    astTable(3,1).sValue = '$\vec{\nu}_\mathrm{d}$';
+    astTable(4,1).sValue = '$\vec{\nu}_\mathrm{5}$';
+    astTable(5,1).sValue = '$\vec{\nu}_\mathrm{p}$';
+    astTable(6,1).sValue = '$\vec{\nu}_\mathrm{t}$';
 
     astTable(1,2).sValue = '$\nu(0)$';
     astTable(1,3).sValue = '$\nu(1)$';

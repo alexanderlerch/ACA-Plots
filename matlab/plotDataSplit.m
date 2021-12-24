@@ -1,7 +1,7 @@
 function plotDataSplit()
 
     % generate new figure
-    hFigureHandle = generateFigure(6.5,4.5);
+    hFigureHandle = generateFigure(7,4.5);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -12,7 +12,7 @@ function plotDataSplit()
 
     % plot
     p = pie(x, [0 1 1], labels);
-    colormap([0.5                      0.5                      0.5
+    colormap([0.6                      0.6                      0.6
              0                         0                         1
              234/256                    170/256                 0]);
 

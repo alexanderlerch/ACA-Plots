@@ -1,7 +1,7 @@
 function plotBeatHierarchy()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cAudioName]  = fileparts(mfilename('fullpath'));

@@ -1,7 +1,7 @@
 function plotBeatHistogram()
 
     % generate new figure
-    hFigureHandle = generateFigure(12,4);
+    hFigureHandle = generateFigure(13.2,4);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
