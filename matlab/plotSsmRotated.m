@@ -6,7 +6,7 @@ function plotSsmRotated ()
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -32,6 +32,7 @@ function plotSsmRotated ()
     imagesc(tv,tv,nonlinearity(Dv))
     c=colormap(ax,'gray');
     colormap(ax,flipud(c));
+    hold on;
     for (i = 2: length(partidx))
         plot([1 1], [tannot(i,1) tannot(i,2)],'color',color(partidx(i),:),'linewidth',3);
         for (k=2:length(partidx))

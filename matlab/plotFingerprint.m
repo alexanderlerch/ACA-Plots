@@ -6,7 +6,7 @@ function plotFingerprint ()
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -66,5 +66,8 @@ function [F_orig,F_mp3,F_diff] = getData(cAudioPath, cName1, cName2)
     F_mp3 = F_mp3(:,1:256)';
 
     F_diff = abs(F_orig - F_mp3);
+    
+    errors = sum(F_diff,2);
+    hist(errors)
 end
 

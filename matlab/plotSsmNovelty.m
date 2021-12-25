@@ -112,7 +112,7 @@ function [tv, Dv, novelty, tannot, annot] = getData(cAudioPath, cName)
     Dv = Dv/max(max(Dv));
 
     % compute filter kernel
-    iFilterSize = 256;
+    iFilterSize = 384;
     g = computeFilter(iFilterSize);
     novelty = diag(filter2(g,Dv));
     novelty(novelty < 0) = 0;

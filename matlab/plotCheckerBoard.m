@@ -11,6 +11,7 @@ function plotCheckerBoard ()
 
     meshc(kernel)
     set(gca,'XTickLabels',[],'YTickLabels',[],'ZTickLabels',[])
+    set(findobj(gcf, 'type','axes'), 'Visible','off')
     view(-116,45)
 
     % write output file

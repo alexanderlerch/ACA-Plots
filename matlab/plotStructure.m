@@ -6,7 +6,7 @@ function plotStructure ()
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -27,6 +27,7 @@ function plotStructure ()
     set(gca,'YTickLabels', deblank(char(labels)))
     set(gca, 'YDir','reverse')
     axis([t(1) t(end) segments(1)-.5 segments(end)+.5])
+    set(gca,'XTickLabels', {})
     
     subplot(212)
     plot(t,x,'LineWidth',.5,'Color', .6*ones(1,3))
@@ -36,6 +37,7 @@ function plotStructure ()
     hold off;
     axis([t(1) t(end) -1.1 1.1 ])
     xlabel('$t$ / s')
+    set(gca,'YTickLabels', {})
     
     % write output file
     printFigure(hFigureHandle, cOutputPath)
