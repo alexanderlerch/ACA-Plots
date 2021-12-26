@@ -1,7 +1,7 @@
 function plotQuantizationError()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,6);
+    hFigureHandle = generateFigure(13.12,4);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -14,14 +14,14 @@ function plotQuantizationError()
     subplot(121)
     plot(x,xq)
     xlabel('$x$')
-    ylabel('$x_\mathrm{Q}/\Delta$')
+    ylabel('$x_\mathrm{Q}/\Delta_\mathrm{Q}$')
     axis([x(1) x(end) xqTick(1) xqTick(end)])
     set(gca, 'XTick',[-1 -.5 0 .5 1], 'YTick',xqTick, 'YTickLabel',xqTickLabel)
     
     subplot(122)
     stairs(x,q)
     xlabel('$x$')
-    ylabel('$q_ /\Delta$') % weird because epstopdf doesn't like Matlab 2015a output without the underscore
+    ylabel('$e_\mathrm{Q} /\Delta_\mathrm{Q}$')
     axis([x(1) x(end) qTick(1) qTick(end)])
     set(gca, 'XTick',[-1 -.5 0 .5 1], 'YTick',qTick, 'YTickLabel',qTickLabel)
 

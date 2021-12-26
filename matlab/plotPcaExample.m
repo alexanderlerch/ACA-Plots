@@ -6,7 +6,7 @@ function displayPcaExample()
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -43,6 +43,9 @@ function displayPcaExample()
     ylabel('eigenvalue');
     set(gca,'XTick', 1:length(latent))
     axis([1 length(latent) 0 max(latent)+.1 ])
+    % fix label that is weirdly outside of plot
+    p = get(gca,'Position');
+    set(gca,'Position',[p(1) p(2)+0.05 p(3) p(4)-0.02]);
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

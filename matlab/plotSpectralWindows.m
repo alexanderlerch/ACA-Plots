@@ -1,7 +1,7 @@
 function plotSpectralWindows()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,7);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -20,7 +20,7 @@ function plotSpectralWindows()
     plot(f,W(:,1),f,W(:,4),f,W(:,3),f,W(:,6))
     axis([f(1) f(end) -60 5])
     ylabel('$|W(\mathrm{j}\omega)|$');
-    lh = legend('$w_\mathrm{R}$','$w_\mathrm{H}$','$w_\mathrm{C}$','$w_\mathrm{B}$','Location','SouthEast');
+    lh = legend('$w_\mathrm{R}$','$w_\mathrm{H}$','$w_\mathrm{C}$','$w_\mathrm{B}$','Location','NorthEast');
     set(lh, 'FontSize', 6)
     
     subplot(223)
@@ -34,7 +34,7 @@ function plotSpectralWindows()
     axis([f(1) f(end) -60 5])
     ylabel('$|W(\mathrm{j}\omega)|$');
     xlabel('$\omega/\omega_\mathrm{S}$')
-    lh = legend('$w_\mathrm{Hm}$','$w_\mathrm{AB}$','$w_\mathrm{BH}$','$w_\mathrm{T}$','Location','SouthEast');
+    lh = legend('$w_\mathrm{Hm}$','$w_\mathrm{AB}$','$w_\mathrm{BH}$','$w_\mathrm{T}$','Location','NorthEast');
     set(lh, 'FontSize', 6, 'Interpreter','latex')
 
     % write output file

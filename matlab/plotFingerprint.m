@@ -67,7 +67,7 @@ function [F_orig,F_mp3,F_diff] = getData(cAudioPath, cName1, cName2)
 
     F_diff = abs(F_orig - F_mp3);
     
-    errors = sum(F_diff,2);
-    hist(errors)
+%     errors = sum(F_diff,2);
+%     hist(errors)
 end
 

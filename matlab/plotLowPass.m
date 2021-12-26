@@ -1,7 +1,7 @@
 function plotLowPass ()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,5);
+    hFigureHandle = generateFigure(13.12,4);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));

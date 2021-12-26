@@ -1,7 +1,7 @@
 function plotSampling01()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -19,13 +19,13 @@ function plotSampling01()
     subplot(211)
     plot(t,x)
     ylabel('$x(t)$')
-    xlabel('$t \ \mathrm{s}$')
+    xlabel('$t / \mathrm{s}$')
     axis([t(1) t(end) -1.1 1.1])
     
     subplot(212)
     colorGtGold = [234, 170, 0]/256;
     hold on;
-    plot(linspace(ts(1), length(x)/downsampleFactor+1, length(x)),x,'Color',.6*ones(1,3));
+    plot(linspace(ts(1), length(x)/downsampleFactor+1, length(x)),x,'Color',.8*ones(1,3));
     stem(ts,xs,'k-','MarkerEdgeColor','k','MarkerFaceColor','k','MarkerSize',2.5);
     xlabel('samples')
     ylabel('$x(i)$')

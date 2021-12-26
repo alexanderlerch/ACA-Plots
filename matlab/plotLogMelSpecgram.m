@@ -6,7 +6,7 @@ function plotLogMelSpecgram  ()
     end
     
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
@@ -25,19 +25,22 @@ function plotLogMelSpecgram  ()
     cYLabel2 = '$f / \mathrm{kHz}$';
 
     % plot 
-    subplot(211), plot(t,x)
+    subplot(311), plot(t,x)
     ylabel(cYLabel1)
     axis([t(1) t(end) -max(abs(x)) max(abs(x))])
     set(gca,'YTickLabel',{})
     set(gca,'XTickLabel',{})
     set(gca,'XTick',[0 5 10 15 20 25])
 
-    subplot(212), imagesc(t,[],X)
+    subplot(3,1,[2:3]), imagesc(t,[],X)
     axis xy;
     set(gca,'YTickLabel', round(f([21 41,61,81,101,121]))/1000);
     set(gca,'XTick',[0 5 10 15 20 25])
     xlabel(cXLabel)
     ylabel(cYLabel2)
+    % fix label that is weirdly outside of plot
+    p = get(gca,'Position');
+    set(gca,'Position',[p(1) p(2)+0.05 p(3) p(4)-0.02]);
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
