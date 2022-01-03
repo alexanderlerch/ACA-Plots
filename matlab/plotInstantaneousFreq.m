@@ -52,7 +52,7 @@ function [f,X,f_I, cLegend] = getData()
     cLegend = {};
     for (i=1:length(fFreq))
         fDiff(i,:) = abs([fFreqRes*(k(i)-1)-fFreq(i) f_I(k(i))-fFreq(i)]);
-        cLegend{i}          = ['$f = ' num2str(fFreq(i),'%2.2f') '$ Hz, $f_{k} = ' num2str(fFreqRes*(k(i)-1),'%2.2f') '$ Hz, $f_\mathrm{I} = ' num2str(f_I(k(i)),'%2.2f') '$ Hz'];
+        cLegend{i} = ['$f = ' num2str(fFreq(i),'%2.2f') '$ Hz, $f_{k} = ' num2str(fFreqRes*(k(i)-1),'%2.2f') '$ Hz, $f_\mathrm{I} = ' num2str(f_I(k(i)),'%2.2f') '$ Hz'];
     end
     cLegend = char(cLegend);
 end
