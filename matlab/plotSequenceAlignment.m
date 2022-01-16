@@ -1,7 +1,7 @@
 function plotSequenceAlignment ()
 
     % check dependency
-    if(exist('ComputeFeature') ~=2)
+    if(exist('ToolSimpleDtw') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
@@ -33,6 +33,7 @@ function plotSequenceAlignment ()
     set(gca, 'YTickLabels',{'Seq.\ A','Seq.\ B'}); 
     grid off; 
     set(gca,'visible','off');
+    set(gcf, 'color', 'none');
     
     % write output file
     printFigure(hFigureHandle, cOutputPath)

@@ -1,5 +1,10 @@
 function plotBeatHistogram()
 
+    % check for dependency
+    if(exist('ComputeFeature') ~=2)
+        error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
+    end
+
     % generate new figure
     hFigureHandle = generateFigure(13.2,4);
     

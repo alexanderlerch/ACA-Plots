@@ -1,4 +1,5 @@
-function plotNovelty (cLang, cSubPath)
+function plotNovelty ()
+
     if(exist('ComputeFeature') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
@@ -12,7 +13,7 @@ function plotNovelty (cLang, cSubPath)
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
-    cAudioPath = [cPath '/../audio'];
+    cAudioPath = [cPath '/../audio/'];
 
     % file path
     cName = 'sax_example.wav';
@@ -22,7 +23,7 @@ function plotNovelty (cLang, cSubPath)
     cLegend = 'Threshold';
 
     % read audio and generate plot data 
-    [tx,x,tv,v,td,d,tg,g,onsetidx] = getData ([cAudioPath,'/',cName]);
+    [tx,x,tv,v,td,d,tg,g,onsetidx] = getData ([cAudioPath, cName]);
 
     % plot
     subplot(211),

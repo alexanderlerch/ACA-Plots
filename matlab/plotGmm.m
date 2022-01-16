@@ -46,7 +46,7 @@ function plotGmm (cDatasetPath)
     end
     
     % seed for reproducibility
-    rng(2)
+    rng(42)
 
     % get Gaussian parameters for 2 mixtures
     [mu_speech, sigma_speech, dummy] = ToolGmm(v_speech,2);
@@ -139,7 +139,6 @@ function [v] = ExtractFeaturesFromFile(cFilePath)
 
     [x,fs]  = audioread(cFilePath);
     x       = x/max(abs(x));
-    [X,f,tf]= spectrogram(x, hann(2048,'periodic'),1024,2048,fs);
     
     feature = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs);
     v(1,1)    = mean(feature(1,:));

@@ -72,12 +72,11 @@ function [t,x,tw,f,X] = getData (cInputFilePath)
     iFFTLength = 4096;
     
     % read audio data
-    [x, fs] = audioread(cInputFilePath);
-    t       = linspace(0,length(x)/fs,length(x));
+    [x, f_s] = audioread(cInputFilePath);
+    t = linspace(0,length(x)/f_s,length(x));
 
     % compute spectrogram
-    [X,f,tw]= spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
-    X       = abs(X);
+    [X,f,tw] = ComputeSpectrogram(x, f_s, [], iFFTLength, iFFTLength/2);
 
     X       = 10*log10(abs((X(1:iFFTLength/16,:))));
     f       = f(1:iFFTLength/16,:);

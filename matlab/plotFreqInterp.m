@@ -10,7 +10,7 @@ function plotFreqInterp()
     cName = 'sax_example.wav';
 
     % read audio and generate plot data
-    [f,X,fi,Xi,Xiz] = getData ([cAudioPath,cName]);
+    [f,X,fi,Xi,Xiz] = getData ([cAudioPath, cName]);
  
     % label strings
     cXLabel = '$f / \mathrm{Hz}$';

@@ -1,7 +1,7 @@
 function plotDtwFeatures ()
 
     % check for dependency
-    if(exist('ComputeFeature') ~=2)
+    if(exist('ToolSimpleDtw') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
@@ -68,7 +68,7 @@ function [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cNam
     % extract features
     [vpc1, tv1] = ComputeFeature (deblank(cFeatureNames(1,:)), x1, fs, [], iBlockLength, iHopLength);
     [vrms1, trms] = ComputeFeature (deblank(cFeatureNames(2,:)), x1, fs, [], iBlockLength, iHopLength);
-    vrms1 = 10.^(vrms1*.05);
+    vrms1 = 10.^(vrms1 *.05);
     vrms1 = vrms1/max(max(vrms1));
     [vmfcc1, tmfcc] = ComputeFeature (deblank(cFeatureNames(3,:)), x1, fs, [], iBlockLength, iHopLength);
     vmfcc1 = 10.^(vmfcc1*.05);
@@ -76,7 +76,7 @@ function [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cNam
     
     [vpc2, tv2] = ComputeFeature (deblank(cFeatureNames(1,:)), x2, fs, [], iBlockLength, iHopLength);
     [vrms2, trms] = ComputeFeature (deblank(cFeatureNames(2,:)), x2, fs, [], iBlockLength, iHopLength);
-    vrms2 = 10.^(vrms2*.05);
+    vrms2 = 10.^(vrms2 *.05);
     vrms2 = vrms2/max(max(vrms2));
     [vmfcc2, tmfcc] = ComputeFeature (deblank(cFeatureNames(3,:)), x2, fs, [], iBlockLength, iHopLength);
     vmfcc2 = 10.^(vmfcc2*.05);

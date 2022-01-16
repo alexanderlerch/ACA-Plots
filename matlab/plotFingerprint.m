@@ -53,7 +53,7 @@ function plotFingerprint ()
     printFigure(hFigureHandle, cOutputPath)
 end
 
-function [F_orig,F_mp3,F_diff] = getData(cAudioPath, cName1, cName2)
+function [F_orig, F_mp3, F_diff] = getData(cAudioPath, cName1, cName2)
     
     % read audio data and compute fingerprint
     [x,fs]  = audioread([cAudioPath '/' cName1]);
@@ -66,8 +66,5 @@ function [F_orig,F_mp3,F_diff] = getData(cAudioPath, cName1, cName2)
     F_mp3 = F_mp3(:,1:256)';
 
     F_diff = abs(F_orig - F_mp3);
-    
-%     errors = sum(F_diff,2);
-%     hist(errors)
 end
 

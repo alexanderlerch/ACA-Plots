@@ -13,13 +13,13 @@ function plotOnset()
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
-    cAudioPath = [cPath '/../audio'];
+    cAudioPath = [cPath '/../audio/'];
 
     % file path
     cName = 'sax_example.wav';
 
     % read audio and get plot data
-    [t,x,td,d,iOnsetIdx,iAcOnsetIdx] = getData ([cAudioPath,'/',cName], [iStart iStart+iLength-1]);
+    [t,x,td,d,iOnsetIdx,iAcOnsetIdx] = getData ([cAudioPath, cName], [iStart iStart+iLength-1]);
  
     % plot
     plot(t,abs(x),'Color', [.6 .6 .6]);

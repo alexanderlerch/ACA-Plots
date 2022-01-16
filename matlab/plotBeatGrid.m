@@ -15,7 +15,7 @@ function plotBeatGrid()
     [x,t,to,tb,tdb] = getData ([cAudioPath,cAudioName], [cAudioPath,cAnnoBeatName] , [cAudioPath,cAnnoOnsetName]);
 
     % label string
-    cXLabel = 'time / s';
+    cXLabel = 't / s';
 
     % plot 
     subplot(3,1,1)

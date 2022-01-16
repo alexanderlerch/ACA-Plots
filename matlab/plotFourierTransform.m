@@ -9,16 +9,14 @@ function plotFourierTransform()
     % set output path relative to script location and to script name
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
-    cAudioPath = [cPath '/../audio'];
-
-    % file path
+    cAudioPath = [cPath '/../audio/'];
     cName = 'sax_example.wav';
     
     % label string
     cXLabel = '$f / \mathrm{kHz}$';
     
     % get plot data
-    [t,x,f,X] = getData([cPath '/../audio/sax_example.wav'], [iStart iStart+iLength-1]);
+    [t,x,f,X] = getData([cAudioPath, cName], [iStart iStart+iLength-1]);
     
     % plot
     subplot(221)
@@ -57,13 +55,13 @@ function [t,x,f,X]   = getData(cPath, iSamples)
     
     % read audio
     [x, fs] = audioread(cPath, iSamples);
-    t       = linspace(0,(iLength-1)/fs,iLength);
+    t = linspace(0,(iLength-1)/fs,iLength);
 
     % normalize
-    x       = x/max(abs(x));
+    x = x/max(abs(x));
 
     % compute FFT
-    iFftLength  = length(x);
-    f           = (0:(iFftLength/2))/iFftLength*fs/1000;
-    X           = fft(hann(iFftLength).*x)*2/iFftLength;
+    iFftLength = length(x);
+    f = (0:(iFftLength/2))/iFftLength*fs/1000;
+    X = fft(hann(iFftLength).*x)*2/iFftLength;
 end

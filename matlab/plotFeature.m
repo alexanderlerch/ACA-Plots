@@ -1,7 +1,7 @@
 function plotFeature ()
  
     % check for dependency
-    if(exist('ComputeFeature') ~=2)
+    if(exist('ComputeSpectrogram') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
@@ -133,20 +133,19 @@ function [t,x,tw,f,X,tv,v] = getData (cInputFilePath, cFeatureNames)
     iFFTLength = 4096;
     
     % read audio 
-    [x, fs] = audioread(cInputFilePath);
-    t       = linspace(0,length(x)/fs,length(x));
+    [x, f_s] = audioread(cInputFilePath);
+    t = linspace(0,length(x)/f_s,length(x));
 
     % compute spectrogram
-    [X,f,tw] = spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
-    X       = abs(X);
+    [X,f,tw] = ComputeSpectrogram(x, f_s, [], iFFTLength, iFFTLength/2);
 
-    X       = 10*log10(abs((X(1:iFFTLength/iReduction,:))));
-    f       = f(1:iFFTLength/iReduction,:);
+    X = 10*log10(abs((X(1:iFFTLength/iReduction,:))));
+    f = f(1:iFFTLength/iReduction);
 
     % extract features
     v = [];
     for (i=1:size(cFeatureNames,1))
-        [temp, tv]         = ComputeFeature (deblank(cFeatureNames(i,:)), x, fs);
+        [temp, tv] = ComputeFeature(deblank(cFeatureNames(i,:)), x, f_s);
         v = [v;temp];
     end
 end

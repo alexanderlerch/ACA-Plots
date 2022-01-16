@@ -88,9 +88,6 @@ function [v] = ExtractFeaturesFromFile(cFilePath)
     [x,fs]  = audioread(cFilePath);
     x       = x/max(abs(x));
     
-    % compute spectrogram
-    [X,f,tf]= spectrogram(x, hann(2048,'periodic'),1024,2048,fs);
-    
     % extract feature and aggregate
     feature = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs);
     v(1,1)    = mean(feature(1,:));

@@ -58,22 +58,21 @@ end
 function [tw,f,X, pclabel, vpc,vpcm] = getData (cInputFilePath)
 
     iFFTLength = 4096;
-    [x, fs] = audioread(cInputFilePath);
-    t       = linspace(0,length(x)/fs,length(x));
+    [x, f_s] = audioread(cInputFilePath);
+    t       = linspace(0,length(x)/f_s,length(x));
     x       = x/max(abs(x));
 
-    % fft
-    [X,f,tw] = spectrogram(x,hanning(iFFTLength),iFFTLength*.5,iFFTLength,fs);
-    X       = abs(X);
+    % compute spectrogram
+    [X,f,tw] = ComputeSpectrogram(x, f_s, [], iFFTLength, iFFTLength/2);
 
     % extract pitch chroma
-    [vpc, tv] = ComputeFeature (deblank('SpectralPitchChroma'), x, fs);
+    [vpc, tv] = ComputeFeature (deblank('SpectralPitchChroma'), x, f_s);
 
     % avg pitch chroma
     vpcm = mean(vpc,2);
 
     X       = 10*log10(abs((X(1:iFFTLength/16,:))));
-    f       = f(1:iFFTLength/16,:);
+    f       = f(1:iFFTLength/16);
 
     pclabel = 0:11;
 end

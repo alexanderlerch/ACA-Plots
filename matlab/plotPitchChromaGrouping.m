@@ -10,7 +10,7 @@ function plotPitchChromaGrouping()
     cName = 'sax_example.wav';
  
     % read audio and generate plot data
-    [px,X,pw,H,ptick] = getData ([cAudioPath,cName]);
+    [px,X,pw,H,ptick] = getData ([cAudioPath, cName]);
 
     % plot
     [AX,h1,h2] = plotyy(px,X,pw,H);

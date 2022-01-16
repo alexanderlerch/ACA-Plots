@@ -66,7 +66,7 @@ function [Acc, selectedFeatures,cFeatureLabels] = getData(cDatasetPath)
     C = [zeros(1,size(music_files,1)) ones(1,size(speech_files,1))];
 
     %select features
-    [Acc, selectedFeatures] =  ToolSeqFeatureSel(v, C);
+    [selectedFeatures, Acc] =  ToolSeqFeatureSel(v, C);
 end
 
 function [v,cFeatureLabels] = ExtractFeaturesFromFile(cFilePath)

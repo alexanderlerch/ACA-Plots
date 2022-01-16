@@ -1,7 +1,7 @@
 function plotMfccMelDct ()
  
     % check for dependency
-    if(exist('ComputeFeature') ~=2)
+    if(exist('ToolMel2Freq') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 

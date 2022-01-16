@@ -7,7 +7,7 @@ function plotLowPass ()
     [cPath, cName]  = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
-    % generate plor data
+    % generate plot data
     [f,HMA,HSP] = getData();
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

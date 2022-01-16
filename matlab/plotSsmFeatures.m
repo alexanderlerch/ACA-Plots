@@ -20,7 +20,6 @@ function plotSsmFeatures ()
     [tv, Dpc, Drms, Dmfcc, Dms, Dpcb, Drmsb, Dmfccb, Dmsb] = getData(cAudioPath, cName);
 
     % plot
-%     ax = subplot(241);
     ax = subplot(141);
     imagesc(tv,tv,nonlinearity(Dpc,2))
     c=colormap(ax,'jet');
@@ -29,66 +28,6 @@ function plotSsmFeatures ()
     set(gca,'XTickLabels', {})
     set(gca,'YTickLabels', {})
     xlabel('$t / \mathrm{s}$')    
-
-%     ax = subplot(242);
-    ax = subplot(142);
-    imagesc(tv,tv,nonlinearity(Drms,8))
-    c=colormap(ax,'jet');
-    colormap(ax,flipud(c));
-    set(gca,'XTickLabels', {})
-    set(gca,'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
-
-%     ax = subplot(243);
-    ax = subplot(143);
-    imagesc(tv,tv,nonlinearity(Dmfcc,2))
-    c=colormap(ax,'jet');
-    colormap(ax,flipud(c));
-    set(gca,'XTickLabels', {})
-    set(gca,'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
-
-%     ax = subplot(244);
-    ax = subplot(144);
-    imagesc(tv,tv,nonlinearity(Dms,4))
-    c=colormap(ax,'jet');
-    colormap(ax,flipud(c));
-    set(gca,'XTickLabels', {})
-    set(gca,'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
-
-%     ax = subplot(245);
-%     imagesc(tv,tv,Dpcb)
-%     c=colormap(ax,'gray');
-%     colormap(ax,flipud(c));
-%     xlabel('$t / \mathrm{s}$')
-%     ylabel('$t / \mathrm{s}$')
-%     set(gca,'XTickLabels', {})
-%     set(gca,'YTickLabels', {})
-% 
-%     ax = subplot(246);
-%     imagesc(tv,tv,Drmsb)
-%     c=colormap(ax,'gray');
-%     colormap(ax,flipud(c));
-%     xlabel('$t / \mathrm{s}$')
-%     set(gca,'XTickLabels', {})
-%     set(gca,'YTickLabels', {})
-% 
-%     ax = subplot(247);
-%     imagesc(tv,tv,Dmfccb)
-%     c=colormap(ax,'gray');
-%     colormap(ax,flipud(c));
-%     xlabel('$t / \mathrm{s}$')
-%     set(gca,'XTickLabels', {})
-%     set(gca,'YTickLabels', {})
-% 
-%     ax = subplot(248);
-%     imagesc(tv,tv,Dmsb)
-%     c=colormap(ax,'gray');
-%     colormap(ax,flipud(c));
-%     xlabel('$t / \mathrm{s}$')
-%     set(gca,'XTickLabels', {})
-%     set(gca,'YTickLabels', {})
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)

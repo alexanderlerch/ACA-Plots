@@ -1,7 +1,7 @@
 function plotDtwPath ()
 
     % check for dependency
-    if(exist('ComputeFeature') ~=2)
+    if(exist('ToolSimpleDtw') ~=2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 

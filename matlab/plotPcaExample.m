@@ -1,4 +1,4 @@
-function displayPcaExample()
+function plotPcaExample()
 
     % check for dependency
     if (exist('ComputeFeature') ~= 2)
@@ -15,7 +15,7 @@ function displayPcaExample()
     cName = 'sax_example.wav';
 
     % generate plot data
-    [v,score,latent,cFeatureNames] = getData([cAudioPath,cName]);
+    [v,score,latent,cFeatureNames] = getData([cAudioPath, cName]);
 
     % plot
     subplot(2,2,1)
@@ -25,9 +25,9 @@ function displayPcaExample()
     ylabel('$v(n)$')
     axis([1 size(v,2) min(min(v)) max(max(v))])
     
-    score = score(:,1:2);
+    score = score(1:2, :);
     subplot(222)
-    plot(score), 
+    plot(score'), 
     grid on
     xlabel('$n$')
     ylabel('$pc(n)$')
@@ -82,5 +82,5 @@ function [v,score, latent,cFeatureNames] = getData(cInputPath)
     end
     
     % pca
-    [coeff, score, latent] = ToolPca(v');
+    [score, loading, latent] = ToolPca(v);
 end

@@ -1,4 +1,4 @@
-function displayBlocking()
+function plotBlocking()
 
     % generate new figure
     hFigureHandle = generateFigure(13.12,6);
