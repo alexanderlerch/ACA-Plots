@@ -15,14 +15,14 @@ function plotSequentialForwardSelection(cDatasetPath)
     end
     
     % generate new figure
-    hFigureHandle = generateFigure(13.12,5);
+    hFigureHandle = generateFigure(13.12, 4);
     
     % set output path relative to script location and to script name
-    [cPath, cName]  = fileparts(mfilename('fullpath'));
+    [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
     % generate data
-    [Acc, selectedFeatures,cFeatureLabels] = getData(cDatasetPath);
+    [Acc, selectedFeatures, cFeatureLabels] = getData(cDatasetPath);
 
     % plot
     plot(Acc)
@@ -31,45 +31,45 @@ function plotSequentialForwardSelection(cDatasetPath)
     axis([1 length(selectedFeatures) 0.85 1.01])
     a = gca;
     a.Position(3) = 0.7;
-    cFeatureLabels = char('\textbf{Top 10 Features}',cFeatureLabels);
-    annotation('textbox',[0.84, 0.83, 0.1, 0.1],'String',cFeatureLabels([1 selectedFeatures(1:10)+1],:),'FontSize',6.5,'EdgeColor',[1 1 1],'FitBoxToText','on','Interpreter','latex');
+    cFeatureLabels = char('\textbf{Top 10 Features}', cFeatureLabels);
+    annotation('textbox', [0.84, 0.83, 0.1, 0.1], 'String', cFeatureLabels([1 selectedFeatures(1:10)+1], :), 'FontSize',6.5, 'EdgeColor', [1 1 1], 'FitBoxToText', 'on', 'Interpreter', 'latex');
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-function [Acc, selectedFeatures,cFeatureLabels] = getData(cDatasetPath)
+function [Acc, selectedFeatures, cFeatureLabels] = getData(cDatasetPath)
     
-    iNumFeatures    = 62;
+    iNumFeatures = 62;
     
     % read list of files
-    music_files     = dir([cDatasetPath 'music/*.au']);
-    speech_files    = dir([cDatasetPath 'speech/*.au']);
+    music_files = dir([cDatasetPath 'music/*.au']);
+    speech_files = dir([cDatasetPath 'speech/*.au']);
  
-    v_music         = zeros(iNumFeatures,size(music_files,1));
-    v_speech        = zeros(iNumFeatures,size(speech_files,1)); 
+    v_music = zeros(iNumFeatures,size(music_files, 1));
+    v_speech = zeros(iNumFeatures,size(speech_files, 1)); 
     
     % this may take a while...
-    for (i=1:size(music_files,1))
-        [v_music(:,i),cFeatureLabels]    = ExtractFeaturesFromFile([cDatasetPath 'music/' music_files(i).name]);
+    for i = 1:size(music_files, 1)
+        [v_music(:,i), cFeatureLabels] = ExtractFeaturesFromFile([cDatasetPath 'music/' music_files(i).name]);
     end
-    for (i=1:size(speech_files,1))
-        [v_speech(:,i),cFeatureLabels]   = ExtractFeaturesFromFile([cDatasetPath 'speech/' speech_files(i).name]);
+    for i = 1:size(speech_files, 1)
+        [v_speech(:,i), cFeatureLabels] = ExtractFeaturesFromFile([cDatasetPath 'speech/' speech_files(i).name]);
     end
 
     % normalize
-    v = [v_music,v_speech];
-    m = mean(v,2);
-    s = std(v,0,2);
+    v = [v_music, v_speech];
+    m = mean(v, 2);
+    s = std(v, 0, 2);
     
-    v = (v - repmat(m,1,size(music_files,1)+size(speech_files,1)))./repmat(s,1,size(music_files,1)+size(speech_files,1));
-    C = [zeros(1,size(music_files,1)) ones(1,size(speech_files,1))];
+    v = (v - repmat(m, 1,size(music_files, 1)+size(speech_files, 1))) ./ repmat(s, 1, size(music_files, 1)+size(speech_files, 1));
+    C = [zeros(1, size(music_files, 1)) ones(1,size(speech_files, 1))];
 
     %select features
     [selectedFeatures, Acc] =  ToolSeqFeatureSel(v, C);
 end
 
-function [v,cFeatureLabels] = ExtractFeaturesFromFile(cFilePath)
+function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath)
 
     cFeatureNames = char('SpectralCentroid',...
         'SpectralCrestFactor',...
@@ -107,31 +107,31 @@ function [v,cFeatureLabels] = ExtractFeaturesFromFile(cFilePath)
         'RMS',...
         'ZC');
 
-    cSubFeatureNames = char('$\mu_\mathrm{','$\sigma_\mathrm{');
+    cSubFeatureNames = char('$\mu_\mathrm{', '$\sigma_\mathrm{');
  
     % read audio
-    [x,fs]  = audioread(cFilePath);
+    [x, f_s] = audioread(cFilePath);
  
     % extract features
     cFeatureLabels = [];
     v = [];
-    for (i=1:size(cFeatureNames,1))
-        feature = ComputeFeature (deblank(cFeatureNames(i,:)), x, fs);
-        v       = [v;mean(feature,2); std(feature,0,2)];
-        if (size(feature,1) == 1)
+    for i = 1:size(cFeatureNames, 1)
+        feature = ComputeFeature(deblank(cFeatureNames(i, :)), x, f_s);
+        v = [v; mean(feature, 2); std(feature, 0, 2)];
+        if (size(feature, 1) == 1)
             cFeatureLabels = char(cFeatureLabels, ...
-                [deblank(cSubFeatureNames(1,:)) deblank(cFeatureAbbrev(i,:)) '}$'], ...
-                [deblank(cSubFeatureNames(2,:)) deblank(cFeatureAbbrev(i,:)) '}$']);
+                [deblank(cSubFeatureNames(1, :)) deblank(cFeatureAbbrev(i, :)) '}$'], ...
+                [deblank(cSubFeatureNames(2, :)) deblank(cFeatureAbbrev(i, :)) '}$']);
         else
-            for j = 1:size(feature,1)
+            for j = 1:size(feature, 1)
                 cFeatureLabels = char(cFeatureLabels, ...
-                    [deblank(cSubFeatureNames(1,:)) deblank(cFeatureAbbrev(i,:)) ',' num2str(j-1) '}$']);
+                    [deblank(cSubFeatureNames(1, :)) deblank(cFeatureAbbrev(i, :)) ', ' num2str(j-1) '}$']);
             end
-            for j = 1:size(feature,1)
+            for j = 1:size(feature, 1)
                 cFeatureLabels = char(cFeatureLabels, ...
-                    [deblank(cSubFeatureNames(2,:)) deblank(cFeatureAbbrev(i,:)) ',' num2str(j-1) '}$']);
+                    [deblank(cSubFeatureNames(2, :)) deblank(cFeatureAbbrev(i, :)) ', ' num2str(j-1) '}$']);
             end
         end
     end
-    cFeatureLabels = cFeatureLabels(2:end,:);
+    cFeatureLabels = cFeatureLabels(2:end, :);
 end

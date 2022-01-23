@@ -7,10 +7,10 @@ function printFigure(hFigureHandle, cOutputFilePath, inkscapepath)
     end
     
     % write svg
-    print(hFigureHandle, '-dsvg', strcat(cOutputFilePath,'.svg'));
+    print(hFigureHandle, '-painters', '-dsvg', strcat(cOutputFilePath, '.svg'));
     if exist(inkscapepath, 'file') == 2 
         % convert to pdf
-        [a,b] = system(sprintf('"%s" "%s.svg" --export-area-drawing --export-type=pdf --export-filename="%s.pdf"',inkscapepath,cOutputFilePath));
+        [a, b] = system(sprintf('"%s" "%s.svg" --export-area-drawing --export-type=pdf --export-filename="%s.pdf"', inkscapepath, cOutputFilePath));
     else
         warning('printFigure: svg to pdf conversion failed... Inkscape not found');
     end

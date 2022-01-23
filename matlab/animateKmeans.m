@@ -4,13 +4,13 @@ function animateKmeans()
     hFigureHandle = generateFigure(13.12,7);
     
     % set output path relative to script location and to script name
-    [cPath, cName]  = fileparts(mfilename('fullpath'));
+    [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputPath = [cPath '/../graph/animation/' strrep(cName, 'animate', '')];
 
-    %hFigureHandle   = generateFigure(7,6);
+    %hFigureHandle = generateFigure(7,6);
 
     % class 1 data
-    v              =  [.1 .5
+    v =  [.1 .5
                         .05 .6
                         .12 .8
                         .35 .3
@@ -22,27 +22,27 @@ function animateKmeans()
                         .55 .35
                         .52 .2]';
     numClusters = 3;
-	iFigIdx     = 0;
+	iFigIdx = 0;
     iMarkerSize = 8;
-    scatter(v(1,:),v(2,:), iMarkerSize*2,[0 0 0],'filled','o');
+    scatter(v(1, :),v(2, :), iMarkerSize*2, [0 0 0], 'filled', 'o');
     axis([0 1 0 1]);
-    set(gca,'XTickLabel',[],'YTickLabel',[]);
-    set(gca,'visible','off');
+    set(gca, 'XTickLabel', [], 'YTickLabel', []);
+    set(gca, 'visible', 'off');
     plotcolor = [.8 0 0];
-    printFigure(hFigureHandle, [cOutputPath '-' num2str(iFigIdx,'%.2d')]);iFigIdx = iFigIdx+1;
+    printFigure(hFigureHandle, [cOutputPath '-' num2str(iFigIdx, '%.2d')]);iFigIdx = iFigIdx+1;
     [clusterIdx,state] = ToolSimpleKmeans(v, numClusters, 1);
-    printFigure(hFigureHandle, [cOutputPath '-' num2str(iFigIdx,'%.2d')]);iFigIdx = iFigIdx+1;
+    printFigure(hFigureHandle, [cOutputPath '-' num2str(iFigIdx, '%.2d')]);iFigIdx = iFigIdx+1;
     for (i = 1:3)
-        scatter(v(1,:),v(2,:), iMarkerSize*2,[0 0 0],'filled','o');
-        axis([0 1 0 1]);set(gca,'visible','off');
-        set(gca,'XTickLabel',[],'YTickLabel',[]);
+        scatter(v(1, :),v(2, :), iMarkerSize*2, [0 0 0], 'filled', 'o');
+        axis([0 1 0 1]);set(gca, 'visible', 'off');
+        set(gca, 'XTickLabel', [], 'YTickLabel', []);
         hold on;
         for k=1:numClusters
-            scatter(state.m(1,k),state.m(2,k), iMarkerSize*8,circshift(plotcolor,[0 k-1]),'filled','s');
-            scatter(v(1,clusterIdx==k),v(2,clusterIdx==k), iMarkerSize*2,circshift(plotcolor,[0 k-1]),'filled','o');
+            scatter(state.m(1,k),state.m(2,k), iMarkerSize*8,circshift(plotcolor, [0 k-1]), 'filled', 's');
+            scatter(v(1,clusterIdx==k),v(2,clusterIdx==k), iMarkerSize*2,circshift(plotcolor, [0 k-1]), 'filled', 'o');
         end
         hold off;
         [clusterIdx,state] = ToolSimpleKmeans(v, numClusters, 1,state);
-        printFigure(hFigureHandle, [cOutputPath '-' num2str(iFigIdx,'%.2d')]);iFigIdx = iFigIdx+1;
+        printFigure(hFigureHandle, [cOutputPath '-' num2str(iFigIdx, '%.2d')]);iFigIdx = iFigIdx+1;
     end    
 end

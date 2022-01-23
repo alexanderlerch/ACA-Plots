@@ -1,17 +1,17 @@
 function plotTextureWindow()
 
     % check for dependency
-    if(exist('ComputeFeature') ~=2)
+    if(exist('ComputeFeature') ~= 2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12, 6);
     
     % set output path relative to script location and to script name
-    [cPath, cName]  = fileparts(mfilename('fullpath'));
-    cOutputPath     = [cPath '/../graph/' strrep(cName, 'plot', '')];
-    cAudioPath      = [cPath '/../audio'];
+    [cPath, cName] = fileparts(mfilename('fullpath'));
+    cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
+    cAudioPath = [cPath '/../audio'];
 
     % file name
     cFile = 'sax_example.wav';
@@ -20,56 +20,51 @@ function plotTextureWindow()
     cFeatureNames = char('SpectralCentroid');
     
     % read audio and get plot data
-    [t,x,tv,v,tv2,v2] = getData ([cAudioPath,'/',cFile], cFeatureNames);
+    [t, x, tv, v, tv2, v2] = getData ([cAudioPath, '/', cFile], cFeatureNames);
 
     % plot
     subplot(311)
-    plot(t,x)
-    xlabel('$t/\mathrm{s}$')
+    plot(t, x)
     ylabel('$x(t)$')
-    axis([t(1) t(end) -1 1]);
+    axis([t(1) tv2(end) -1 1]);
     
-    subplot(312)
-    plot(v)
-    xlabel('$n$')
-    ylabel('$v(n)$')
-    axis([0 length(v)-1 0 max(v)]);
-    
-    subplot(313)
-    curve1 = v2(1,:) + v2(2,:);
-    curve2 = v2(1,:) - v2(2,:);
-    x2 = [0:length(v2)-1, fliplr(0:length(v2)-1)];
+    subplot(3, 1, 2:3)
+    plot(tv, v, 'Color', [.5 .5 .5])
+    hold on;
+    curve1 = v2(1, :) + v2(2, :);
+    curve2 = v2(1, :) - v2(2, :);
+    x2 = [tv2, fliplr(tv2)];
     inBetween = [curve1, fliplr(curve2)];
     fill(x2, inBetween, [234/256 170/256 0], 'EdgeColor', [234/256 170/256 0], 'FaceAlpha', .5);
-    hold on;
-    plot(tv2,v2(1,:),'k')
+    plot(tv2, v2(1, :), 'k')
     hold off;
-    xlabel('$n_\mathrm{W}$')
-    legend('$\sigma_v(n_\mathrm{W})$','$\mu_v(n_\mathrm{W})$','location','northwest');
-    axis([0 length(v2)-1 0 8000]);
+    xlabel('$t$')
+    legend('$v_\mathrm{SC}$', '$\sigma_v$', '$\mu_v$', 'location', 'northwest');
+    axis([0 tv2(end) 0 8000]);
     
     % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
-function [t,x,tv,v,tv2,v2] = getData (cInputFilePath, cFeatureNames)
+function [t, x, tv, v, tv2, v2] = getData (cInputFilePath, cFeatureNames)
 
     iTextureWindowSize = 20;
-    iTextureWindowHop  = floor(iTextureWindowSize/2);
+    iTextureWindowHop = floor(iTextureWindowSize/4);
  
     % read audio
-    [x, fs] = audioread(cInputFilePath);
-    t       = linspace(0,length(x)/fs,length(x));
-    x       = x/max(abs(x));
+    [x, f_s] = audioread(cInputFilePath);
+    t = linspace(0,length(x)/f_s,length(x));
+    x = x / max(abs(x));
 
     % extract feature
-    [v,tv] = ComputeFeature (deblank(cFeatureNames(1,:)), x, fs);
+    [v, tv] = ComputeFeature (deblank(cFeatureNames(1, :)), x, f_s);
     
     % feature aggregation
-    v_pad  = [zeros(1,iTextureWindowHop) v zeros(1,iTextureWindowSize)];
-    for n = 1:floor(length(v)/iTextureWindowHop)-1
-        v2(1,n)  = mean(v_pad(1,(n-1)*iTextureWindowHop+1:(n-1)*iTextureWindowHop+iTextureWindowSize));
-        v2(2,n)  = std(v_pad(1,(n-1)*iTextureWindowHop+1:(n-1)*iTextureWindowHop+iTextureWindowSize));
+    v_pad = [zeros(1, iTextureWindowHop) v zeros(1, iTextureWindowSize)];
+    for n = 1:floor(length(v)/iTextureWindowHop)
+        v2(1, n) = mean(v_pad(1, (n-1)*iTextureWindowHop+1:(n-1)*iTextureWindowHop+iTextureWindowSize));
+        v2(2, n) = std(v_pad(1, (n-1)*iTextureWindowHop+1:(n-1)*iTextureWindowHop+iTextureWindowSize));
     end
-    tv2 = 0:length(v2)-1;
+    tv2 = tv(1:iTextureWindowHop:end);
+    tv2 = tv2(1:size(v2, 2));
 end

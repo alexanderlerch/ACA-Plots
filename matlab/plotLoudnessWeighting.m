@@ -1,25 +1,25 @@
 function plotLoudnessWeighting()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.2,6);
+    hFigureHandle = generateFigure(13.2, 4.5);
     
     % set output path relative to script location and to script name
-    [cPath, cName]  = fileparts(mfilename('fullpath'));
+    [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
     % generate plot data
-    [f, H, fLogFreq, fFletcherMunson,fPhon2Plot]  = getData();
+    [f, H, fLogFreq, fFletcherMunson,fPhon2Plot] = getData();
 
     % plot
     subplot(121)
-    semilogx(f,H)
-    legend ('BS.1770 MC','A Weighting','C Weighting','ITU-R BS.468','Location','SouthEast');
+    semilogx(f, H)
+    legend ('BS.1770 MC', 'A Weighting', 'C Weighting', 'ITU-R BS.468', 'Location', 'SouthEast');
     xlabel('$f/ \mathrm{Hz}$');
     ylabel('$|H(f)| / \mathrm{dB}$')
     axis([50 16000 -25 15])
 
     subplot(122)
-    semilogx(fLogFreq,fFletcherMunson,'Color','k')
+    semilogx(fLogFreq, fFletcherMunson, 'Color', 'k')
     axis([fLogFreq(1) fLogFreq(end) -10 120]);
 
     for (i = 1:length(fPhon2Plot))
@@ -33,23 +33,23 @@ function plotLoudnessWeighting()
 end
 
 function [f,H, fLogFreq, fLevelIntp, fPhon2Plot] = getData()
-    fs              = 48000;
+    fs = 48000;
 
     % bs 1770
-    shlvcoeff_fir   = [1.5351249 -2.6916962 1.1983929];
-    shlvcoeff_iir   = [1 -1.6906593 0.73248076];
-    hpcoeff_fir     = [1.0000000 -2 1.0000000];
-    hpcoeff_iir     = [1 -1.9900475 0.99007225];
+    shlvcoeff_fir = [1.5351249 -2.6916962 1.1983929];
+    shlvcoeff_iir = [1 -1.6906593 0.73248076];
+    hpcoeff_fir = [1.0000000 -2 1.0000000];
+    hpcoeff_iir = [1 -1.9900475 0.99007225];
 
-    [H_shlv, f]     = freqz (shlvcoeff_fir, shlvcoeff_iir, 10000, fs);
-    [H_hp, f]       = freqz (hpcoeff_fir, hpcoeff_iir, 10000, fs);
-    H(:,1)          = 20*log10(abs(H_hp));
-    H(:,2)          = 20*log10(abs(H_hp.*H_shlv));
+    [H_shlv, f] = freqz(shlvcoeff_fir, shlvcoeff_iir, 10000, fs);
+    [H_hp, f] = freqz(hpcoeff_fir, hpcoeff_iir, 10000, fs);
+    H(:, 1) = 20 * log10(abs(H_hp));
+    H(:, 2) = 20 * log10(abs(H_hp .* H_shlv));
 
     % a weighting
-    H(:,3)          = 2+20*log10(abs((12200^2*f.^4)./ ((f.^2 + 20.6^2).*(f.^2 + 12200^2).*sqrt((f.^2+107.7^2).*(f.^2+737.9^2)))));
+    H(:, 3) = 2 + 20 * log10(abs((12200^2 * f.^4) ./ ((f.^2 + 20.6^2) .* (f.^2 + 12200^2) .* sqrt((f.^2 + 107.7^2) .* (f.^2 + 737.9^2)))));
     % c weighting
-    H(:,4)          = .06+20*log10(abs((12200^2*f.^2)./ ((f.^2 + 20.6^2).*(f.^2 + 12200^2))));
+    H(:, 4) = .06 + 20 * log10(abs((12200^2 * f.^2) ./ ((f.^2 + 20.6^2) .* (f.^2 + 12200^2))));
 
     % ccir
     fccir = [31.5
@@ -95,12 +95,12 @@ function [f,H, fLogFreq, fLevelIntp, fPhon2Plot] = getData()
     -11.7
     -22.2
     -42.7];
-    H(:,5) = interp1(fccir,dbccir,f,'spline');
+    H(:, 5) = interp1(fccir, dbccir, f, 'spline');
 
-    H(:,6) = 0;
+    H(:, 6) = 0;
     
     % discard BS1770 and z
-    H = H(:,2:end-1);
+    H = H(:, 2:end-1);
 
     % tables from iso-226
     fFreq = [20 25 31.5 40 50 63 80 100 125 160 200 250 315 400 ...
@@ -122,12 +122,12 @@ function [f,H, fLogFreq, fLevelIntp, fPhon2Plot] = getData()
     fPhon2Plot = [0 20 40 60 80 90];
     
     fLevel = zeros(length(fPhon2Plot), length(fFreq));
-    fLogFreq = logspace(log10(min(fFreq)),log10(max(fFreq)),1000); 
+    fLogFreq = logspace(log10(min(fFreq)), log10(max(fFreq)), 1000); 
     fLevelIntp = zeros(length(fPhon2Plot), length(fLogFreq));
     
-    for (i = 1:length(fPhon2Plot))
-        A_f = 4.47e-3 *(10.^(0.025*fPhon2Plot(i))-1.15) + (0.4*10.^(0.1*(fAth+Lu-90))).^fAlpha;
-        fLevel(i,:) = 10./fAlpha.*log10(A_f)-Lu+94;
-        fLevelIntp(i,:) = interp1(fFreq,fLevel(i,:),fLogFreq,'PCHIP');
+    for i = 1:length(fPhon2Plot)
+        A_f = 4.47e-3 * (10.^(0.025*fPhon2Plot(i)) - 1.15) + (0.4 * 10.^(0.1*(fAth+Lu-90))).^fAlpha;
+        fLevel(i, :) = 10 ./ fAlpha .* log10(A_f) - Lu + 94;
+        fLevelIntp(i, :) = interp1(fFreq, fLevel(i, :), fLogFreq, 'PCHIP');
     end
 end

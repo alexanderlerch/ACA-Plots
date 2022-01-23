@@ -6,10 +6,10 @@ function plotArithmeticMean ()
     end
     
     % generate new figure
-    hFigureHandle = generateFigure(13.12,8);
+    hFigureHandle = generateFigure(13.12, 6);
     
     % set output path relative to script location and to script name
-    [cPath, cName]  = fileparts(mfilename('fullpath'));
+    [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
 
@@ -18,7 +18,7 @@ function plotArithmeticMean ()
     cFeatureName = char('SpectralCentroid');
 
     % read audio and generate plot data
-    [tv,v,mu_v,q_v] = getData ([cAudioPath,'/',cName], cFeatureName);
+    [tv,v,mu_v,q_v] = getData ([cAudioPath, '/',cName], cFeatureName);
 
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
@@ -27,41 +27,41 @@ function plotArithmeticMean ()
 
     % plot
     subplot(211), 
-    plot(tv,v),
+    plot(tv, v),
     axis([tv(1) tv(end) 0 max(v)])
     hold on;
-    line([tv(1) tv(end)],mu_v*ones(1,2),'LineWidth', 2,'Color',[234/256 170/256 0])
-    line([tv(1) tv(end)],q_v*ones(1,2),'LineWidth', 2,'Color',[0 0 1])
+    line([tv(1) tv(end)], mu_v * ones(1, 2), 'LineWidth', 2, 'Color', [234/256 170/256 0])
+    line([tv(1) tv(end)], q_v * ones(1, 2), 'LineWidth', 2, 'Color', [0 0 1])
     hold off;
     xlabel(cXLabel)
     ylabel(cYLabel1)
 
     subplot(212)
-    histogram(v,100,'Normalization','probability')
-    h = findobj(gca,'Type','patch');
+    histogram(v, 100, 'Normalization', 'probability', 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6])
+    h = findobj(gca, 'Type', 'patch');
     hold on;
-    h1 = line(mu_v*ones(1,2), [0 0.06],'LineWidth', 2.5,'Color',[234/256 170/256 0]);
-    h2 = line(q_v*ones(1,2), [0 0.06],'LineWidth', 2.5,'Color',[0 0 1]);
+    h1 = line(mu_v * ones(1, 2), [0 0.06], 'LineWidth', 2.5, 'Color', [234/256 170/256 0]);
+    h2 = line(q_v * ones(1, 2), [0 0.06], 'LineWidth', 2.5, 'Color', [0 0 1]);
     hold off;
-    cLegend1 =  sprintf('$\\mu_v =%2.1f$',mu_v);
-    cLegend2 = sprintf('$Q_v(0.5)=%2.1f$',q_v);
+    cLegend1 =  sprintf('$\\mu_v =%2.1f$', mu_v);
+    cLegend2 = sprintf('$Q_v(0.5)=%2.1f$', q_v);
     xlabel('$v_\mathrm{SC}$')
     ylabel(cYLabel2)
-    legend([h1 h2],cLegend1,cLegend2)
+    legend([h1 h2], cLegend1, cLegend2)
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
 % example function for data generation, substitute this with your code
-function [tv,v, mu_v,q_v] = getData (cInputFilePath, cFeatureName)
+function [tv, v, mu_v, q_v] = getData (cInputFilePath, cFeatureName)
 
     % read audio
-    [x, fs] = audioread(cInputFilePath);
-    x       = x/max(abs(x));
+    [x, f_s] = audioread(cInputFilePath);
+    x = x/max(abs(x));
 
     % extract feature
-    [v, tv] = ComputeFeature (cFeatureName, x, fs);
+    [v, tv] = ComputeFeature (cFeatureName, x, f_s);
 
     % avg feature
     mu_v = mean(v);

@@ -1,10 +1,15 @@
 function plotSpecgram  ()
 
+    % check for dependency
+    if(exist('ComputeSpectrogram') ~=2)
+        error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
+    end
+
     % generate new figure
     hFigureHandle = generateFigure(13.12,8);
     
     % set output path relative to script location and to script name
-    [cPath, cName]  = fileparts(mfilename('fullpath'));
+    [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
     cAudioPath = [cPath '/../audio'];
 
@@ -12,7 +17,7 @@ function plotSpecgram  ()
     cName = 'sax_example.wav';
 
     % read audio and get plot data
-    [t,x,tw,f,X] = getData ([cAudioPath,'/',cName]);
+    [t, x,tw,f,X] = getData ([cAudioPath, '/',cName]);
 
     % set the strings of the axis labels
     cXLabel = '$t / \mathrm{s}$';
@@ -21,24 +26,24 @@ function plotSpecgram  ()
 
     % plot 
     subplot(221), 
-    plot(t,x)
+    plot(t, x)
     ylabel(cYLabel1)
     axis([t(1) t(end) -max(abs(x)) max(abs(x))])
-    set(gca,'YTickLabel',{})
-    set(gca,'XTickLabel',{})
-    set(gca,'XTick',[0 5 10 15 20 25])
+    set(gca, 'YTickLabel',{})
+    set(gca, 'XTickLabel',{})
+    set(gca, 'XTick', [0 5 10 15 20 25])
 
     subplot(223), 
     imagesc(t,f/1000,X)
     axis xy;
-    set(gca,'XTick',[0 5 10 15 20 25])
+    set(gca, 'XTick', [0 5 10 15 20 25])
     xlabel(cXLabel)
     ylabel(cYLabel2)
 
     subplot(122), 
     mesh(tw,f/1000,X)
     view(29,63)
-    set(gca,'ZTickLabel',{})
+    set(gca, 'ZTickLabel',{})
     xlabel(cXLabel)
     ylabel(cYLabel2)
 
@@ -46,7 +51,7 @@ function plotSpecgram  ()
     printFigure(hFigureHandle, cOutputFilePath)
 end
 
-function [t,x,tw,f,X] = getData (cInputFilePath)
+function [t, x,tw,f,X] = getData (cInputFilePath)
 
     iFFTLength = 4096;
     
@@ -55,8 +60,8 @@ function [t,x,tw,f,X] = getData (cInputFilePath)
     t = linspace(0,length(x)/f_s,length(x));
 
     % compute spectrogram
-    [X,f,tw] = ComputeSpectrogram(x, f_s, [], iFFTLength, iFFTLength/2);
+    [X, f, tw] = ComputeSpectrogram(x, f_s, [], iFFTLength, iFFTLength/2);
 
-    X = 10*log10(abs((X(1:iFFTLength/16,:))));
+    X = 10*log10(abs((X(1:iFFTLength/16, :))));
     f = f(1:iFFTLength/16);
 end
