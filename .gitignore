@@ -2,3 +2,5 @@
 /graph/animation/*.svg
 /matlab/*.asv
 /audio/*.pk
+/doc/html
+/graph/animation
