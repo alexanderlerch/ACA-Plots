@@ -40,7 +40,6 @@ function plotBeatHistogram()
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
-
 end
 
 function [B,f] = getData (cAudio1, cAudio2)

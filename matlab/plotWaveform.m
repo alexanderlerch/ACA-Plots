@@ -51,7 +51,6 @@ function plotWaveform  ()
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)
-
 end
 
 function [t, x] = getData(cInputFilePath)

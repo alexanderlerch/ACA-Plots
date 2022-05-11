@@ -24,7 +24,7 @@ function plotSsmRotated ()
     % plot     
     subplot(121)
     imagesc(tv, tv, nonlinearity(Dv))
-    c=colormap('jet');
+    c=colormap('parula');
     colormap(flipud(c));
     ylabel('$t / \mathrm{s}$')
     xlabel(cXLabel)
@@ -36,12 +36,14 @@ function plotSsmRotated ()
     colormap(ax, flipud(c));
     hold on;
     for i = 2:length(partidx)
-        plot([1 1], [tannot(i, 1) tannot(i, 2)], 'color',color(partidx(i), :), 'linewidth', 3);
+        plot([1 1], [tannot(i, 1) tannot(i, 2)], 'color', color(partidx(i), :), 'linewidth', 3);
+        plot([1 1], [tannot(i, 1) tannot(i, 2)], 'color', .95*color(partidx(i), :), 'linewidth', .5);
         for k = 2:length(partidx)
             if (partidx(i) ~= partidx(k) || i>=k)
                 continue;
             end
             plot([tannot(k, 1)-tannot(i, 1) tannot(k, 1)-tannot(i, 1)], [tannot(i, 1) tannot(i, 2)], 'color', color(partidx(i), :), 'linewidth', 3);
+            plot([tannot(k, 1)-tannot(i, 1) tannot(k, 1)-tannot(i, 1)], [tannot(i, 1) tannot(i, 2)], 'color', .95*color(partidx(i), :), 'linewidth', .5);
         end
     end
     hold off;

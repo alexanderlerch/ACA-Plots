@@ -14,7 +14,7 @@ function plotResonanceFilterbank()
     plot(f/1000, H)
     axis([0 3.4 -40 0])
     xlabel('$f / \mathrm{kHz}$')
-    ylabel('$|H(f)|$ [dB]')
+    ylabel('$|H(f)|$ / dB')
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

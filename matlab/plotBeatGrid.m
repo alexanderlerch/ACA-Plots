@@ -27,9 +27,9 @@ function plotBeatGrid()
 
     subplot(3, 1, [2 3])
     hold on;
-    line([to to], [.66 1], 'Color', [0.6 0.6 0.6], 'LineWidth', 2)
-    line([tb tb], [.33 .66], 'Color', [0.3 0.3 0.3], 'LineWidth', 3)
-    line([tdb tdb], [0 .33], 'Color', [0 0 0], 'LineWidth', 4)
+    line([to to], [.66 1], 'Color', getAcaColor('lightgray', true), 'LineWidth', 2)
+    line([tb tb], [.33 .66], 'Color', getAcaColor('mediumgray'), 'LineWidth', 3)
+    line([tdb tdb], [0 .33], 'Color', getAcaColor('darkgray'), 'LineWidth', 4)
     hold off;
     xlabel(cXLabel);
     box on;

@@ -12,11 +12,9 @@ function plotOverfitting()
     [x, y, t, m1, m2] = getData(iNumObs);
 
     %plot
-    colorGtGold = [234, 170, 0]/256;
-    
     hold on;
-    plot(t, m1, 'Color', [.6 .6 .6])
-    plot(t, m2, '--', 'Color', colorGtGold)
+    plot(t, m1, 'Color', getAcaColor('lightgray'), 'LineWidth', 2)
+    plot(t, m2, '--', 'Color', getAcaColor('main'))
     plot(x, y, 'o', 'MarkerSize', 2, 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'k');
     hold off;
     

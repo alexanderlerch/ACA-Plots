@@ -19,7 +19,7 @@ function plotBlocking()
     plot(t, x)
     hold on;
     for n = 1:size(wb, 1)
-        plot(t(wb(n, :) ~= 0), wb(n, wb(n, :) ~= 0), 'Color', [234/256 170/256 0])
+        plot(t(wb(n, :) ~= 0), wb(n, wb(n, :) ~= 0), 'Color', getAcaColor('main'))
     end
     hold off;
     axis([t(1) t(end) -1.05 1.05])

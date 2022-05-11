@@ -30,18 +30,18 @@ function plotArithmeticMean ()
     plot(tv, v),
     axis([tv(1) tv(end) 0 max(v)])
     hold on;
-    line([tv(1) tv(end)], mu_v * ones(1, 2), 'LineWidth', 2, 'Color', [234/256 170/256 0])
-    line([tv(1) tv(end)], q_v * ones(1, 2), 'LineWidth', 2, 'Color', [0 0 1])
+    line([tv(1) tv(end)], mu_v * ones(1, 2), 'LineWidth', 2, 'Color', getAcaColor('main'))
+    line([tv(1) tv(end)], q_v * ones(1, 2), 'LineWidth', 2, 'Color', getAcaColor('gt'))
     hold off;
     xlabel(cXLabel)
     ylabel(cYLabel1)
 
     subplot(212)
-    histogram(v, 100, 'Normalization', 'probability', 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6])
+    histogram(v, 100, 'Normalization', 'probability', 'EdgeColor', getAcaColor('lightgray', true), 'FaceColor', getAcaColor('lightgray'))
     h = findobj(gca, 'Type', 'patch');
     hold on;
-    h1 = line(mu_v * ones(1, 2), [0 0.06], 'LineWidth', 2.5, 'Color', [234/256 170/256 0]);
-    h2 = line(q_v * ones(1, 2), [0 0.06], 'LineWidth', 2.5, 'Color', [0 0 1]);
+    h1 = line(mu_v * ones(1, 2), [0 0.06], 'LineWidth', 2, 'Color', getAcaColor('main'));
+    h2 = line(q_v * ones(1, 2), [0 0.06], 'LineWidth', 2, 'Color', getAcaColor('gt'));
     hold off;
     cLegend1 =  sprintf('$\\mu_v =%2.1f$', mu_v);
     cLegend2 = sprintf('$Q_v(0.5)=%2.1f$', q_v);

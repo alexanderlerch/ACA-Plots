@@ -60,27 +60,27 @@ function plotOverlap(X, fmax, f_s)
     hold on
     if (f_s*.5 < fmax)
         H = area(linspace(.5, fmax/f_s, fmax-.5*f_s), X(1, length(X)/2+.5*f_s+1:length(X)/2+fmax));
-        set(H, 'FaceColor', [.1 .1 .1]);
+        set(H, 'FaceColor', getAcaColor('darkgray'));
         H = area(linspace(-fmax/f_s, -.5, fmax-.5*f_s), fliplr(X(1,length(X)/2+.5*f_s+1:length(X)/2+fmax)));
-        set(H, 'FaceColor', [.1 .1 .1]);
+        set(H, 'FaceColor', getAcaColor('darkgray'));
 
         H = area(linspace(1.5, 1+fmax/f_s, fmax-.5*f_s), X(2,f_s+.5*f_s+1:f_s+fmax));
-        set(H, 'FaceColor', 'b');
+        set(H, 'FaceColor', getAcaColor('main'));
         H = area(linspace(1-fmax/f_s, .5, fmax-.5*f_s), X(2,f_s-fmax+1:f_s*0.5));
-        set(H, 'FaceColor', 'b');
+        set(H, 'FaceColor', getAcaColor('main'));
         H = area(linspace(-1-fmax/f_s, -1.5, fmax-.5*f_s), fliplr(X(2,f_s+.5*f_s+1:f_s+fmax)));
-        set(H, 'FaceColor', 'b');
+        set(H, 'FaceColor', getAcaColor('main'));
         H = area(linspace(-.5, -1+fmax/f_s, fmax-.5*f_s), fliplr(X(2,f_s-fmax+1:f_s*0.5)));
-        set(H, 'FaceColor', 'b');
+        set(H, 'FaceColor', getAcaColor('main'));
 
         H = area(linspace(2-fmax/f_s, 1.5, fmax-.5*f_s), X(3,length(X)/2+2*f_s-fmax+1:length(X)/2+1.5*f_s));
-        set(H, 'FaceColor', 'r');
+        set(H, 'FaceColor', getAcaColor('gt'));
         H = area(linspace(-1.5, -2+fmax/f_s, fmax-.5*f_s), X(2,f_s+.5*f_s+1:f_s+fmax));
-        set(H, 'FaceColor', 'r');
+        set(H, 'FaceColor', getAcaColor('gt'));
 
     end
-    plot((-length(X)/2+1:length(X)/2)/f_s, X(2, :), 'b');
-    plot((-length(X)/2+1:length(X)/2)/f_s, X(3, :), 'r');
+    plot((-length(X)/2+1:length(X)/2)/f_s, X(2, :), 'Color', getAcaColor('main'));
+    plot((-length(X)/2+1:length(X)/2)/f_s, X(3, :), 'Color', getAcaColor('gt'));
     set(gca, 'XTick', [-2 -1 -.5 0 .5 1 2]);
     set(gca, 'YTick', [0 .5 1]);
     axis([-2 2 0.1 1.1]);

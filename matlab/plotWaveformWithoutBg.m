@@ -18,7 +18,21 @@ function plotWaveformWithoutBg ()
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % plot data
-    plot(t, x, 'Color', [.8 .8 .8])
+    plot(t, x, 'Color', getAcaColor('lightgray'))
+
+
+    hold on;
+    iNumSteps = 64;
+    for i = 1:iNumSteps
+        thresh = i/iNumSteps;
+        if (thresh >= max(abs(x)))
+            break;
+        end
+        xenv = NaN*ones(size(x));
+        xenv(abs(x) > thresh) = x(abs(x) > thresh);
+        plot(t, xenv, 'Color', getAcaColor('lightgray')*(1-thresh))
+    end
+    hold off;
 
     axis([t(1) t(end) -1 1])
     set(gca, 'XTick', [])

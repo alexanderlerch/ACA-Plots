@@ -37,7 +37,7 @@ function plotPcaExample()
     plot(latent), 
     grid on
     hold on; 
-    plot(ones(1, size(v, 1)), 'Color', [.6 .6 .6]); 
+    plot(ones(1, size(v, 1)), 'Color', getAcaColor('mediumgray')); 
     hold off;
     xlabel('component')
     ylabel('eigenvalue');

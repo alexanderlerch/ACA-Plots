@@ -45,7 +45,7 @@ function plotF0Template ()
     ylabel('$|X(f)|$')
     
     subplot(11, 6, [1:11]*6)
-    line(f_0*ones(1, 2), [0 max(p_coeff)], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(f_0*ones(1, 2), [0 max(p_coeff)], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     hold on
     plot(f_c, p_coeff)
     hold off

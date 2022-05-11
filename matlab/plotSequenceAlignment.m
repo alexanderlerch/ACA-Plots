@@ -24,7 +24,7 @@ function plotSequenceAlignment ()
     seq1 = seq1-.4;
     seq2 = seq2+.4;
     for i = 1:3:length(p)
-        line([p(i, 2) p(i, 1)], [ seq1(p(i, 2)) seq2(p(i, 1))], 'LineWidth', .5, 'Color', [.5 .5 .5]);
+        line([p(i, 2) p(i, 1)], [ seq1(p(i, 2)) seq2(p(i, 1))], 'LineWidth', .5, 'Color', getAcaColor('mediumgray'));
     end
     hold on,
     plot(seq1)

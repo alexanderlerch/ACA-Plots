@@ -20,8 +20,8 @@ function plotChordTemplates()
     set(gca, 'XTick', [1 2 3 4 5 6 7 8 9 10 11 12])
     set(gca, 'XTickLabel', {'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'})
     set(gca, 'YTick', [1 3 5 6 8 10 12 13 15 17 18 20 22 24])
-    set(gca, 'YTickLabel', {'C Maj.', 'D Maj.', 'E Maj.', 'F Maj.', 'G Maj.', 'A Maj.', 'B Maj.', 'c min.', 'd min.', 'e min.', 'f min.', 'g min.', 'a min.', 'b min.'})
-    colormap([1 1 1; 0 0 0]); 
+    set(gca, 'YTickLabel', {'C Maj', 'D Maj', 'E Maj', 'F Maj', 'G Maj', 'A Maj', 'B Maj', 'c min', 'd min', 'e min', 'f min', 'g min', 'a min', 'b min'})
+    colormap([1 1 1; getAcaColor('darkgray')]); 
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

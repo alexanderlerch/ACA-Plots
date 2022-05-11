@@ -49,27 +49,27 @@ function plotFeaturespace (cDatasetPath)
     % plot
     iMarkerSize = 8;
     subplot(5, 5, [6:9, 11:14, 16:19, 21:24])
-    scatter(v_music(1, :), v_music(2, :), iMarkerSize, [.4 .4 .4], 'filled', 'o', 'MarkerEdgeColor', [.3 .3 .3]);
+    scatter(v_music(1, :), v_music(2, :), iMarkerSize, getAcaColor('darkgray'), 'filled', 'o', 'MarkerEdgeColor', getAcaColor('darkgray', true));
     box on
     xlabel('$\mu_\mathrm{SC}$')
     ylabel('$\sigma_\mathrm{RMS}$')
     set(gca, 'XTickLabel', [], 'YTickLabel', []);
     hold on;
-    scatter(v_speech(1, :),v_speech(2, :), iMarkerSize, [234/256 170/256 0], 'filled', 'd', 'MarkerEdgeColor', [200/256 150/256 0]);
+    scatter(v_speech(1, :),v_speech(2, :), iMarkerSize, getAcaColor('main'), 'filled', 'd', 'MarkerEdgeColor', getAcaColor('main', true));
     legend(cMusic, cSpeech, 'Location', 'NorthWest')
 
     subplot(5, 5, 1:4)
-    histogram(v_music(1, :), hist_axis, 'EdgeColor', [.3 .3 .3], 'FaceColor', [.4 .4 .4])
+    histogram(v_music(1, :), hist_axis, 'FaceColor', getAcaColor('darkgray'), 'EdgeColor', getAcaColor('darkgray', true))
     hold on;
-    histogram(v_speech(1, :), hist_axis, 'EdgeColor', [200/256 150/256 0])
+    histogram(v_speech(1, :), hist_axis, 'EdgeColor', getAcaColor('main', true))
     axis([0 1 0 11])
     set(gca, 'YTickLabel', {})
     set(gca, 'XTickLabel', {})
 
     subplot(5,5, [10, 15, 20, 25])
-    histogram(v_music(2, :), hist_axis, 'EdgeColor', [.3 .3 .3], 'FaceColor', [.4 .4 .4])
+    histogram(v_music(2, :), hist_axis, 'FaceColor', getAcaColor('darkgray'), 'EdgeColor', getAcaColor('darkgray', true))
     hold on;
-    histogram(v_speech(2, :), hist_axis, 'EdgeColor', [200/256 150/256 0])
+    histogram(v_speech(2, :), hist_axis, 'EdgeColor', getAcaColor('main', true))
     view([-270 -90])
     axis([0 1 0 24])
     set(gca, 'YTickLabel', {})

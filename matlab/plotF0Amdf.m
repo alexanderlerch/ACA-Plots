@@ -27,7 +27,7 @@ function plotF0Amdf ()
     ylabel(cYLabel1)
 
     subplot(223)
-    line(T_0*ones(1, 2), [-1 1], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(T_0*ones(1, 2), [-1 1], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     axis([eta(1) eta(end) -1 1])
     hold on;
     plot(eta, amdf, 'LineWidth', .5),
@@ -51,7 +51,7 @@ function plotF0Amdf ()
     ylabel(cYLabel1)
 
     subplot(224)
-    line(T_0A*ones(1, 2), [-1 max(ra)], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(T_0A*ones(1, 2), [-1 max(ra)], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     axis([eta(1) eta(end) -1 max(ra)])
     hold on;
     plot(eta, ra, 'LineWidth', .5),

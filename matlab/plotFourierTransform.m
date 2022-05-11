@@ -25,7 +25,7 @@ function plotFourierTransform()
     ylabel('$x(t)$');
     axis([t(1) t(end) -1 1]), grid on
     set(gca, 'XTick', 0:.01:t(end))
-    set(gca, 'XTicklabel', '')
+    %set(gca, 'XTicklabel', '')
     
     subplot(222)
     plot(f, 20*log10(abs(X(1:length(X)/2+1))), 'LineWidth', .1)

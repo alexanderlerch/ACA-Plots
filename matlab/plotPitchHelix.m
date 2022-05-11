@@ -10,7 +10,7 @@ function plotPitchHelix()
     % read sample data
     [x, y, z] = getData();
 
-    plot3(x, y, zeros(size(x)), 'Color', [234/256 170/256 0]);
+    plot3(x, y, zeros(size(x)), 'Color', getAcaColor('main'));
     hold on;
     plot3(x, y, z, 'k')
     %view(-38, 32);
@@ -22,15 +22,16 @@ function plotPitchHelix()
     set(gca, 'ZTick', [1 2 4 8 16])
     
     vec = (find(x - 1 > -1e-5));
-    plot3(x(vec), y(vec), z(vec), 'o', 'MarkerEdgeColor', 'k',...
-                'MarkerFaceColor', 'k',...
+    plot3(x(vec), y(vec), z(vec), 'o', 'MarkerEdgeColor', getAcaColor('darkgray', true),...
+                'MarkerFaceColor',getAcaColor('darkgray'),...
                 'MarkerSize', 5)
     
  
     cPitchNames = char('C', 'C\#', 'D', 'D\#', 'E', 'F', 'F\#', 'G', 'G\#', 'A', 'A\#', 'B');
     for k = 1:12
         phase = -j * (k-1) * 2*pi / 12;
-        text(real(.7*exp(phase)), imag(.8*exp(phase)), deblank(cPitchNames(k, :)), 'Color', [234/256 170/256 0]);
+        text(real(.7*exp(phase)), imag(.8*exp(phase)), deblank(cPitchNames(k, :)), 'Color', getAcaColor('main', true));
+        %text(1.2*real(exp(phase)), 1.2*imag(exp(phase)), deblank(cPitchNames(k, :)), 'Color', getAcaColor('main', true));
     end
     hold off;
 

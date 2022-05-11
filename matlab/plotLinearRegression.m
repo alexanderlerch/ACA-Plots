@@ -28,9 +28,9 @@ function plotLinearRegression  ()
     iMarkerSize = 8;
     
     subplot(121)
-    scatter(v(2, :), v(3, :), iMarkerSize), 
+    scatter(v(2, :), v(3, :), iMarkerSize, getAcaColor('darkgray')), 
     hold on
-    plot(v(2, :), m23*v(2, :)+b23)
+    plot(v(2, :), m23*v(2, :)+b23, 'Color', getAcaColor('main'))
     hold off
     xlabel(cXLabel)
     ylabel(cYLabel1)
@@ -42,9 +42,9 @@ function plotLinearRegression  ()
     box on;
 
     subplot(122)
-    scatter(v(2, :), v(1, :), iMarkerSize), 
+    scatter(v(2, :), v(1, :), iMarkerSize, getAcaColor('darkgray')), 
     hold on
-    plot(v(2, :), m21*v(2, :)+b21)
+    plot(v(2, :), m21*v(2, :)+b21, 'Color', getAcaColor('main'))
     hold off
     xlabel(cXLabel)
     ylabel(cYLabel2)

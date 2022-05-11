@@ -25,8 +25,8 @@ function plotNovelty ()
     % plot
     subplot(211),
     hold on;
-    plot(tx, abs(x), 'Color', .6*[1 1 1]);
-    plot(tv, v, 'Color', .2*[1 1 1]);
+    plot(tx, abs(x), 'Color', getAcaColor('lightgray'));
+    plot(tv, v, 'Color', getAcaColor('darkgray'));
     hold off;
     set(gca, 'YTickLabel', [])
     ylabel(cYLabel)
@@ -36,8 +36,8 @@ function plotNovelty ()
     subplot(212),
     plot(td, d)
     hold on;
-    plot(tg, g(1, :), '-.', 'Color', 0.4*[1 1 1], 'Linewidth', .5)
-    stem(td(onsetidx), d(onsetidx), 'fill', 'MarkerEdgeColor', [200/256 150/256 0], 'MarkerFaceColor', [234/256 170/256 0], 'Color', [234/256 170/256 0]);
+    plot(tg, g(1, :), '-.', 'Color', getAcaColor('gt'), 'Linewidth', .5)
+    stem(td(onsetidx), d(onsetidx), 'fill', 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'Color', getAcaColor('main'));
     hold off;
     xlabel('$t / \mathrm{s}$')
     legend('Novelty', cLegend, 'Onsets')

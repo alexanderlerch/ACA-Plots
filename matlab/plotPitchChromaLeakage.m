@@ -18,14 +18,14 @@ function plotPitchChromaLeakage()
 
     % plot
     subplot(211),
-    stem(x, y, 'k', 'fill')
+    stem(x, y, 'filled', 'MarkerFaceColor', getAcaColor('darkgray'), 'MarkerEdgeColor', getAcaColor('darkgray', true))
     grid on
     axis([200 x(end) 0 1])
     ylabel(cYLabel1);
     xlabel(cXLabel1);
     
     subplot(212)
-    bar(pc, 1, 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6])
+    bar(pc, 1, 'FaceColor', getAcaColor('darkgray'), 'EdgeColor', getAcaColor('darkgray', true))
     xlabel(cXLabel2);
     ylabel(cYLabel2);
     axis([.5 12.5 0 1])

@@ -34,7 +34,7 @@ function plotPitchChroma  ()
     subplot(2, 10, 11:19)
     imagesc(t, pclabel, pc)
     axis xy;
-    set(gca, 'YDir', 'normal', 'YTick', [0 2 4 6 8 10], 'YTickLabel', {'C', 'D', 'E', 'F\#', 'G\#', 'A\#'})
+    set(gca, 'YDir', 'normal', 'YTick', [0 2 4 7 9 11], 'YTickLabel', {'C', 'D', 'E', 'G', 'A', 'B'})
     xlabel(cXLabel)
     ylabel(cYLabel2)
 
@@ -43,13 +43,13 @@ function plotPitchChroma  ()
     set(gca, 'Position', [p(1) p(2)+0.05 p(3) p(4)]);
     
     subplot(2, 10, 20)
-    bar(pclabel, pcm, 1, 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6])
+    bar(pclabel, pcm, 1, 'FaceColor', getAcaColor('darkgray'), 'EdgeColor', getAcaColor('darkgray', true))
     view(90, -90)
     set(gca, 'YTickLabel', {})
     set(gca, 'XTickLabel', {})
     axis([ -.5 11.5 0 1.1*max(pcm)])
 
-    % fix label that is weirdly outside of plot
+    % fix positioning
     p = get(gca, 'Position');
     set(gca, 'Position', [p(1) p(2)+0.05 p(3) p(4)]);
 

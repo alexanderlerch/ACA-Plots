@@ -12,9 +12,9 @@ function plotDataSplit()
 
     % plot
     p = pie(x, [0 1 1], labels);
-    colormap([0.6       0.6     0.6
-             234/256    170/256 0
-             1          1       1]);
+    colormap([getAcaColor('lightgray')
+             getAcaColor('gt')
+             getAcaColor('main')]);
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
@@ -23,6 +23,6 @@ end
 function [x, labels] = getData ()
 
     x = [.75 .1 .15];
-    labels = {'Train', 'Validation', 'Test'};
+    labels = {'train', 'validation', 'test'};
 end
 

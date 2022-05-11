@@ -86,43 +86,45 @@ function plotGmm (cDatasetPath)
     % plot
     iMarkerSize = 8;
     ax=subplot(10, 5, [11:14, 16:19, 21:24, 26:29]);
-    scatter(v_music(1, :), v_music(2, :), iMarkerSize, [.4 .4 .4], 'filled', 'o', 'MarkerEdgeColor', [.3 .3 .3]);
+    scatter(v_music(1, :), v_music(2, :), iMarkerSize, getAcaColor('darkgray'), 'filled', 'o', 'MarkerEdgeColor', getAcaColor('darkgray', true));
     box on
     xlabel(cXLabel)
     ylabel(cYLabel)
     set(gca, 'XTickLabel', [], 'YTickLabel', []);
     hold on;
-    scatter(v_speech(1, :), v_speech(2, :), iMarkerSize, [234/256 170/256 0], 'filled', 'd', 'MarkerEdgeColor', [200/256 150/256 0]);
+    scatter(v_speech(1, :), v_speech(2, :), iMarkerSize, getAcaColor('main'), 'filled', 'd', 'MarkerEdgeColor', getAcaColor('main', true));
     
     c = colormap(gray);
     c = flipud(c(round(size(c, 1)/2):end-1, :));
     colormap(ax, c)
     contour(tick, tick, Gmm2d_speech)
     contour(tick, tick, Gmm2d_music)
+    scatter(v_music(1, :), v_music(2, :), iMarkerSize, getAcaColor('darkgray'), 'filled', 'o', 'MarkerEdgeColor', getAcaColor('darkgray', true));
+    scatter(v_speech(1, :), v_speech(2, :), iMarkerSize, getAcaColor('main'), 'filled', 'd', 'MarkerEdgeColor', getAcaColor('main', true));
     hold off;
     legend(cMusic, cSpeech, 'Location', 'NorthWest')
 
     subplot(10, 5, [1:4, 6:9])
-    plot(Gmm1d_music(:, 1), 'Color', [.4 .4 .4])
+    plot(Gmm1d_music(:, 1), 'Color', getAcaColor('darkgray'))
     hold on;
-    plot(Gmm1d_speech(:, 1), 'Color', [234/256 170/256 0])
+    plot(Gmm1d_speech(:, 1), 'Color', getAcaColor('main'))
     hold off;
     set(gca, 'YTickLabel', {})
     set(gca, 'XTickLabel', {})
 
     subplot(10, 5, [15, 20, 25, 30])
-    plot(Gmm1d_music(:, 2), 'Color', [.4 .4 .4])
+    plot(Gmm1d_music(:, 2), 'Color', getAcaColor('darkgray'))
     hold on;
-    plot(Gmm1d_speech(:, 2), 'Color', [234/256 170/256 0])
+    plot(Gmm1d_speech(:, 2), 'Color', getAcaColor('main'))
     hold off;
     view([-270 -90])
     set(gca, 'YTickLabel', {})
     set(gca, 'XTickLabel', {})
 
     ax = subplot(10,5,31:50);
-    mesh(Gmm2d_speech, 'FaceColor', 'none', 'FaceAlpha', 0.9, 'EdgeColor', [234/256 170/256 0])
+    mesh(Gmm2d_speech, 'FaceColor', 'none', 'FaceAlpha', 0.9, 'EdgeColor', getAcaColor('main'))
     hold on; 
-    mesh(Gmm2d_music, 'FaceColor', 'none', 'FaceAlpha', 0.9, 'EdgeColor', [.4 .4 .4])
+    mesh(Gmm2d_music, 'FaceColor', 'none', 'FaceAlpha', 0.9, 'EdgeColor', getAcaColor('darkgray', true))
     hold off;
     view([-77 24])
     set(gca, 'YTickLabel', {})

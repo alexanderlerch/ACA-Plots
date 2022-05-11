@@ -35,10 +35,10 @@ function plotPca()
     hold on;
     p_1 = linspace(-4, 4, 100);
     p_2 = -p_1;
-    plot(p_1, p_1, 'Color', [234/256 170/256 0]);
-    plot(p_1, p_2, 'Color', [234/256 170/256 0]);
-    text (3.3, 3, '$p_1$', 'Color', [234/256 170/256 0]);
-    text (-3, 3.3, '$p_2$', 'Color', [234/256 170/256 0]);
+    plot(p_1, p_1, 'Color',getAcaColor('main'));
+    plot(p_1, p_2, 'Color',getAcaColor('main'));
+    text (3.3, 3, '$p_1$', 'Color',getAcaColor('main'));
+    text (-3, 3.3, '$p_2$', 'Color',getAcaColor('main'));
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

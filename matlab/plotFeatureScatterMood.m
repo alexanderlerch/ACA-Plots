@@ -28,6 +28,8 @@ function plotFeatureScatter(cDatasetPath)
     % plot
     subplot(121)
     scatter(v(1, :), v(2, :), iMarkerSize, valen(:, 1), 'filled', 'o')
+    set(gca, 'XScale', 'log');
+    set(gca, 'YScale', 'log');
     ylabel('$\sigma_\mathrm{RMS}$')
     xlabel('$\sigma_\mathrm{SC}$')
     set(gca, 'XTickLabel', [], 'YTickLabel', []);
@@ -38,6 +40,8 @@ function plotFeatureScatter(cDatasetPath)
 
     subplot(122)
     scatter(v(1, :), v(2, :), iMarkerSize, valen(:, 2), 'filled', 'o')
+    set(gca, 'XScale', 'log');
+    set(gca, 'YScale', 'log');
     c = colorbar;
     c.Label.String = 'energy';
     ylabel('$\sigma_\mathrm{RMS}$')

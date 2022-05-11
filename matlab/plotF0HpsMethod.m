@@ -35,22 +35,22 @@ function plotF0HpsMethod()
     xlabel('$f / \mathrm{Hz}$')
     
     % create arrow
-    annotation(hFigureHandle, 'arrow', [0.26 0.2], [0.9 0.69], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'arrow', [0.26 0.2], [0.9 0.69], 'Color', getAcaColor('main', true));
 
     % create arrow
-    annotation(hFigureHandle, 'arrow', [0.515 0.33], [0.87 0.68], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'arrow', [0.515 0.33], [0.87 0.68], 'Color', getAcaColor('main', true));
 
     % create arrow
-    annotation(hFigureHandle, 'arrow', [0.39 0.27], [0.89 0.69], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'arrow', [0.39 0.27], [0.89 0.69], 'Color', getAcaColor('main', true));
 
     % create arrow
-    annotation(hFigureHandle, 'arrow', [0.26 0.17], [0.9 0.48], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'arrow', [0.26 0.17], [0.9 0.48], 'Color', getAcaColor('main', true));
 
     % create arrow
-    annotation(hFigureHandle, 'arrow', [0.39 0.22], [0.89 0.45], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'arrow', [0.39 0.22], [0.89 0.45], 'Color', getAcaColor('main', true));
 
     % create arrow
-    annotation(hFigureHandle, 'arrow', [0.515 0.26], [0.87 0.45], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'arrow', [0.515 0.26], [0.87 0.45], 'Color', getAcaColor('main', true));
 
     % create line
     annotation(hFigureHandle, 'line', [0.26 0.26],...

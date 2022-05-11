@@ -20,12 +20,12 @@ function plotF0Cepstrum()
     axis([f(1) f(round(end/4)) -100 0])
     
     subplot(212)
-    line(T0*ones(1, 2), [-.5 1.5], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(T0*ones(1, 2), [-.5 1.5], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     xlabel('Quefrency / samples')
     ylabel('$\hat{c}_x(i)$')
     axis([q(1) q(end/2) -.5 1.5])
     hold on;
-    plot(q, C)
+    plot(q, C, 'LineWidth', .5)
     hold off;
     box on;
     xtick = get(gca, 'XTick');

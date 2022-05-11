@@ -17,14 +17,24 @@ function plotMelBark()
 
     % plot
     subplot(121)
-    semilogx(f/1000, fMel)
+    hold on
+    plot(f/1000, fMel(1, :), ':', 'Color', getAcaColor('main'))
+    plot(f/1000, fMel(2, :), '-.', 'Color', getAcaColor('darkgray'))
+    plot(f/1000, fMel(3, :), 'Color', getAcaColor('lightgray', true))
+    set(gca, 'XScale', 'log')
+    hold off
     legend (cLegendMel, 'Location', 'NorthWest');
     xlabel('$f/ \mathrm{kHz}$')
     ylabel('Mel')
     axis([f(1)/1000 f(end)/1000 0 4000])
 
     subplot(122)
-    semilogx(f/1000, fBark)
+    hold on
+    plot(f/1000, fBark(1, :), ':', 'Color', getAcaColor('main'))
+    plot(f/1000, fBark(2, :), '-.', 'Color', getAcaColor('darkgray'))
+    plot(f/1000, fBark(3, :), 'Color', getAcaColor('lightgray', true))
+    set(gca, 'XScale', 'log')
+    hold off
     legend (cLegendBark, 'Location', 'NorthWest');
     xlabel('$f/ \mathrm{kHz}$')
     ylabel('Bark')

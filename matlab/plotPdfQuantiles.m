@@ -10,8 +10,8 @@ function plotPdfQuantiles()
     % generate sample data
     [x1, normal, x2, chi2, qp,qidx] = getData();
 
-    cColorStart = [ 0.2 0.2 0.2];
-    cColorStop = [234/256 170/256 0];
+    cColorStart = getAcaColor('darkgray');
+    cColorStop = getAcaColor('lightmain');
     fColors = linspace(0, 1, length(qp)+1);
     color = zeros(length(qp)+1, 3);
     for i = 1:length(qp)+1
@@ -29,7 +29,7 @@ function plotPdfQuantiles()
         h = area(x1(x_fill:qidx(1, i)),normal(x_fill:qidx(1, i)), 'LineStyle', 'none');
         x_fill = qidx(1, i);
         h(1).FaceColor = color(i, :);
-        line([x1(qidx(1, i)) x1(qidx(1, i))], [0 y_annot(mod(i+1, 2)+1)], 'Color', [.3 .3 .3], 'LineWidth', .5);
+        line([x1(qidx(1, i)) x1(qidx(1, i))], [0 y_annot(mod(i+1, 2)+1)], 'Color', getAcaColor('darkgray'), 'LineWidth', .5);
         text(x1(qidx(1, i))-.5, y_annot(mod(i+1, 2)+1), ['$Q_x(' num2str(qp(i), 2) ')=' num2str(x1(qidx(1, i)), 2) '$'], 'Color', color(i, :), 'FontSize',6);
     end
     h = area(x1(x_fill:length(normal)),normal(x_fill:length(normal)), 'LineStyle', 'none');
@@ -47,7 +47,7 @@ function plotPdfQuantiles()
         h = area(x2(x_fill:qidx(2, i)), chi2(x_fill:qidx(2, i)), 'LineStyle', 'none');
         x_fill = qidx(2, i);
         h(1).FaceColor = color(i, :);
-        line([x2(qidx(2, i)) x2(qidx(2, i))], [0 y_annot(mod(i+1, 2)+1)], 'Color', [.3 .3 .3], 'LineWidth', .5);
+        line([x2(qidx(2, i)) x2(qidx(2, i))], [0 y_annot(mod(i+1, 2)+1)], 'Color', getAcaColor('darkgray'), 'LineWidth', .5);
         text(x2(qidx(2, i))-1.5, y_annot(mod(i+1, 2)+1), ['$Q_x(' num2str(qp(i), 2) ')=' num2str(x2(qidx(2, i)), 2) '$'], 'Color', color(i, :), 'FontSize', 6);
     end
     h = area(x2(x_fill:length(chi2)), chi2(x_fill:length(chi2)), 'LineStyle', 'none');

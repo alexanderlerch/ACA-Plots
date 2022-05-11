@@ -29,14 +29,14 @@ function plotTextureWindow()
     axis([t(1) tv2(end) -1 1]);
     
     subplot(3, 1, 2:3)
-    plot(tv, v, 'Color', [.5 .5 .5])
+    plot(tv, v, 'Color', getAcaColor('darkgray'), 'LineWidth', 0.5)
     hold on;
     curve1 = v2(1, :) + v2(2, :);
     curve2 = v2(1, :) - v2(2, :);
     x2 = [tv2, fliplr(tv2)];
     inBetween = [curve1, fliplr(curve2)];
-    fill(x2, inBetween, [234/256 170/256 0], 'EdgeColor', [234/256 170/256 0], 'FaceAlpha', .5);
-    plot(tv2, v2(1, :), 'k')
+    fill(x2, inBetween, getAcaColor('main'), 'EdgeColor', getAcaColor('main', true), 'FaceAlpha', .5);
+    plot(tv2, v2(1, :), 'k', 'LineWidth', 2)
     hold off;
     xlabel('$t$')
     legend('$v_\mathrm{SC}$', '$\sigma_v$', '$\mu_v$', 'location', 'northwest');

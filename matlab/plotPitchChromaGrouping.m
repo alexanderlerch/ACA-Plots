@@ -13,19 +13,19 @@ function plotPitchChromaGrouping()
     [px, X, pw, H, ptick] = getData([cAudioPath, cName]);
 
     % plot
-    [AX, h1, h2] = plotyy(px, X, pw, H);
-    axis(AX(1), [ptick(1) ptick(end) 0.01 1.02])
-    axis(AX(2), [ptick(1) ptick(end) 0.01 1.02])
-
-    set(AX(2), 'YTick', []);
-    set(AX(1), 'XTick', ptick)
-    set(get(AX(1), 'Ylabel'), 'String', '$|X(k,n)|$');
-    set(get(AX(2), 'Ylabel'), 'String', '$w_\mathrm{E}$');
+    yyaxis right
+    plot(pw, H, 'Color', getAcaColor('main'))
+    axis([ptick(1) ptick(end) 0.01 1.02])
+    set(gca, 'YTick', []);
+    set(get(gca, 'Ylabel'), 'String', '$w_\mathrm{E}$');
+    set(gca, 'XTick', ptick)
     xlabel('MIDI Pitch')
-    
-    % fix label that is weirdly outside of plot
-    p = get(gca, 'Position');
-    set(gca, 'Position', [p(1) p(2)+0.2 p(3) p(4)-.15]);
+
+    yyaxis left
+    plot(px, X, 'Color', getAcaColor('black'))
+    axis([ptick(1) ptick(end) 0.01 1.02])
+    set(gca, 'YTick', []);
+    ylabel('$|X(k,n)|$');
     
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

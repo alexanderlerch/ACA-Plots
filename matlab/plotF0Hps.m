@@ -19,17 +19,27 @@ function plotF0Hps()
  
     % plot
     subplot(211)
-   	semilogx(f, X', 'LineWidth', .5);
+   	%semilogx(f, X', 'LineWidth', .5);
+    hold on
+    plot(f, X(1,:), 'Color', getAcaColor('black'), 'LineWidth', .5)
+    plot(f, X(2,:), 'Color', getAcaColor('main'), 'LineWidth', .5)
+    plot(f, X(3,:), 'Color', getAcaColor('gt'), 'LineWidth', .5)
+    plot(f, X(4,:), 'Color', getAcaColor('lightgray'), 'LineWidth', .5)
+    set(gca, 'XScale', 'log')
+    box on
+    hold off
     axis([.1 f(end) -100 0])
-
+    set(gca, 'XTickLabel', [])
     legend('j=1', 'j=2', 'j=3', 'j=4')
     ylabel('$|X(j\cdot k)|/\mathrm{dB}$')
    
     subplot(212)
-    semilogx(f, P)
+    
     hold on;
-    line(f0*ones(1, 2), [-210 -90], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
-    semilogx(f, P, 'k')
+    line(f0*ones(1, 2), [-210 -90], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
+    plot(f, P, 'Color', getAcaColor('black'), 'LineWidth', .5)
+    set(gca, 'XScale', 'log')
+    box on;
     hold off;
     axis([.1 f(end) -210 -90])
     xtick = get(gca, 'XTick');

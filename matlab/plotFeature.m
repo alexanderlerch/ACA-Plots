@@ -74,7 +74,7 @@ function plotFeature ()
         
         subplot(212)
         yyaxis left 
-        plot(t, x, 'Color', [.6 .6 .6]) 
+        plot(t, x, 'Color', getAcaColor('lightgray')) 
         axis([0 max(t(end),tv(end)) -1 1])
         set(gca, 'YTick', [-1 -.5 0 .5 1])
         ylabel(cYLabel1)
@@ -82,7 +82,7 @@ function plotFeature ()
         yyaxis right 
         plot(tv, v(i+iIndexInc, :), 'k')    
         ax = gca;
-        ax.YAxis(1).Color = [.6 .6 .6];
+        ax.YAxis(1).Color = getAcaColor('lightgray');
         ax.YAxis(2).Color = 'k';
         axis([0 max(t(end), tv(end)) min(min(v(i+iIndexInc, :))) max(max(v(i+iIndexInc, :)))])
         ylabel(deblank(cFeatureSymbols(i, :)))
@@ -92,7 +92,7 @@ function plotFeature ()
             %plot(tv,v(i+iIndexInc, :));
             c = get(hFigureHandle, 'defaultAxesColorOrder');
             hold on;
-            plot(tv,v(i+iIndexInc+1, :), '-.', 'Color', c(3, :)) 
+            plot(tv,v(i+iIndexInc+1, :), '-.', 'Color', getAcaColor('main')) 
             hold off;
             axis([0 max(t(end), tv(end)) min(min(v(i+iIndexInc, :))) max(max(v(i+iIndexInc, :)))])
             ylabel(deblank(cFeatureSymbols(i, :)))
@@ -103,7 +103,7 @@ function plotFeature ()
             %plot(tv,v(i+iIndexInc, :));
             c = get(hFigureHandle, 'defaultAxesColorOrder');
             hold on;
-            plot(tv, v(i+iIndexInc+1, :), '-.', 'Color', c(3, :)) 
+            plot(tv, v(i+iIndexInc+1, :), '-.', 'Color', getAcaColor('main')) 
             hold off;
             axis([0 max(t(end), tv(end)) min(min(v(i+iIndexInc, :))) max(max(v(i+iIndexInc, :)))])
             ylabel(deblank(cFeatureSymbols(i, :)))
@@ -112,7 +112,7 @@ function plotFeature ()
         if (strcmpi('SpectralMfccs',deblank(cFeatureNames(i, :))) == 1)
             iMFCCIndices = [1 2 3 4];
             c = get(hFigureHandle, 'defaultAxesColorOrder');
-            c = c(2:end, :);
+            %c = c(2:end, :);
             plot(tv, v(i+iIndexInc+iMFCCIndices(1), :), '-', 'Color', c(1, :));
             hold on;
             for n = 2:length(iMFCCIndices)

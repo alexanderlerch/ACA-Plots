@@ -33,10 +33,10 @@ function plotStandardDeviation ()
     ylabel(cYLabel1)
 
     subplot(212)
-    histogram(v, 100, 'Normalization', 'probability', 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6])
+    histogram(v, 100, 'Normalization', 'probability', 'EdgeColor', getAcaColor('lightgray', true), 'FaceColor', getAcaColor('lightgray'))
     h = findobj(gca, 'Type', 'patch');
     hold on;
-    annotation(hFigureHandle, 'doublearrow', [0.27 0.37], [0.35 0.35], 'Color', [234/256 170/256 0]);
+    annotation(hFigureHandle, 'doublearrow', [0.27 0.37], [0.35 0.35], 'Color', getAcaColor('darkgray'));
     hold off;
     text(2250, 0.052, sprintf('$\\sqrt{\\sigma_v^2} =%2.1f$', sigma_v));
     xlabel('$v$')

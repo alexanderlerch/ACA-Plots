@@ -48,8 +48,9 @@ function plotChordDetection  ()
     c=colormap(ax, 'gray');
     colormap(ax,flipud(c));
     hold on; 
-    plot(t, p(1, :), 'Color', [234/256 170/256 0], 'LineWidth', 2); 
-    plot(t, p(1, :), 'Color', [200/256 150/256 0], 'LineWidth', .3); 
+    plot(t, p(1, :), 'Color', [getAcaColor('main'), .7], 'LineWidth', 2.5); 
+    plot(t, p(1, :), 'Color', getAcaColor('main'), 'LineWidth', 2); 
+    plot(t, p(1, :), 'Color', getAcaColor('main', true), 'LineWidth', .5); 
     hold off
     ylabel(cYLabel)
     xlabel(cXLabel)
@@ -63,8 +64,9 @@ function plotChordDetection  ()
     c=colormap(ax, 'gray');
     colormap(ax,flipud(c));
     hold on; 
-    plot(t, p(2, :), 'Color', [234/256 170/256 0], 'LineWidth', 2); 
-    plot(t, p(2, :), 'Color', [200/256 150/256 0], 'LineWidth', .3); 
+    plot(t, p(2, :), 'Color', [getAcaColor('main'), .7], 'LineWidth', 2.5); 
+    plot(t, p(2, :), 'Color', getAcaColor('main'), 'LineWidth', 2); 
+    plot(t, p(2, :), 'Color', getAcaColor('main', true), 'LineWidth', .5); 
     hold off
     ylabel(cYLabel)
     xlabel(cXLabel)

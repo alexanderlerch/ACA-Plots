@@ -41,7 +41,7 @@ function plotFingerprint ()
 
     h = subplot(133);
     imagesc(0:31, 0:255, F_diff)
-    colormap(h, [1 1 1; 1 0 0]);
+    colormap(h, [1 1 1; getAcaColor('main')]);
     xlabel('Bit')
     ylabel('$n$')
     set(gca, 'YTick', 0:32:256)

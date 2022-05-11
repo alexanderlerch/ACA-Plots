@@ -22,16 +22,16 @@ function plotF0Zcr ()
     subplot(211), 
     plot(t, x, 'LineWidth', .5),
     hold on;
-    stem(t(z_loc), zeros(1, length(z_loc)), 'MarkerEdgeColor', [200/256 150/256 0], 'MarkerFaceColor', [234/256 170/256 0], 'MarkerSize', 2);
+    stem(t(z_loc), zeros(1, length(z_loc)), 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'MarkerSize', 2);
     hold off;
     axis([t(1) t(end) -1 1])
     xlabel(cXLabel1)
     ylabel(cYLabel1)
 
     subplot(212)
-    h = histogram(diff_i, hist_x, 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6]);
+    h = histogram(diff_i, hist_x, 'EdgeColor', getAcaColor('darkgray', true), 'FaceColor', getAcaColor('darkgray'));
     hold on;
-    h1 = line(T_0/2 * ones(1, 2), [0 23], 'LineWidth', 2.5, 'Color', [234/256 170/256 0]);
+    h1 = line(T_0/2 * ones(1, 2), [0 23], 'LineWidth', 2.5, 'Color', getAcaColor('main'));
     hold off;
     axis([hist_x(1) hist_x(end) 0 23]);
     box on;

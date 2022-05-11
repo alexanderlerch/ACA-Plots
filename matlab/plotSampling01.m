@@ -23,11 +23,10 @@ function plotSampling01()
     axis([t(1) t(end) -1.1 1.1])
     
     subplot(212)
-    colorGtGold = [234, 170, 0] / 256;
     hold on;
-    plot(linspace(ts(1), length(x) / downsampleFactor+1, length(x)), x, 'Color', .8*ones(1,3));
-    stem(ts, xs, 'k-', 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'k', 'MarkerSize', 2.5);
-    xlabel('samples')
+    plot(linspace(ts(1), length(x) / downsampleFactor+1, length(x)), x, 'Color', getAcaColor('lightgray'));
+    stem(ts, xs, 'k-', 'MarkerEdgeColor', getAcaColor('darkgray', true), 'MarkerFaceColor', getAcaColor('darkgray'), 'Color', getAcaColor('darkgray'), 'MarkerSize', 3);
+    xlabel('$i$')
     ylabel('$x(i)$')
     axis([ts(1) length(x)/downsampleFactor+1 -1.1 1.1])
     box on;

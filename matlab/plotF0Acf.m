@@ -27,7 +27,7 @@ function plotF0Acf ()
     ylabel(cYLabel1)
 
     subplot(223)
-    line(T0*ones(1, 2), [-1 1], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(T0*ones(1, 2), [-1 1], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     axis([eta(1) eta(end) -1 1])
     hold on;
     plot(eta, r, 'LineWidth', .5),
@@ -50,7 +50,7 @@ function plotF0Acf ()
     ylabel(cYLabel12)
 
     subplot(224)
-    line(T0*ones(1, 2), [-1 1], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(T0*ones(1, 2), [-1 1], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     axis([eta(1) eta(end) -1 1])
     hold on;
     plot(eta, rc, 'LineWidth', .5),

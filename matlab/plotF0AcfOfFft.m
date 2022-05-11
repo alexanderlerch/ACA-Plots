@@ -21,12 +21,12 @@ function plotF0AcfOfFft()
     axis([f(1) f(iPlotLength) -100 0])
     
     subplot(212)
-    line(f_0*ones(1, 2), [0 1], 'LineWidth', 2.5, 'Color', [234/256 170/256 0])
+    line(f_0*ones(1, 2), [0 1], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
     xlabel('$\eta_f/ \mathrm{kHz}$')
     ylabel('$r_\mathrm{XX}(\eta_f)$')
     axis([f(1) f(iPlotLength) 0 1])
     hold on;
-    plot(f(1:iPlotLength), Rxx(1:iPlotLength))
+    plot(f(1:iPlotLength), Rxx(1:iPlotLength), 'LineWidth', 0.5)
     hold off;
     box on;
     

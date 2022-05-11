@@ -14,14 +14,13 @@ function plotHarmonics()
     end
     
     %plot
-    stem(20*log10(harm), 'filled', 'BaseValue',-40)
+    stem(20*log10(harm), 'filled', 'BaseValue',-40, 'MarkerFaceColor', getAcaColor('darkgray'), 'MarkerEdgeColor', getAcaColor('darkgray', true))
     
-    gtgold = [234 170 0]/256;
     hold on;
-    stem(1, 20*log10(harm(1)), 'MarkerFaceColor', gtgold, 'MarkerEdgeColor', [200/256 150/256 0])
+    stem(1, 20*log10(harm(1)), 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true))
     hold off
     xlabel('$f/f_0$')
-    ylabel('magnitude [dB]')
+    ylabel('magnitude / dB ')
     axis([1 8 -40 5])
 
     % write output file

@@ -14,27 +14,27 @@ function plotFourierSeries()
     cYLabel2 = '$x_\mathrm{rect}(t)$';
     cYLabel3 = '$A_\mathrm{saw}(k)$';
     cYLabel4 = '$A_\mathrm{rect}(k)$';
-
+    
     % generate plot data
     aiOrder = [3 50];
     [t, x_sa, x_re, f_sa, f_re] = getData (aiOrder);  
 
     % plot
     subplot(221)
-    plot(t, x_sa(1, :), 'Color', [0.6 0.6 0.6], 'Linewidth', 3)
+    plot(t, x_sa(1, :), 'Color', getAcaColor('lightgray'), 'Linewidth', 3)
     hold on;
-    plot(t, x_sa(2, :), 'Color', [234/256 170/256 0], 'Linewidth', 1)
-    plot(t, x_sa(3, :), 'Color', [0 0 0], 'Linewidth', 1)
+    plot(t, x_sa(2, :), 'Color', getAcaColor('main'), 'Linewidth', 1)
+    plot(t, x_sa(3, :), 'Color', getAcaColor('darkgray'), 'Linewidth', 1)
     hold off;
     ylabel(cYLabel1)
     axis([t(1) t(end) -1.3 1.3])
     set(gca, 'XTickLabels', [])
     
     subplot(222)
-    stem(f_sa(:, 3), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', [234/256 170/256 0], 'MarkerEdgeColor', [234/256 170/256 0], 'Color', [234/256 170/256 0])
+    stem(f_sa(:, 3), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'Color', getAcaColor('main'))
     hold on;
-    stem(f_sa(:, 2), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', [0 0 0], 'MarkerEdgeColor', [0 0 0], 'Color', [0 0 0])
-    stem(f_sa(f_sa(:, 1)>0, 1), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', [234/256 170/256 0], 'MarkerEdgeColor', [234/256 170/256 0], 'Color', [234/256 170/256 0])
+    stem(f_sa(:, 2), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', getAcaColor('darkgray'), 'MarkerEdgeColor', [0 0 0], 'Color', getAcaColor('darkgray'))
+    stem(f_sa(f_sa(:, 1)>0, 1), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'Color', getAcaColor('main'))
     hold off;
     ylabel(cYLabel3)
     axis([1 aiOrder(end) 0 1.3])
@@ -42,9 +42,9 @@ function plotFourierSeries()
     set(gca, 'YTickLabels', [])
  
     subplot(223)
-    plot(t, x_re(1, :), 'Color', [0.6 0.6 0.6], 'Linewidth', 3)
+    plot(t, x_re(1, :), 'Color', getAcaColor('lightgray'), 'Linewidth', 3)
     hold on;
-    plot(t, x_re(2, :), 'Color', [234/256 170/256 0], 'Linewidth', 1)
+    plot(t, x_re(2, :), 'Color', getAcaColor('main'), 'Linewidth', 1)
     plot(t, x_re(3, :), 'Color', [0 0 0], 'Linewidth', 1)
     hold off;
     xlabel(cXLabel1)
@@ -53,10 +53,10 @@ function plotFourierSeries()
 
     subplot(224)
     stem(f_re)
-    stem(f_re(:, 3), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', [234/256 170/256 0], 'MarkerEdgeColor', [234/256 170/256 0], 'Color', [234/256 170/256 0])
+    stem(f_re(:, 3), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'Color', getAcaColor('main'))
     hold on;
-    stem(f_re(:, 2), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', [0 0 0], 'MarkerEdgeColor', [0 0 0], 'Color', [0 0 0])
-    stem(f_re(1:find(f_re(:, 1)>0, 1, 'last'), 1), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', [234/256 170/256 0], 'MarkerEdgeColor', [234/256 170/256 0], 'Color', [234/256 170/256 0])
+    stem(f_re(:, 2), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', getAcaColor('darkgray'), 'MarkerEdgeColor', [0 0 0], 'Color', getAcaColor('darkgray'))
+    stem(f_re(1:find(f_re(:, 1)>0, 1, 'last'), 1), 'fill', 'MarkerSize', 2, 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'Color', getAcaColor('main'))
     hold off;
     xlabel(cXLabel2)
     ylabel(cYLabel4)

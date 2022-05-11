@@ -6,7 +6,7 @@ function plotThresholdClassification()
     end
     
     % generate new figure
-    hFigureHandle = generateFigure(13.12,6);
+    hFigureHandle = generateFigure(13.12, 6);
     
     % set output path relative to script location and to script name
     [cPath, cAudioName] = fileparts(mfilename('fullpath'));
@@ -24,9 +24,9 @@ function plotThresholdClassification()
     % plot data
     subplot(2, 1, 1)
     hold on;
-    plot(t, x, 'Color', .8*[1 1 1]);
-    plot(t, G*ones(1, length(t)));
-    plot(tv, v, 'k');
+    plot(t, x, 'Color', getAcaColor('lightgray', true));
+    plot(t, G*ones(1, length(t)), 'LineWidth', 2);
+    plot(tv, v, 'Color', getAcaColor('mediumgray'));
     hold off;
     axis([t(1) t(end) -1 1])
     set(gca, 'XTick', [])
@@ -39,6 +39,7 @@ function plotThresholdClassification()
     yticklabel = get(gca, 'YTickLabel');
     yticklabel(ytick == G) = {'$G$'};
     set(gca, 'YTickLabel', yticklabel)
+    box on
 
     subplot(212)
     stem(tv, isOnset, 'fill', '.k')

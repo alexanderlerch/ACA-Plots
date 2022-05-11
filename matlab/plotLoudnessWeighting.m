@@ -23,7 +23,7 @@ function plotLoudnessWeighting()
     axis([fLogFreq(1) fLogFreq(end) -10 120]);
 
     for (i = 1:length(fPhon2Plot))
-        text(1000, fPhon2Plot(i)+(3+i), [num2str(fPhon2Plot(i)) ' phon'])
+        text(1000, fPhon2Plot(i)+(3+i), [num2str(fPhon2Plot(i)) ' phon'], 'FontSize', 6)
     end
     xlabel('$f/ \mathrm{Hz}$');
     ylabel('$SPL / \mathrm{dB}$');

@@ -23,10 +23,12 @@ function hFigureHandle = generateFigure(fWidthInCm, fHeightInCm)
     fWidthInCm = min(fWidthInCm, fMaxWidth);
     
     hFigureHandle = figure('Color', 'w');
-    
-    myColorMap = [           0                         0                         0
-                             234/256                    170/256                 0
-                             0                         0                         1
+
+    myColorMap = [  getAcaColor('black')
+                    getAcaColor('main')
+                    getAcaColor('gt')
+                    getAcaColor('blue')
+                    getAcaColor('lightgray')
                              1                         0                         0
                              0                       0.5                         0
                              0                      0.75                      0.75

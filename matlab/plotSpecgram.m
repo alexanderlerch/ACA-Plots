@@ -25,28 +25,25 @@ function plotSpecgram  ()
     cYLabel2 = '$f / \mathrm{kHz}$';
 
     % plot 
-    subplot(221), 
+    subplot(311), 
     plot(t, x)
     ylabel(cYLabel1)
     axis([t(1) t(end) -max(abs(x)) max(abs(x))])
-    set(gca, 'YTickLabel',{})
-    set(gca, 'XTickLabel',{})
+    set(gca, 'YTickLabel', {})
+    set(gca, 'XTickLabel', {})
     set(gca, 'XTick', [0 5 10 15 20 25])
 
-    subplot(223), 
-    imagesc(t,f/1000,X)
+    subplot(3, 1, [2:3]), 
+    imagesc(t, f/1000, X)
     axis xy;
     set(gca, 'XTick', [0 5 10 15 20 25])
     xlabel(cXLabel)
     ylabel(cYLabel2)
 
-    subplot(122), 
-    mesh(tw,f/1000,X)
-    view(29,63)
-    set(gca, 'ZTickLabel',{})
-    xlabel(cXLabel)
-    ylabel(cYLabel2)
-
+    % fix label that is weirdly outside of plot
+    p = get(gca, 'Position');
+    set(gca, 'Position', [p(1) p(2)+0.05 p(3) p(4)-0.02]);
+    
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
 end

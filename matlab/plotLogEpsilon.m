@@ -27,7 +27,6 @@ function plotLogEpsilon()
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)
-
 end
 
 function     [fMagIndB, fError, fEpsilon] = getData ()

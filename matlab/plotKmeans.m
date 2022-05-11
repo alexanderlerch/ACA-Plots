@@ -50,13 +50,13 @@ function plotKmeans ()
         end
        
         k = 1;
-        scatter(v(1, clusterIdx==k), v(2, clusterIdx==k), iMarkerSize, [.4 .4 .4], 'filled', 'd', 'MarkerEdgeColor', [.3 .3 .3]);
+        scatter(v(1, clusterIdx==k), v(2, clusterIdx==k), iMarkerSize, getAcaColor('darkgray'), 'filled', 'd', 'MarkerEdgeColor', getAcaColor('darkgray', true));
         hold on;
-        scatter(state.m(1, k),state.m(2, k), iMarkerSize*5, 'MarkerFaceColor', [.4 .4 .4], 'MarkerEdgeColor', 'b', 'Marker', 's');
+        scatter(state.m(1, k),state.m(2, k), iMarkerSize*5, 'MarkerFaceColor', getAcaColor('darkgray'), 'MarkerEdgeColor', getAcaColor('gt'), 'Marker', 's');
        
         k = 2;
-        scatter(v(1, clusterIdx==k), v(2, clusterIdx==k), iMarkerSize, [234/256 170/256 0], 'filled', 'o', 'MarkerEdgeColor', [200/256 150/256 0]);
-        scatter(state.m(1, k),state.m(2, k), iMarkerSize*5, 'MarkerFaceColor', [234/256 170/256 0], 'MarkerEdgeColor', 'b', 'Marker', 's');
+        scatter(v(1, clusterIdx==k), v(2, clusterIdx==k), iMarkerSize, getAcaColor('main'), 'filled', 'o', 'MarkerEdgeColor', getAcaColor('main', true));
+        scatter(state.m(1, k),state.m(2, k), iMarkerSize*5, 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('gt'), 'Marker', 's');
         hold off;
         axis([0.04 1 0 .9]);
         text(.1, .85, ['iteration = ' num2str(i)]);

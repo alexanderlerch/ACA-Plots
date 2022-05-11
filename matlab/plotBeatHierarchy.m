@@ -1,6 +1,6 @@
 function plotBeatHierarchy()
 
-    % generate new figure
+    % generate new figuredarkgray
     hFigureHandle = generateFigure(13.12, 6);
     
     % set output path relative to script location and to script name
@@ -16,9 +16,9 @@ function plotBeatHierarchy()
     % plot
     subplot(221)
     hold on;
-    line([find(b44(1, :)==1); find(b44(1, :)==1)], [.66 1], 'Color', [0 0 0], 'LineWidth', 4)
-    line([find(b44(2, :)==1); find(b44(2, :)==1)], [.33 .66], 'Color', [0.3 0.3 0.3], 'LineWidth', 3)
-    line([find(b44(3, :)==1); find(b44(3, :)==1)], [0 .33], 'Color', [0.6 0.6 0.6], 'LineWidth', 2)
+    line([find(b44(1, :)==1); find(b44(1, :)==1)], [.66 1], 'Color', getAcaColor('darkgray'), 'LineWidth', 4)
+    line([find(b44(2, :)==1); find(b44(2, :)==1)], [.33 .66], 'Color', getAcaColor('mediumgray'), 'LineWidth', 3)
+    line([find(b44(3, :)==1); find(b44(3, :)==1)], [0 .33], 'Color', getAcaColor('lightgray', true), 'LineWidth', 2)
     hold off;
     axis([1 16 0 1])
     set(gca, 'YTick', [.166 .5 .834])
@@ -27,9 +27,9 @@ function plotBeatHierarchy()
 
     subplot(222)
     hold on;
-    line([find(b22(1, :)==1); find(b22(1, :)==1)], [.66 1], 'Color', [0 0 0], 'LineWidth', 4)
-    line([find(b22(2, :)==1); find(b22(2, :)==1)], [.33 .66], 'Color', [0.3 0.3 0.3], 'LineWidth', 3)
-    line([find(b22(3, :)==1); find(b22(3, :)==1)], [0 .33], 'Color', [0.6 0.6 0.6], 'LineWidth', 2)
+    line([find(b22(1, :)==1); find(b22(1, :)==1)], [.66 1], 'Color', getAcaColor('darkgray'), 'LineWidth', 4)
+    line([find(b22(2, :)==1); find(b22(2, :)==1)], [.33 .66], 'Color', getAcaColor('mediumgray'), 'LineWidth', 3)
+    line([find(b22(3, :)==1); find(b22(3, :)==1)], [0 .33], 'Color', getAcaColor('lightgray', true), 'LineWidth', 2)
     hold off;
     axis([1 16 0 1])
     set(gca, 'YTick', [.166 .5 .834])
@@ -38,9 +38,9 @@ function plotBeatHierarchy()
 
     subplot(223)
     hold on;
-    line([find(b34(1, :)==1); find(b34(1, :)==1)], [.66 1], 'Color', [0 0 0], 'LineWidth', 4)
-    line([find(b34(2, :)==1); find(b34(2, :)==1)], [.33 .66], 'Color', [0.3 0.3 0.3], 'LineWidth', 3)
-    line([find(b34(3, :)==1); find(b34(3, :)==1)], [0 .33], 'Color', [0.6 0.6 0.6], 'LineWidth', 2)
+    line([find(b34(1, :)==1); find(b34(1, :)==1)], [.66 1], 'Color', getAcaColor('darkgray'), 'LineWidth', 4)
+    line([find(b34(2, :)==1); find(b34(2, :)==1)], [.33 .66], 'Color', getAcaColor('mediumgray'), 'LineWidth', 3)
+    line([find(b34(3, :)==1); find(b34(3, :)==1)], [0 .33], 'Color', getAcaColor('lightgray', true), 'LineWidth', 2)
     hold off;
     xlabel(cXLabel);
     axis([1 12 0 1])
@@ -50,9 +50,9 @@ function plotBeatHierarchy()
 
     subplot(224)
     hold on;
-    line([find(b68(1, :)==1); find(b68(1, :)==1)], [.66 1], 'Color', [0 0 0], 'LineWidth', 4)
-    line([find(b68(2, :)==1); find(b68(2, :)==1)], [.33 .66], 'Color', [0.3 0.3 0.3], 'LineWidth', 3)
-    line([find(b68(3, :)==1); find(b68(3, :)==1)], [0 .33], 'Color', [0.6 0.6 0.6], 'LineWidth', 2)
+    line([find(b68(1, :)==1); find(b68(1, :)==1)], [.66 1], 'Color', getAcaColor('darkgray'), 'LineWidth', 4)
+    line([find(b68(2, :)==1); find(b68(2, :)==1)], [.33 .66], 'Color', getAcaColor('mediumgray'), 'LineWidth', 3)
+    line([find(b68(3, :)==1); find(b68(3, :)==1)], [0 .33], 'Color', getAcaColor('lightgray', true), 'LineWidth', 2)
     hold off;
     xlabel(cXLabel);
     axis([1 12 0 1])

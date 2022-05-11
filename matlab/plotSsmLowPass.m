@@ -21,12 +21,13 @@ function plotSsmLowPass ()
 
     % plot
     subplot(4, 5, [5 10 15 20])
-    plot(homogeneity, tv)
+    plot(homogeneity, tv, 'Color', getAcaColor('darkgray'), 'LineWidth', 2)
     for i = 2:length(tannot)-1
-        line([0 1], [tannot(i) tannot(i)], 'Color', [234/256 170/256 0], 'LineWidth', 1)
+        line([0 1], [tannot(i) tannot(i)], 'Color', getAcaColor('main'), 'LineWidth', 1)
     end
     hold on
-    plot(homogeneity, tv, 'k')
+    plot(homogeneity, tv, 'Color', getAcaColor('darkgray'), 'LineWidth', 2)
+    plot(homogeneity, tv, 'Color', getAcaColor('black'), 'LineWidth', .5)
     hold off
     axis([0 1 0 tv(end)])
     xlabel('homogeneity')
@@ -38,7 +39,7 @@ function plotSsmLowPass ()
     
     subplot(4,5, [1:4 6:9 11:14 16:19])
     imagesc(tv, tv, applyNonlinearity_I(Dv))
-    c=colormap('jet');
+    c=colormap('parula');
     colormap(flipud(c));
     xlabel('$t / \mathrm{s}$')
     ylabel('$t / \mathrm{s}$')

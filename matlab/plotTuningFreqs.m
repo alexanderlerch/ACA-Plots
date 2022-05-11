@@ -11,7 +11,7 @@ function plotTuningFreqs()
     [R] = getData();
 
     %plot data
-    histogram(R, (427:454)-.5, 'Normalization', 'probability', 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6])
+    histogram(R, (427:454)-.5, 'Normalization', 'probability', 'FaceColor', getAcaColor('darkgray'), 'EdgeColor', getAcaColor('darkgray', true))
     %bar(f, p, 'k'), 
     % grid on
     axis([427 453 0 .25])

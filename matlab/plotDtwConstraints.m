@@ -73,11 +73,10 @@ function plotDtwConstraints ()
     
     subplot(133)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, D2);
-    colormap jet;
     xlabel('$n_\mathrm{A}$')
     ylabel('$n_\mathrm{B}$')
     title('Max (Tempo) Deviation')
-    colormap copper
+    colormap(getColorMap());
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)
@@ -95,4 +94,13 @@ function [seq1, seq2, D, p, C] = getData(cAudioPath, cName1, cName2)
 
     % compute DTW
     [p, C] = ToolSimpleDtw(D);    
+end
+
+function c = getColorMap()
+    c = ones(256, 3);
+    c(1,:) = [ 0.242200000000000	0.150400000000000	0.660300000000000];
+    for i = 2:size(c, 1)
+        fFrac = (i-1)/size(c,1);
+        c(i,:) = (1-fFrac) * c(1,:) + fFrac * c(end,:);
+    end
 end

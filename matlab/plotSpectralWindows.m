@@ -12,29 +12,29 @@ function plotSpectralWindows()
     
     %plot
     subplot(221)
-    plot(t, w(1, :), t, w(4, :), t, w(3, :), t, w(6, :))
+    plot(t, w(1, :), t, w(3, :), t, w(4, :), t, w(6, :))
     axis([t(1)-10 t(end)+10 0 1.05])
     ylabel('$w(i)$');
 
     subplot(222)
-    plot(f, W(:, 1), f, W(:,4), f, W(:,3), f, W(:,6))
+    plot(f, W(:, 1), f, W(:,3), f, W(:,4), f, W(:,6))
     axis([f(1) f(end) -60 5])
     ylabel('$|W(\mathrm{j}\omega)|$');
-    lh = legend('$w_\mathrm{R}$', '$w_\mathrm{H}$', '$w_\mathrm{C}$', '$w_\mathrm{B}$', 'Location', 'NorthEast');
+    lh = legend('$w_\mathrm{R}$', '$w_\mathrm{C}$', '$w_\mathrm{H}$', '$w_\mathrm{B}$', 'Location', 'NorthEast');
     set(lh, 'FontSize', 6)
     
     subplot(223)
-    plot(t, w(5, :), t, w(8, :), t, w(7, :), t, w(2, :))
+    plot(t, w(5, :), t, w(2, :), t, w(8, :), t, w(7, :))
     axis([t(1)-10 t(end)+10 0 1.05])
     ylabel('$w(i)$');
     xlabel('$i$')
     
     subplot(224)
-    plot(f, W(:,5), f, W(:,8), f, W(:,7), f, W(:, 2))
+    plot(f, W(:,5), f, W(:, 2), f, W(:,8), f, W(:,7))
     axis([f(1) f(end) -60 5])
     ylabel('$|W(\mathrm{j}\omega)|$');
     xlabel('$\omega/\omega_\mathrm{S}$')
-    lh = legend('$w_\mathrm{Hm}$', '$w_\mathrm{AB}$', '$w_\mathrm{BH}$', '$w_\mathrm{T}$', 'Location', 'NorthEast');
+    lh = legend('$w_\mathrm{Hm}$', '$w_\mathrm{T}$', '$w_\mathrm{AB}$', '$w_\mathrm{BH}$', 'Location', 'NorthEast');
     set(lh, 'FontSize', 6, 'Interpreter', 'latex')
 
     % write output file

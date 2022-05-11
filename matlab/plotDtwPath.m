@@ -38,9 +38,12 @@ function plotDtwPath ()
 
     subplot(5,5, [2:5 7:10 12:15 17:20])
     imagesc(0:size(D, 2)-.5,0:size(D, 1)-.5,D);
-    colormap copper;
+    colormap gray;
     box on;
-    hold on; plot(p(:, 2)-1,p(:, 1)-1, 'Color', [234/256 170/256 0]); hold off
+    hold on; 
+    plot(p(:, 2)-1,p(:, 1)-1, 'Color', getAcaColor('main'),'LineWidth', 2); 
+    plot(p(:, 2)-1,p(:, 1)-1, 'Color', getAcaColor('main', true),'LineWidth', .5); 
+    hold off
     
     set(gca, 'YTickLabels', []);
     set(gca, 'XTickLabels', []);

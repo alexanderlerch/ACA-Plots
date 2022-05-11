@@ -22,7 +22,7 @@ function plotSsmFeatures ()
     % plot
     ax = subplot(141);
     imagesc(tv, tv, applyNonlinearity_I(Dpc, 2))
-    c=colormap(ax, 'jet');
+    c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
     ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
@@ -30,8 +30,8 @@ function plotSsmFeatures ()
     xlabel('$t / \mathrm{s}$')    
 
     ax = subplot(142);
-    imagesc(tv, tv, applyNonlinearity_I(Drms, 8))
-    c=colormap(ax, 'jet');
+    imagesc(tv, tv, applyNonlinearity_I(Drms, 10))
+    c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
     ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
@@ -40,7 +40,7 @@ function plotSsmFeatures ()
 
     ax = subplot(143);
     imagesc(tv, tv, applyNonlinearity_I(Dmfcc, 2))
-    c=colormap(ax, 'jet');
+    c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
     ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
@@ -48,8 +48,8 @@ function plotSsmFeatures ()
     xlabel('$t / \mathrm{s}$')    
 
     ax = subplot(144);
-    imagesc(tv, tv, applyNonlinearity_I(Dms, 4))
-    c=colormap(ax, 'jet');
+    imagesc(tv, tv, applyNonlinearity_I(Dms, 3))
+    c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
     ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})

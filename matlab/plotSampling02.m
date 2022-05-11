@@ -13,27 +13,34 @@ function plotSampling02()
     % generate sample data
     [t, x, ts, xs, f0, fs] = getData ();
 
+    myColorMap = [  getAcaColor('darkgray')
+                getAcaColor('main')
+                getAcaColor('gt')];
+
     % plot
     for i = 1:size(x, 1)
         subplot(3, size(x, 1), i)
-        plot(t, x(i, :))
+        plot(t, x(i, :), 'Color', myColorMap(i, :))
         ylabel('$x(t)$')
         title(['$f = ' num2str(f0(i)/1000) ' \mathrm{kHz}$'])
         axis([t(1) 1 -1.1 1.1])
     
         subplot(3, size(x, 1), i+size(x, 1))
-        stem(ts, xs(i, :), 'k-', 'MarkerFaceColor', [0 0 0], 'MarkerSize',3) 
+        stem(ts, xs(i, :), 'MarkerFaceColor', myColorMap(i, :), 'MarkerEdgeColor', 0.85*myColorMap(i, :), 'Color', myColorMap(i, :), 'MarkerSize',3) 
         ylabel(['$x_{' num2str(fs/1000) '\mathrm{kHz}}(i)$'])
         xlabel(cXLabel)
         axis([ts(1) 1 -1.1 1.1])
     end
     subplot(3, 1, 3)
-    plot(t, x)
+    for i = 1:size(x, 1)
+        hold on;
+        plot(t, x(i,:), 'Color', myColorMap(i,:));
+    end
     xlabel(cXLabel)
     ylabel('$x_n(t), x_n(i)$')
     axis([t(1) 1 -1.1 1.1])
-    hold on;
-    stem(ts, xs(1, :), 'k-', 'MarkerFaceColor', [0 0 0], 'MarkerSize',5)
+    stem(ts, xs(1, :), 'k-', 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('darkgray'), 'MarkerSize',5)
+    stem(ts, xs(1, :), 'filled', 'MarkerFaceColor', getAcaColor('gt'), 'MarkerEdgeColor', getAcaColor('gt'), 'Color', getAcaColor('darkgray'), 'MarkerSize',2)
     hold off;
  
     % write output file

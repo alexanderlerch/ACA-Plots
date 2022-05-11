@@ -38,7 +38,7 @@ function plotDtwCost ()
 
     subplot(133)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, C);
-    colormap jet;
+    colormap parula;
     xlabel('$n_\mathrm{A}$')
     ylabel('$n_\mathrm{B}$')
     title('Cost')

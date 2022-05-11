@@ -21,13 +21,13 @@ function plotSsm ()
 
     %plot
     subplot(4, 5, [5 10 15 20])
-    plot(x, t, 'LineWidth', .1, 'Color', [.6 .6 .6])
+    plot(x, t, 'LineWidth', .1, 'Color', getAcaColor('mediumgray'))
     hold on
-    plot(vrms, tvrms, 'Color', .4*[1 1 1])
-    plot(-vrms, tvrms, 'Color', .4*[1 1 1])
+    plot(vrms, tvrms, 'Color', getAcaColor('mediumgray', true))
+    plot(-vrms, tvrms, 'Color', getAcaColor('mediumgray', true))
     hold off
     for i=2:length(tannot)-1
-        line([-1.1 1], [tannot(i) tannot(i)], 'Color', [0 0 0], 'LineWidth', 1)
+        line([-1.1 1], [tannot(i) tannot(i)], 'Color', getAcaColor('black'), 'LineWidth', 1)
     end
     axis([ -1 1 t(1) t(end)])
     set(gca, 'YTick', tannot(2:end-1, 1))
@@ -39,7 +39,7 @@ function plotSsm ()
     subplot(4, 5, [1:4 6:9 11:14 16:19])
     imagesc(tv, tv, Dv)
     imagesc(tv, tv, applyNonlinearity_I(Dv))
-    c=colormap('jet');
+    c=colormap('parula');
     colormap(flipud(c));
     xlabel('$t / \mathrm{s}$')
     ylabel('$t / \mathrm{s}$')

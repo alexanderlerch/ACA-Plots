@@ -24,21 +24,22 @@ function plotFeatureScatter(cDatasetPath)
     [v, class, classlabel] = getData(cDatasetPath);
 
     iMarkerSize = 6;
-    myColorMap = [ 0       0           0
-                    234/256 170/256     0
-                    0       0           1
-                    1       0           0
-                    0       0.5         0
-                    0       0.75        0.75
-                    0.75    0           0.75
-                    0.75    0.75        0
-                    0.25    0.25        0.25
-                    .33     .66         1];
+    myColorMap = [  getAcaColor('black')
+                    getAcaColor('main')
+                    getAcaColor('blue')
+                    getAcaColor('gt')
+                    getAcaColor('lightgray')
+                             1                         0                         0
+                             0                       0.5                         0
+                             0                      0.75                      0.75
+                    getAcaColor('mediumgray')
+                    getAcaColor('lightgray')];
 
+    myShape = char('o', 'o', 'd', 'd', 's', 's', 'o','s', 'd', 'o');
     % plot
     for i = 1:size(classlabel, 1)
         hold on;
-        scatter(v(1, (i-1)*100+1:i*100), v(2, (i-1)*100+1:i*100), iMarkerSize, myColorMap(class((i-1)*100+1:i*100), :), 'filled', 'o')
+        scatter(v(1, (i-1)*100+1:i*100), v(2, (i-1)*100+1:i*100), iMarkerSize, myColorMap(class((i-1)*100+1:i*100), :), 'filled', char(myShape(i,:)), 'MarkerEdgeColor', .85*myColorMap(i,:))
     end
     hold off;
     ylabel('$\sigma_\mathrm{RMS}$')

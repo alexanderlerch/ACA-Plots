@@ -21,7 +21,7 @@ function plotStructure ()
 
     %plot
     subplot(211)
-    h = barh(segments, fill, 0.99, 'stacked', 'k');
+    h = barh(segments, fill, 0.99, 'stacked', 'FaceColor', getAcaColor('darkgray'), 'EdgeColor', getAcaColor('darkgray', true));
     set(h([1 3 5 7]), 'Visible', 'off')
     set(gca, 'YTick', segments)
     set(gca, 'YTickLabels', deblank(char(labels)))
@@ -30,10 +30,10 @@ function plotStructure ()
     set(gca, 'XTickLabels', {})
     
     subplot(212)
-    plot(t, x, 'LineWidth', .5, 'Color', .6*ones(1,3))
+    plot(t, x, 'LineWidth', .5, 'Color', getAcaColor('lightgray'))
     hold on,
-    plot(tvrms, vrms, 'Color', .4*ones(1,3))
-    plot(tvrms, -vrms, 'Color', .4*ones(1,3))
+    plot(tvrms, vrms, 'Color', getAcaColor('mediumgray', true))
+    plot(tvrms, -vrms, 'Color', getAcaColor('mediumgray', true))
     hold off;
     axis([t(1) t(end) -1.1 1.1 ])
     xlabel('$t$ / s')

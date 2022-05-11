@@ -21,8 +21,8 @@ function plotDtwFeatures ()
 
     % plot
     ax = subplot(131);
-    imagesc(tv2, tv1, applyNonlinearity_I(Dpc, 2))
-    c = colormap(ax, 'jet');
+    imagesc(tv2, tv1, applyNonlinearity_I(Dpc, 1))
+    c = colormap(ax, 'parula');
     colormap(ax, c);
     xlabel('$t_2 / \mathrm{s}$')
     box on;
@@ -31,8 +31,8 @@ function plotDtwFeatures ()
     ylabel('$t_1 / \mathrm{s}$')
 
     ax = subplot(132);
-    imagesc(tv2, tv1, applyNonlinearity_I(Drms, 2))
-    c = colormap(ax, 'jet');
+    imagesc(tv2, tv1, applyNonlinearity_I(Drms, 4))
+    c = colormap(ax, 'parula');
     colormap(ax, c);
     xlabel('$t_2 / \mathrm{s}$')
     box on;
@@ -41,8 +41,8 @@ function plotDtwFeatures ()
     ylabel('$t_1 / \mathrm{s}$')
     
     ax = subplot(133);
-    imagesc(tv2, tv1, applyNonlinearity_I(Dmfcc, 2))
-    c = colormap(ax, 'jet');
+    imagesc(tv2, tv1, applyNonlinearity_I(Dmfcc, 1))
+    c = colormap(ax, 'parula');
     colormap(ax, c);
     xlabel('$t_2 / \mathrm{s}$')
     box on;

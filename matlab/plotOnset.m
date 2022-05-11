@@ -22,11 +22,11 @@ function plotOnset()
     [t, x, td, d, iOnsetIdx, iAcOnsetIdx] = getData ([cAudioPath, cName], [iStart iStart+iLength-1]);
  
     % plot
-    plot(t, abs(x), 'Color', [.6 .6 .6]);
+    plot(t, abs(x), 'Color', getAcaColor('lightgray'));
     hold on
     plot(td, d, 'k', 'LineWidth', 2);
-    stem(td(iOnsetIdx), d(iOnsetIdx), 'fill', 'MarkerEdgeColor', [200/256 150/256 0], 'MarkerFaceColor', [234/256 170/256 0], 'Color', [234/256 170/256 0])
-    stem(td(iAcOnsetIdx), d(iAcOnsetIdx), 'fill', 'MarkerEdgeColor', [200/256 150/256 0], 'MarkerFaceColor', [234/256 170/256 0], 'Color', [234/256 170/256 0])
+    stem(td(iOnsetIdx), d(iOnsetIdx), 'fill', 'MarkerEdgeColor', getAcaColor('main', true), 'MarkerFaceColor', getAcaColor('main'), 'Color', getAcaColor('main'))
+    stem(td(iAcOnsetIdx), d(iAcOnsetIdx), 'fill', 'MarkerEdgeColor', getAcaColor('main', true), 'MarkerFaceColor', getAcaColor('main'), 'Color', getAcaColor('main'))
     hold off
     xlabel('$t / \mathrm{s}$')
     ylabel('$|x(t)|$')

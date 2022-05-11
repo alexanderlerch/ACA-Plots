@@ -47,22 +47,22 @@ function plotKnn ()
     end
     
     iMarkerSize = 8;
-    scatter(v_music(1, :), v_music(2, :), iMarkerSize, [.4 .4 .4], 'filled', 'o', 'MarkerEdgeColor', [.3 .3 .3]);
+    scatter(v_music(1, :), v_music(2, :), iMarkerSize, getAcaColor('darkgray'), 'filled', 'o', 'MarkerEdgeColor', getAcaColor('darkgray', true));
     box on;
     set(gca, 'XTickLabel', [], 'YTickLabel', []);
     hold on;
-    scatter(v_speech(1, :), v_speech(2, :), iMarkerSize, [234/256 170/256 0], 'filled', 'd', 'MarkerEdgeColor', [200/256 150/256 0]);
+    scatter(v_speech(1, :), v_speech(2, :), iMarkerSize, getAcaColor('main', true), 'filled', 'd', 'MarkerEdgeColor', getAcaColor('main', true));
     
     % test data
-    query = [.32 .28];
-    scatter(query(1), query(2), iMarkerSize+4, 'b', 'filled', 'o');
-    scatter(query(1), query(2), 3100, [.7 .7 .7], 'o');
-    text(.31, .25, '$k=3$', 'Color', [234/256 170/256 0])
-    scatter(query(1), query(2), 5000, [.7 .7 .7], 'o');
-    text(.31, .19, '$k=5$', 'Color', [.4 .4 .4])
-    scatter(query(1), query(2), 6600, [.7 .7 .7], 'o');
-    text(.35, .17, '$k=7$', 'Color', [.4 .4 .4])
-    legend(cMusic,cSpeech, 'Location', 'NorthWest')
+    query = [.32 .281];
+    scatter(query(1), query(2), iMarkerSize+4, getAcaColor('gt'), 'filled', 's', 'MarkerEdgeColor', getAcaColor('gt', true));
+    scatter(query(1), query(2), 3100, getAcaColor('lightgray'), 'o');
+    text(.31, .25, '$k=3$', 'Color', getAcaColor('main'))
+    scatter(query(1), query(2), 5000, getAcaColor('lightgray'), 'o');
+    text(.31, .19, '$k=5$', 'Color', getAcaColor('darkgray'))
+    scatter(query(1), query(2), 6650, getAcaColor('lightgray'), 'o');
+    text(.35, .17, '$k=7$', 'Color', getAcaColor('darkgray'))
+    legend(cMusic,cSpeech, 'query', 'Location', 'NorthWest')
     axis([query(1)-.1 query(1)+.1 query(2)-.2 query(2)+.2]);
 
     % write output file

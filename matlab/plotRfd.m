@@ -30,7 +30,7 @@ function [rdf, y2, y3] = getData ()
     load handel.mat
 
     % create histogram
-    rdf = histogram(y, 128, 'Normalization', 'probability', 'EdgeColor', [.4 .4 .4], 'FaceColor', [.6 .6 .6]);
+    rdf = histogram(y, 128, 'Normalization', 'probability', 'FaceColor', getAcaColor('lightgray'), 'EdgeColor', getAcaColor('lightgray', true));
 
     % approximate laplace
     b = .16;

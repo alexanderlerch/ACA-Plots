@@ -10,7 +10,12 @@ function plotPitchErrorFreqDomain()
     [f, e_p, cLegend] = getData();
     
     % plot
-    plot(f, e_p, 'LineWidth', .5);
+    %plot(f, e_p, 'LineWidth', .5);
+    hold on
+    plot(f, e_p(2, :), 'Color', getAcaColor('black'), 'LineWidth', .5)
+    plot(f, e_p(1, :), 'Color', getAcaColor('main'), 'LineWidth', .5)
+    hold off
+    box on
     axis([f(1) 2000 -1000 1000])
     xlabel('$f_0$/Hz');
     ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ / Cent');
