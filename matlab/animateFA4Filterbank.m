@@ -1,7 +1,7 @@
 function animateFA4Filterbank()
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12,5);
+    hFigureHandle = generateFigure(13.12,6);
     
     % set output path relative to script location and to script name
     [cPath, cName] = fileparts(mfilename('fullpath'));
@@ -13,8 +13,8 @@ function animateFA4Filterbank()
     for (i = 1:iNumFrames)
         fFreq = fStartFreq*2^((i-1)/(24*iNumFrames));
         [f,H] = generateSampleData(fFreq);
-        for (k = 1:3)
-            for (j = 1:12)
+        for k = 1:3
+            for j = 1:12
                 plot (f(j, :,k), 10*log10(abs(H(j, :,k))), 'LineWidth',0.5), hold on;
             end
         end   
@@ -22,7 +22,6 @@ function animateFA4Filterbank()
         axis([ f(j, 1,k) f(j,end,k) -18 1]);
         xlabel('$f/\mathrm{Hz}$')
         ylabel('$|H(f)|$ [dB]')
-       % lh = legend();
         annotation('textbox', [.65 .65 .2 .2], 'String', ['$\hat{f}_\mathrm{A4} = ' num2str(fFreq*2, '%2.2f') '$ Hz'], 'FitBoxToText', 'on', 'Interpreter', 'latex');
  
         printFigure(hFigureHandle, [cOutputPath '-' num2str(i, '%.2d')]); 

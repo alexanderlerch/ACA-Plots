@@ -25,18 +25,19 @@ function animateStft()
 
      for (n=1:length(t))
         subplot(211),
-        plot(tx, x, 'Color', .7*ones(1,3))
+        plot(tx, x, 'Color', getAcaColor('lightgray'))
         grid on
         axis([tx(1) tx(end) -1.1 1.1])
         ylabel(cYLabel1)
         xlabel(cXLabel1);
         
         hold on; 
-        plot(tx,w(n, :)'.*x, 'Color', 'black');
+        plot(tx,w(n, :)'.*x, 'Color', getAcaColor('black'));
         hold off;
         hold on; 
-        plot(tx,w(n, :), 'Color', [234, 170, 0]/256);
+        plot(tx,w(n, :), 'Color', getAcaColor('main'));
         hold off;
+        box on;
         
         subplot(212)
         waterfall(f,t, [X(:, 1:n) ones(size(X, 1),length(t)-n)*min(min(X))]')

@@ -19,28 +19,28 @@ function animateSampling()
         hold on
         if (fs*.5 < fmax)
             H = area(linspace(.5,fmax/fs,fmax-.5*fs),X(1,length(X)/2+.5*fs+1:length(X)/2+fmax));
-            set(H, 'FaceColor', [.1 .1 .1]);
+            set(H, 'FaceColor', getAcaColor('darkgray'));
             H = area(linspace(-fmax/fs,-.5,fmax-.5*fs),fliplr(X(1,length(X)/2+.5*fs+1:length(X)/2+fmax)));
-            set(H, 'FaceColor', [.1 .1 .1]);
+            set(H, 'FaceColor', getAcaColor('darkgray'));
             
             
             H = area(linspace(1.5, 1+fmax/fs,fmax-.5*fs),X(2,fs+.5*fs+1:fs+fmax));
-            set(H, 'FaceColor', 'b');
+            set(H, 'FaceColor', getAcaColor('main'));
             H = area(linspace(1-fmax/fs,.5,fmax-.5*fs),X(2,fs-fmax+1:fs*0.5));
-            set(H, 'FaceColor', 'b');
+            set(H, 'FaceColor', getAcaColor('main'));
             H = area(linspace(-1-fmax/fs,-1.5,fmax-.5*fs),fliplr(X(2,fs+.5*fs+1:fs+fmax)));
-            set(H, 'FaceColor', 'b');
+            set(H, 'FaceColor', getAcaColor('main'));
             H = area(linspace(-.5,-1+fmax/fs,fmax-.5*fs),fliplr(X(2,fs-fmax+1:fs*0.5)));
-            set(H, 'FaceColor', 'b');
+            set(H, 'FaceColor', getAcaColor('main'));
 
             H = area(linspace(2-fmax/fs, 1.5,fmax-.5*fs),X(3,length(X)/2+2*fs-fmax+1:length(X)/2+1.5*fs));
-            set(H, 'FaceColor', 'r');
+            set(H, 'FaceColor', getAcaColor('gt'));
             H = area(linspace(-1.5,-2+fmax/fs,fmax-.5*fs),X(2,fs+.5*fs+1:fs+fmax));
-            set(H, 'FaceColor', 'r');
+            set(H, 'FaceColor', getAcaColor('gt'));
 
         end
-        plot((-length(X)/2+1:length(X)/2)/fs,X(2, :), 'b');%, 'LineWidth', 2*iPlotLineWidth);
-        plot((-length(X)/2+1:length(X)/2)/fs,X(3, :), 'r');%, 'LineWidth', 2*iPlotLineWidth);
+        plot((-length(X)/2+1:length(X)/2)/fs,X(2, :), 'Color', getAcaColor('main'));%, 'LineWidth', 2*iPlotLineWidth);
+        plot((-length(X)/2+1:length(X)/2)/fs,X(3, :), 'Color', getAcaColor('gt'));%, 'LineWidth', 2*iPlotLineWidth);
         set(gca, 'XTick', [-2 -1 -.5 0 .5 1 2]);
         set(gca, 'YTick', [0]);
         axis([-2 2 0.1 1.1]);

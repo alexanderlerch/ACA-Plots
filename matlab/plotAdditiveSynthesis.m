@@ -12,8 +12,8 @@ function plotAdditiveSynthesis()
     % generate sample data
     [t, x_sa, x_re] = getData (aiOrder);
 
-    colorGtGold = [234, 170, 0]/256;
-    colorGrey = .7*ones(1,3);
+    colorGtGold = getAcaColor('main');
+    colorGrey = getAcaColor('lightgray', true);
     
     % plot saw
     for (i = 1:size(x_sa, 1)-1)
@@ -37,7 +37,7 @@ function plotAdditiveSynthesis()
         axis([-.5 .5 -1.25 1.25]);
         ylabel('$x_\mathrm{Rect}$')
         xlabel('$t / T_0$')
-        lh = legend('Perfect', [num2str(aiOrder(i)) ' Harmonics'], 'Location', 'SouthWest');
+        lh = legend('perfect', [num2str(aiOrder(i)) ' harmonics'], 'Location', 'SouthWest');
         printFigure(hFigureHandle, [cOutputFilePath 'Rect-' num2str(i)])
     end
 

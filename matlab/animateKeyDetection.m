@@ -15,7 +15,7 @@ function animateKeyDetection()
     for (i = 1:iNumFrames)
         dist(i) = sqrt(sum(abs(testprofile-refprofile).^2));
         subplot(211)
-        plot(1:12,testprofile, 'o-', 'Color', [234/256 170/256 0]), hold on
+        plot(1:12,testprofile, 'o-', 'Color', getAcaColor('main')), hold on
         plot(1:12,refprofile, 'ko-', 'LineWidth', 1.5), hold off
         set(gca, 'XTick', 1:12), xlim([1 12])
         set(gca, 'XTickLabel',{'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'})
@@ -32,7 +32,7 @@ function animateKeyDetection()
         ylabel('Distance');
 
         refprofile = circshift(refprofile, [0 1]);
-        for (k =1:framerate)
+        for k =1:framerate
             printFigure(hFigureHandle, [cOutputPath '-' num2str(i, '%.2d')]); 
         end
     end  
@@ -41,7 +41,7 @@ function animateKeyDetection()
     
     dist((1:length(dist))~=keyidx) = 0;
     hold on,
-    bar(dist, 'FaceColor', [234/256 170/256 0]);
+    bar(dist, 'FaceColor', getAcaColor('main'), 'EdgeColor', getAcaColor('main', true));
     hold off
     for (k =1:2*framerate)
         printFigure(hFigureHandle, [cOutputPath '-' num2str(i, '%.2d')]); 
