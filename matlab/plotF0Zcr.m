@@ -13,8 +13,8 @@ function plotF0Zcr ()
     [t, x, T_0, hist_x, diff_i, z_loc] = getData ([cAudioPath, cName]);
 
     % set the strings of the axis labels 
-    cXLabel1 = '$t / \mathrm{s}$';
-    cXLabel2 = '$\Delta t_\mathrm{ZC}$';
+    cXLabel1 = '$t\; [\mathrm{s}]$';
+    cXLabel2 = '$\Delta t_\mathrm{ZC}\; [\mathrm{ms}]$';
     cYLabel1 = '$x(t)$';
     cYLabel2 = '\# of occurences';
 

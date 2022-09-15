@@ -34,7 +34,7 @@ function plotBlocking()
         set(gca, 'YTick', [0]);
         set(gca, 'YTickLabel', ['$n=' num2str(n-1) '$']);
     end
-    xlabel('$t / \mathrm{s}$')
+    xlabel('$t\; [\mathrm{s}]$')
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

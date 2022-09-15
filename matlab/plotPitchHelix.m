@@ -16,7 +16,7 @@ function plotPitchHelix()
     %view(-38, 32);
     set(gca, 'XTick', [0 1])
     set(gca, 'YTick', [0 1])
-    zlabel('$f/f_0$');
+    zlabel('$f / f_0$');
     set(gca, 'XTickLabel', {''})
     set(gca, 'YTickLabel', {''})
     set(gca, 'ZTick', [1 2 4 8 16])

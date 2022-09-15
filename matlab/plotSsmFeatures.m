@@ -16,6 +16,8 @@ function plotSsmFeatures ()
     % file name
     cName = 'bad.mp3';
 
+    cAxisLabel = '$t\; [\mathrm{s}]$';
+
     % read audio and get plot data
     [tv, Dpc, Drms, Dmfcc, Dms, Dpcb, Drmsb, Dmfccb, Dmsb] = getData(cAudioPath, cName);
 
@@ -24,37 +26,37 @@ function plotSsmFeatures ()
     imagesc(tv, tv, applyNonlinearity_I(Dpc, 2))
     c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
-    ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
     set(gca, 'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
+    xlabel(cAxisLabel)
+    ylabel(cAxisLabel)
 
     ax = subplot(142);
     imagesc(tv, tv, applyNonlinearity_I(Drms, 10))
     c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
-    ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
     set(gca, 'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
+    xlabel(cAxisLabel)
+    ylabel(cAxisLabel)
 
     ax = subplot(143);
     imagesc(tv, tv, applyNonlinearity_I(Dmfcc, 2))
     c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
-    ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
     set(gca, 'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
+    xlabel(cAxisLabel)
+    ylabel(cAxisLabel)
 
     ax = subplot(144);
     imagesc(tv, tv, applyNonlinearity_I(Dms, 3))
     c=colormap(ax, 'parula');
     colormap(ax, flipud(c));
-    ylabel('$t / \mathrm{s}$')
     set(gca, 'XTickLabels', {})
     set(gca, 'YTickLabels', {})
-    xlabel('$t / \mathrm{s}$')    
+    xlabel(cAxisLabel)
+    ylabel(cAxisLabel)
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)

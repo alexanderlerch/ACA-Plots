@@ -19,7 +19,7 @@ function plotBeatHistogram()
     [B, f] = getData([cAudioPath,cName1], [cAudioPath,cName2]);
 
     % label strings
-    cXLabel = 'Tempo / BPM';
+    cXLabel = 'tempo$\; [\mathrm{BPM}]$';
     cYLabel1 = '$|B_\mathrm{SQ}({T})|$';
     cYLabel2 = '$|B_\mathrm{POP}({T})|$';
 

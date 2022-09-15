@@ -15,7 +15,7 @@ function plotSsmRotated ()
 
     % file name
     cName = 'bad.mp3';
-    cXLabel = '$lag / \mathrm{s}$';
+    cXLabel = '$lag\; [\mathrm{s}]$';
 
 
     % read audio and get plot data
@@ -26,7 +26,7 @@ function plotSsmRotated ()
     imagesc(tv, tv, nonlinearity(Dv))
     c=colormap('parula');
     colormap(flipud(c));
-    ylabel('$t / \mathrm{s}$')
+    ylabel('$t\; [\mathrm{s}]$')
     xlabel(cXLabel)
 
     ax=subplot(122);

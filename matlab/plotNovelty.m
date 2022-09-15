@@ -16,8 +16,8 @@ function plotNovelty ()
     cName = 'sax_example.wav';
 
     % label strings
-    cYLabel = 'Envelope';
-    cLegend = 'Threshold';
+    cYLabel = 'envelope';
+    cLegend = 'threshold';
 
     % read audio and generate plot data 
     [tx, x, tv, v, td, d, tg, g, onsetidx] = getData([cAudioPath, cName]);
@@ -39,8 +39,8 @@ function plotNovelty ()
     plot(tg, g(1, :), '-.', 'Color', getAcaColor('gt'), 'Linewidth', .5)
     stem(td(onsetidx), d(onsetidx), 'fill', 'MarkerFaceColor', getAcaColor('main'), 'MarkerEdgeColor', getAcaColor('main', true), 'Color', getAcaColor('main'));
     hold off;
-    xlabel('$t / \mathrm{s}$')
-    legend('Novelty', cLegend, 'Onsets')
+    xlabel('$t\; [\mathrm{s}]$')
+    legend('novelty', cLegend, 'onsets')
     axis([td(1) td(end) 0 max(d)*1.2])
     set(gca, 'YTickLabel', [])
     ylabel('$d(n)$')

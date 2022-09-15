@@ -11,7 +11,8 @@ function plotBeatHierarchy()
     [b44, b22, b34, b68] = getData ();
 
     % label string
-    cXLabel = 'Tatum Ticks';
+    cXLabel = 'Tatum ticks';
+    cYLabel = char('subbeat', 'beat', 'downbeat');
 
     % plot
     subplot(221)
@@ -22,7 +23,7 @@ function plotBeatHierarchy()
     hold off;
     axis([1 16 0 1])
     set(gca, 'YTick', [.166 .5 .834])
-    set(gca, 'YTickLabels', {'Subbeat', 'Beat', 'Downbeat'})
+    set(gca, 'YTickLabels', cYLabel)
     title('4/4')
 
     subplot(222)
@@ -33,7 +34,7 @@ function plotBeatHierarchy()
     hold off;
     axis([1 16 0 1])
     set(gca, 'YTick', [.166 .5 .834])
-    set(gca, 'YTickLabels', {'Subbeat', 'Beat', 'Downbeat'})
+    set(gca, 'YTickLabels', cYLabel)
     title('2/2')
 
     subplot(223)
@@ -45,7 +46,7 @@ function plotBeatHierarchy()
     xlabel(cXLabel);
     axis([1 12 0 1])
     set(gca, 'YTick', [.166 .5 .834])
-    set(gca, 'YTickLabels', {'Subbeat', 'Beat', 'Downbeat'})
+    set(gca, 'YTickLabels', cYLabel)
     title('3/4')
 
     subplot(224)
@@ -57,7 +58,7 @@ function plotBeatHierarchy()
     xlabel(cXLabel);
     axis([1 12 0 1])
     set(gca, 'YTick', [.166 .5 .834])
-    set(gca, 'YTickLabels', {'Subbeat', 'Beat', 'Downbeat'})
+    set(gca, 'YTickLabels', cYLabel)
     title('6/8')
 
     % write output file

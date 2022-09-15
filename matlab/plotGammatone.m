@@ -7,10 +7,10 @@ function plotGammatone()
     [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
-    cXLabel1 = '$t / \mathrm{s}$';
-    cXLabel2 = '$f / \mathrm{kHz}$';
+    cXLabel1 = '$t\; [\mathrm{s}]$';
+    cXLabel2 = '$f\; [\mathrm{kHz}]$';
     cYLabel1 = '$h(t)$';
-    cYLabel2 = '$|H(f)| / \mathrm{dB}$';
+    cYLabel2 = '$|H(f)|\; [\mathrm{dB}]$';
     
     % generate plot data
     [t, h, f, H] = getData();

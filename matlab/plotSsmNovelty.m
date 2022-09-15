@@ -30,7 +30,7 @@ function plotSsmNovelty ()
     plot(novelty, tv, 'Color', getAcaColor('black'), 'LineWidth', .5)
     hold off
     axis([ 0 1 0 tv(end)])
-    xlabel('Novelty')
+    xlabel('novelty')
     set(gca, 'YTick', tannot(2:end-1, 1))
     set(gca, 'YTickLabels', char(annot(2:end-1, :)))
     set(gca, 'XTick', [])
@@ -41,8 +41,9 @@ function plotSsmNovelty ()
     imagesc(tv, tv, applyNonlinearity_I(Dv))
     c=colormap('parula');
     colormap(flipud(c));
-    xlabel('$t / \mathrm{s}$')
-    ylabel('$t / \mathrm{s}$')
+    cAxisLabel = '$t\; [\mathrm{s}]$';
+    xlabel(cAxisLabel)
+    ylabel(cAxisLabel)
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)

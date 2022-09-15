@@ -12,8 +12,8 @@ function plotAcfExample (fDimensions)
 
     % set the strings of the axis labels
     cXLabel = '$\eta / 10^3$';
-    cYLabel1 = '$r_{xx}$ (Sine)';
-    cYLabel2 = '$r_{xx}$ (Noise)';
+    cYLabel1 = '$r_{xx}$ (sine)';
+    cYLabel2 = '$r_{xx}$ (noise)';
 
     % plot
     subplot(211)

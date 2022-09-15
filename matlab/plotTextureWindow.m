@@ -27,6 +27,7 @@ function plotTextureWindow()
     plot(t, x)
     ylabel('$x(t)$')
     axis([t(1) tv2(end) -1 1]);
+    set(gca, 'XTickLabels', [])
     
     subplot(3, 1, 2:3)
     plot(tv, v, 'Color', getAcaColor('darkgray'), 'LineWidth', 0.5)
@@ -38,10 +39,13 @@ function plotTextureWindow()
     fill(x2, inBetween, getAcaColor('main'), 'EdgeColor', getAcaColor('main', true), 'FaceAlpha', .5);
     plot(tv2, v2(1, :), 'k', 'LineWidth', 2)
     hold off;
-    xlabel('$t$')
+    xlabel('$t\; [\mathrm{s}]$')
     legend('$v_\mathrm{SC}$', '$\sigma_v$', '$\mu_v$', 'location', 'northwest');
     axis([0 tv2(end) 0 8000]);
     
+    pos = get(gca, 'Position');
+    set(gca, 'Position', [pos(1) pos(2)+.03 pos(3) pos(4)-.01]);
+
     % write output file
     printFigure(hFigureHandle, cOutputPath)
 end

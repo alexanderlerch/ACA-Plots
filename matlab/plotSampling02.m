@@ -8,7 +8,7 @@ function plotSampling02()
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
     % label string
-    cXLabel = '$t / \mathrm{ms}$';
+    cXLabel = '$t\; [\mathrm{ms}]$';
 
     % generate sample data
     [t, x, ts, xs, f0, fs] = getData ();

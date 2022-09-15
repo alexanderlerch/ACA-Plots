@@ -7,15 +7,17 @@ function plotLoudnessWeighting()
     [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
+    cXLabel = '$f\; [\mathrm{Hz}]$';
+
     % generate plot data
     [f, H, fLogFreq, fFletcherMunson,fPhon2Plot] = getData();
 
     % plot
     subplot(121)
     semilogx(f, H)
-    legend ('BS.1770 MC', 'A Weighting', 'C Weighting', 'ITU-R BS.468', 'Location', 'SouthEast');
-    xlabel('$f/ \mathrm{Hz}$');
-    ylabel('$|H(f)| / \mathrm{dB}$')
+    legend ('BS.1770 MC', 'A weighting', 'C weighting', 'ITU-R BS.468', 'Location', 'SouthEast');
+    xlabel(cXLabel);
+    ylabel('$|H(f)|\; [\mathrm{dB}]$')
     axis([50 16000 -25 15])
 
     subplot(122)
@@ -25,8 +27,8 @@ function plotLoudnessWeighting()
     for (i = 1:length(fPhon2Plot))
         text(1000, fPhon2Plot(i)+(3+i), [num2str(fPhon2Plot(i)) ' phon'], 'FontSize', 6)
     end
-    xlabel('$f/ \mathrm{Hz}$');
-    ylabel('$SPL / \mathrm{dB}$');
+    xlabel(cXLabel);
+    ylabel('$SPL\; [\mathrm{dB}]$');
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

@@ -15,7 +15,7 @@ function plotTuningFreqs()
     %bar(f, p, 'k'), 
     % grid on
     axis([427 453 0 .25])
-    xlabel('$f_\mathrm{A4} / \mathrm{Hz}$');
+    xlabel('$f_\mathrm{A4}\; [\mathrm{Hz}]$');
     ylabel('$RFD(f_\mathrm{A4})$');
 
     % write output file

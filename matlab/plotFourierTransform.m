@@ -13,7 +13,7 @@ function plotFourierTransform()
     cName = 'sax_example.wav';
     
     % label string
-    cXLabel = '$f / \mathrm{kHz}$';
+    cXLabel = '$f\; [\mathrm{kHz}]$';
     
     % get plot data
     [t, x, f, X] = getData([cAudioPath, cName], [iStart iStart+iLength-1]);
@@ -21,7 +21,7 @@ function plotFourierTransform()
     % plot
     subplot(221)
     plot(t, x)
-    xlabel('$t / \mathrm{s}$');
+    xlabel('$t\; [\mathrm{s}]$');
     ylabel('$x(t)$');
     axis([t(1) t(end) -1 1]), grid on
     set(gca, 'XTick', 0:.01:t(end))
@@ -30,7 +30,7 @@ function plotFourierTransform()
     subplot(222)
     plot(f, 20*log10(abs(X(1:length(X)/2+1))), 'LineWidth', .1)
     xlabel(cXLabel)
-    ylabel('$|X(k,n)|$ [dB]')
+    ylabel('$|X(k,n)|\; [\mathrm{dB}]$')
     axis([f(1) f(end) -100 0])
 
     subplot(223)

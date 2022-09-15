@@ -28,7 +28,7 @@ function plotOnset()
     stem(td(iOnsetIdx), d(iOnsetIdx), 'fill', 'MarkerEdgeColor', getAcaColor('main', true), 'MarkerFaceColor', getAcaColor('main'), 'Color', getAcaColor('main'))
     stem(td(iAcOnsetIdx), d(iAcOnsetIdx), 'fill', 'MarkerEdgeColor', getAcaColor('main', true), 'MarkerFaceColor', getAcaColor('main'), 'Color', getAcaColor('main'))
     hold off
-    xlabel('$t / \mathrm{s}$')
+    xlabel('$t\; [\mathrm{s}]$')
     ylabel('$|x(t)|$')
     axis([t(1) t(end) 0 1.1])
     text(td(iOnsetIdx)-0.01, d(iOnsetIdx)+.1, 'POT');

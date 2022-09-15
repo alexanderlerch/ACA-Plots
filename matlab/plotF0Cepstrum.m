@@ -15,13 +15,13 @@ function plotF0Cepstrum()
     % plot
     subplot(211)
     plot(f, X)
-    xlabel('$f/\mathrm{kHz}$')
-    ylabel('$|X(k)| /\mathrm{dB}$')
+    xlabel('$f\; [\mathrm{kHz}]$')
+    ylabel('$|X(k)|\; [\mathrm{dB}]$')
     axis([f(1) f(round(end/4)) -100 0])
     
     subplot(212)
     line(T0*ones(1, 2), [-.5 1.5], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
-    xlabel('Quefrency / samples')
+    xlabel('Quefrency$\; [\mathrm{samples}]$')
     ylabel('$\hat{c}_x(i)$')
     axis([q(1) q(end/2) -.5 1.5])
     hold on;

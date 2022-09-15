@@ -11,7 +11,7 @@ function plotF0Auditory()
     [t, x, f, X] = getData();
 
     % label strings
-    cXLabel = char('$t / \mathrm{s}$', '$f / \mathrm{Hz}$');
+    cXLabel = char('$t\; [\mathrm{s}]$', '$f\; [\mathrm{Hz}]$');
     cYLabelTime = char('$x(i)$', '$x_\mathrm{HWR}(i)$', '$x_\mathrm{S,HWR}(i)$');
     cYLabelFreq = char('$|X(k)|$', '$|X_\mathrm{HWR}(k)|$', '$|X_\mathrm{S,HWR}(k)|$');
     yTicksTime =  [-4 0 4

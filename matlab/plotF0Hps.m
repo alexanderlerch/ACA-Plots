@@ -31,7 +31,7 @@ function plotF0Hps()
     axis([.1 f(end) -100 0])
     set(gca, 'XTickLabel', [])
     legend('j=1', 'j=2', 'j=3', 'j=4')
-    ylabel('$|X(j\cdot k)|/\mathrm{dB}$')
+    ylabel('$|X(j\cdot k)|\; [\mathrm{dB}]$')
    
     subplot(212)
     
@@ -48,8 +48,8 @@ function plotF0Hps()
     xticklabel = get(gca, 'XTickLabel');
     xticklabel(xtick == f0) = {'$\hat{f}_0$'};
     set(gca, 'XTickLabel', xticklabel)
-    xlabel('$f / \mathrm{kHz}$')
-    ylabel('$|X_\mathrm{HPS}(k)|/\mathrm{dB}$')
+    xlabel('$f\; [\mathrm{kHz}]$')
+    ylabel('$|X_\mathrm{HPS}(k)|\; [\mathrm{dB}]$')
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

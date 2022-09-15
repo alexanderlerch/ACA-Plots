@@ -17,6 +17,9 @@ function plotDtwConstraints ()
     cName1 = 'sq1.wav';
     cName2 = 'sq2.wav';
 
+    cXlabel = '$n_\mathrm{A}$';
+    cYlabel = '$n_\mathrm{B}$';
+
     % read audio and generate plot data
     [seq1, seq2, D, p, C] = getData(cAudioPath, cName1, cName2);
 
@@ -24,9 +27,9 @@ function plotDtwConstraints ()
     subplot(131)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, D);
     axis('tight')
-    xlabel('$n_\mathrm{A}$')
-    ylabel('$n_\mathrm{B}$')
-    zlabel('Distance')
+    xlabel(cXlabel)
+    ylabel(cYlabel)
+    zlabel('distance')
 
     m = size(D, 2) / size(D, 1);
     T = 35;
@@ -48,9 +51,9 @@ function plotDtwConstraints ()
     
     subplot(132)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, D1);
-    xlabel('$n_\mathrm{A}$')
-    ylabel('$n_\mathrm{B}$')
-    title('Max (Time) Deviation')
+    xlabel(cXlabel)
+    ylabel(cYlabel)
+    title('max time deviation')
     
 
     m = 3.5;
@@ -73,9 +76,9 @@ function plotDtwConstraints ()
     
     subplot(133)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, D2);
-    xlabel('$n_\mathrm{A}$')
-    ylabel('$n_\mathrm{B}$')
-    title('Max (Tempo) Deviation')
+    xlabel(cXlabel)
+    ylabel(cYlabel)
+    title('max tempo deviation')
     colormap(getColorMap());
 
     % write output file

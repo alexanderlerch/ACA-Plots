@@ -20,8 +20,8 @@ function plotPitchChroma  ()
     [t, f, X, pclabel, pc, pcm] = getData([cAudioPath, '/',cName]);
 
     % set the strings of the axis labels
-    cXLabel = '$t / \mathrm{s}$';
-    cYLabel1 = '$f / \mathrm{kHz}$';
+    cXLabel = '$t\; [\mathrm{s}]$';
+    cYLabel1 = '$f\; [\mathrm{kHz}]$';
     cYLabel2 = 'pitch class';
     
     % plot data

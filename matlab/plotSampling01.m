@@ -19,7 +19,7 @@ function plotSampling01()
     subplot(211)
     plot(t, x)
     ylabel('$x(t)$')
-    xlabel('$t / \mathrm{s}$')
+    xlabel('$t\; [\mathrm{s}]$')
     axis([t(1) t(end) -1.1 1.1])
     
     subplot(212)

@@ -21,7 +21,7 @@ function plotQuantization()
     
     subplot(212)
     stairs(t, xq, 'LineWidth', 1.1)
-    xlabel('$t / \mathrm{s}$')
+    xlabel('$t\; [\mathrm{s}]$')
     ylabel('$x_\mathrm{Q}(t)$')
     axis([t(1) t(end) -1.1 1.1])
 

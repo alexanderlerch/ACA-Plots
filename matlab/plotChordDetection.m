@@ -20,8 +20,8 @@ function plotChordDetection  ()
     [t, P_E, P_T, p, chord_labels] = getData([cAudioPath, '/',cName]);
     
     % set the strings of the axis labels
-    cXLabel = '$t / \mathrm{s}$';
-    cYLabel = 'Chord';
+    cXLabel = '$t\; [\mathrm{s}]$';
+    cYLabel = 'chord';
     
     YTick = [1  5  8  13  17  20  24] - 1;
 

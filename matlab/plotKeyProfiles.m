@@ -16,8 +16,8 @@ function plotKeyProfiles  ()
     % plot 
     subplot(311),
     h = bar(0:11, abs(y)', 1, 'group');
-    xlabel('Pitch Class Index')
-    ylabel('Key Profile')
+    xlabel('pitch class index')
+    ylabel('key profile')
     axis([-.5 11.5 0 1.1])
     h_legend = legend('o', 'd', '5', 'p', 't', 'Location', 'eastoutside');
     
@@ -26,8 +26,8 @@ function plotKeyProfiles  ()
     set(gca, 'XTick', 0:12)
     set(gca, 'XTickLabel', {'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C'})
     axis([0 12 0 1.5])
-    xlabel('Key')
-    ylabel('Distance to C Maj.')
+    xlabel('key')
+    ylabel('distance to C Maj.')
 
     subplot(3,7, [11:14, 18:21])
     scale = 1.9 / sqrt(2);

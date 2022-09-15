@@ -21,7 +21,7 @@ function plotArithmeticMean ()
     [tv,v,mu_v,q_v] = getData ([cAudioPath, '/',cName], cFeatureName);
 
     % set the strings of the axis labels
-    cXLabel = '$t / \mathrm{s}$';
+    cXLabel = '$t\; [\mathrm{s}]$';
     cYLabel1 = '$v_\mathrm{SC}(n)$';
     cYLabel2 = '$RFD(v)$';
 

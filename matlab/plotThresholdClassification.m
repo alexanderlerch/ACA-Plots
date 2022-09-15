@@ -18,7 +18,7 @@ function plotThresholdClassification()
     [x, t, v, tv, isOnset, G] = getData([cAudioPath, cAudioName]);
 
     % specify labels
-    cXLabel = '$t$ / s';
+    cXLabel = '$t\; [\mathrm{s}]$';
     cYLabel = '$v_\mathrm{peak}(n)$';
 
     % plot data

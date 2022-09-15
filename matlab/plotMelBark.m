@@ -12,6 +12,7 @@ function plotMelBark()
     [cPath, cName] = fileparts(mfilename('fullpath'));
     cOutputFilePath = [cPath '/../graph/' strrep(cName, 'plot', '')];
  
+    cXLabel = '$f\; [\mathrm{kHz}]$';
     % generate plot data
     [f, fMel, fBark, cLegendMel, cLegendBark] = getData();
 
@@ -24,9 +25,10 @@ function plotMelBark()
     set(gca, 'XScale', 'log')
     hold off
     legend (cLegendMel, 'Location', 'NorthWest');
-    xlabel('$f/ \mathrm{kHz}$')
+    xlabel(cXLabel)
     ylabel('Mel')
     axis([f(1)/1000 f(end)/1000 0 4000])
+    box on
 
     subplot(122)
     hold on
@@ -36,9 +38,10 @@ function plotMelBark()
     set(gca, 'XScale', 'log')
     hold off
     legend (cLegendBark, 'Location', 'NorthWest');
-    xlabel('$f/ \mathrm{kHz}$')
+    xlabel(cXLabel)
     ylabel('Bark')
     axis([f(1)/1000 f(end)/1000 0 40])
+    box on
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

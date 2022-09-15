@@ -13,8 +13,8 @@ function plotF0Acf ()
     [t, x, xc, eta, r, rc, T0] = getData([cAudioPath, cName]);
 
     % set the strings of the axis labels
-    cXLabel1 = '$t / \mathrm{s}$';
-    cXLabel2 = '$\eta / \mathrm{samples}$';
+    cXLabel1 = '$t\; [\mathrm{s}]$';
+    cXLabel2 = '$\eta\; [\mathrm{samples}]$';
     cYLabel1 = '$x(t)$';
     cYLabel2 = '$r_{xx}(\eta)$';
     cYLabel12 = '$x_\mathrm{clip}(t)$';

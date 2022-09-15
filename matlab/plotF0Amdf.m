@@ -13,8 +13,8 @@ function plotF0Amdf ()
     [t, x, eta, amdf, ra, T_0, T_0A] = getData ([cAudioPath, cName]);
 
     % set the strings of the axis labels
-    cXLabel1 = '$t / \mathrm{s}$';
-    cXLabel2 = '$\eta / \mathrm{samples}$';
+    cXLabel1 = '$t\; [\mathrm{s}]$';
+    cXLabel2 = '$\eta\; [\mathrm{samples}]$';
     cYLabel1 = '$x(t)$';
     cYLabel2 = '$AMDF(\eta)$';
     cYLabel22 = '$r_{xx}(\eta)/AMDF(\eta)$';

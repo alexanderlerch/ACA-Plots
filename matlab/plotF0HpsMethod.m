@@ -16,23 +16,23 @@ function plotF0HpsMethod()
     subplot(411)
    	plot(f, X(1, :));
     axis([.1 f(end) -100 0])
-    ylabel('$|X(k)|/\mathrm{dB}$')
+    ylabel('$|X(k)|\; [\mathrm{dB}]$')
  
     subplot(412)
    	plot(f, X(2, :));
     axis([.1 f(end) -100 0])
-    ylabel('$|X(2k)|/\mathrm{dB}$')
+    ylabel('$|X(2k)|\; [\mathrm{dB}]$')
  
     subplot(413)
    	plot(f, X(3, :));
     axis([.1 f(end) -100 0])
-    ylabel('$|X(3k)|/\mathrm{dB}$')
+    ylabel('$|X(3k)|\; [\mathrm{dB}]$')
 
     subplot(414)
    	plot(f, P);
     axis([.1 f(end) -210 -90])
-    ylabel('$|X_\mathrm{HPS}(k)|/\mathrm{dB}$')
-    xlabel('$f / \mathrm{Hz}$')
+    ylabel('$|X_\mathrm{HPS}(k)|\; [\mathrm{dB}]$')
+    xlabel('$f\; [\mathrm{Hz}]$')
     
     % create arrow
     annotation(hFigureHandle, 'arrow', [0.26 0.2], [0.9 0.69], 'Color', getAcaColor('main', true));

@@ -11,7 +11,7 @@ function plotPitchChromaLeakage()
     [x, y, pc] = getData ();
 
     % label strings
-    cXLabel1 = '$f / \mathrm{Hz}$';
+    cXLabel1 = '$f\; [\mathrm{Hz}]$';
     cXLabel2 = 'pitch class';
     cYLabel1 = '$|X(k)|$';
     cYLabel2 = '$v_\mathrm{PC}$';

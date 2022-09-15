@@ -41,8 +41,9 @@ function plotSsmLowPass ()
     imagesc(tv, tv, applyNonlinearity_I(Dv))
     c=colormap('parula');
     colormap(flipud(c));
-    xlabel('$t / \mathrm{s}$')
-    ylabel('$t / \mathrm{s}$')
+    cAxisLabel = '$t\; [\mathrm{s}]$';
+    xlabel(cAxisLabel)
+    ylabel(cAxisLabel)
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)

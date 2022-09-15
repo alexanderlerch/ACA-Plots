@@ -20,7 +20,7 @@ function plotF0Nmf()
     axis xy;
     set(gca, 'XTickLabel', [])
     set(gca, 'YTick', [0 2 4 6])
-    ylabel('$f/\mathrm{kHz}$')
+    ylabel('$f\; [\mathrm{kHz}]$')
 
     subplot(6,6, [19, 25,31])
     plot(f/1000,W(:, 1))
@@ -28,7 +28,7 @@ function plotF0Nmf()
     view(270,90)
     set(gca, 'XTick', [0 2 4 6])
     set(gca, 'YTickLabel', [])
-    xlabel('$f/\mathrm{kHz}$')
+    xlabel('$f\; [\mathrm{kHz}]$')
     ylabel('$\mathbf{w}_0$')
   
     subplot(6,6, [20, 26,32])
@@ -77,7 +77,7 @@ function plotF0Nmf()
     yyaxis right
     set(gca, 'ycolor', 'k')
     set(gca, 'YTickLabel', [])
-    xlabel('$t/\mathrm{s}$')
+    xlabel('$t\; [\mathrm{s}]$')
     ylabel('$\mathbf{h}_2$')
      
     % write output file

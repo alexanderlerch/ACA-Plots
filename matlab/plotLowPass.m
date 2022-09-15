@@ -12,9 +12,9 @@ function plotLowPass ()
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % set the strings of the axis labels
-    cXLabel = '$f/f_\mathrm{S}$';
-    cYLabel1 = '$|H_\mathrm{MA}(f)| /\mathrm{dB}$';
-    cYLabel2 = '$|H_\mathrm{SP}(f)| /\mathrm{dB}$';
+    cXLabel = '$f / f_\mathrm{S}$';
+    cYLabel1 = '$|H_\mathrm{MA}(f)|\; [\mathrm{dB}]$';
+    cYLabel2 = '$|H_\mathrm{SP}(f)|\; [\mathrm{dB}]$';
 
     % plot 
     h(1) = subplot(121);

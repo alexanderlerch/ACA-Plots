@@ -17,6 +17,9 @@ function plotDtwCost ()
     cName1 = 'sq1.wav';
     cName2 = 'sq2.wav';
 
+    cXlabel = '$n_\mathrm{A}$';
+    cYlabel = '$n_\mathrm{B}$';
+
     % read audio and generate plot data
     [seq1, seq2, D, p, C] = getData(cAudioPath, cName1, cName2);
 
@@ -25,23 +28,23 @@ function plotDtwCost ()
     waterfall(0:size(D, 2)-.5, 0:size(D, 1)-.5, D);
     view(150,75)
     axis('tight')
-    xlabel('$n_\mathrm{A}$')
-    ylabel('$n_\mathrm{B}$')
-    title('Distance')
+    xlabel(cXlabel)
+    ylabel(cYlabel)
+    title('distance')
 
     subplot(132)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, D);
     axis('tight')
-    xlabel('$n_\mathrm{A}$')
-    ylabel('$n_\mathrm{B}$')
-    title('Distance')
+    xlabel(cXlabel)
+    ylabel(cYlabel)
+    title('distance')
 
     subplot(133)
     imagesc(0:size(D, 2)-.5, 0:size(D, 1)-.5, C);
     colormap parula;
-    xlabel('$n_\mathrm{A}$')
-    ylabel('$n_\mathrm{B}$')
-    title('Cost')
+    xlabel(cXlabel)
+    ylabel(cYlabel)
+    title('cost')
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)

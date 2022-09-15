@@ -18,8 +18,8 @@ function plotPitchErrorTimeDomain()
     box on
     hold off
     axis([f(1) f(end) -90 90])
-    xlabel('$f_0$/Hz');
-    ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)$ / Cent');
+    xlabel('$f_0\; [\mathrm{Hz}]$');
+    ylabel('$1200\cdot\log_2\left(\frac{\hat{f_0}}{f_0}\right)\; [\mathrm{Cent}]$');
     lh = legend(cLegend);
     set(lh, 'Location', 'NorthWest', 'Interpreter', 'latex')
 

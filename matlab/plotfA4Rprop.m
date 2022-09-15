@@ -17,8 +17,8 @@ function plotfA4Rprop()
     axis([t(1) 0.03 435 460])
     hold off;
     
-    xlabel('$t/\mathrm{s}$');
-    ylabel('$\hat{f}_\mathrm{A4} /\mathrm{Hz}$');
+    xlabel('$t\; [\mathrm{s}]$');
+    ylabel('$\hat{f}_\mathrm{A4}\; [\mathrm{Hz}]$');
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

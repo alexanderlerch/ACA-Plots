@@ -22,8 +22,8 @@ function plotLogEpsilon()
         ['$\epsilon = ' num2str(epsilon(2)', '%1.0e') '$'],...
         ['$\epsilon = ' num2str(epsilon(3)', '%1.0e') '$'],...
         ['$\epsilon = ' num2str(epsilon(4)', '%1.0e') '$']);
-    xlabel('$v_\mathrm{dB} / dBFS$');
-    ylabel('$(v_\mathrm{app.,dB}-v_\mathrm{dB}) / dB$');
+    xlabel('$v_\mathrm{dB}\; [dBFS]$');
+    ylabel('$(v_\mathrm{app.,dB}-v_\mathrm{dB})\; [dB]$');
 
     % write output file
     printFigure(hFigureHandle, cOutputFilePath)

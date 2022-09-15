@@ -53,9 +53,9 @@ function plotFeature ()
     [t, x,tf,f,X,tv,v] = getData([cAudioPath, '/', cFile], cFeatureNames);
 
     % set the strings of the axis labels
-    cXLabel = '$t / \mathrm{s}$';
+    cXLabel = '$t\; [\mathrm{s}]$';
     cYLabel1 = '$x(t)$';
-    cYLabel2 = '$f / \mathrm{kHz}$';
+    cYLabel2 = '$f\; [\mathrm{kHz}]$';
 
     iIndexInc = 0;
     

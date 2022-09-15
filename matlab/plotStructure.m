@@ -36,8 +36,12 @@ function plotStructure ()
     plot(tvrms, -vrms, 'Color', getAcaColor('mediumgray', true))
     hold off;
     axis([t(1) t(end) -1.1 1.1 ])
-    xlabel('$t$ / s')
+    xlabel('$t\; [\mathrm{s}]$')
     set(gca, 'YTickLabels', {})
+
+    % fix label that is weirdly outside of plot
+    p = get(gca, 'Position');
+    set(gca, 'Position', [p(1) p(2)+0.05 p(3) p(4)-0.02]);
     
     % write output file
     printFigure(hFigureHandle, cOutputPath)

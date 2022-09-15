@@ -15,7 +15,7 @@ function plotBeatGrid()
     [x, t, to, tb, tdb] = getData ([cAudioPath, cAudioName], [cAudioPath, cAnnoBeatName], [cAudioPath, cAnnoOnsetName]);
 
     % label string
-    cXLabel = '$t / \mathrm{s}$';
+    cXLabel = '$t\; [\mathrm{s}]$';
 
     % plot 
     subplot(3, 1, 1)
@@ -35,7 +35,7 @@ function plotBeatGrid()
     box on;
     axis([t(1)-.05 t(end) 0 1])
     set(gca, 'YTick', [.166 .5 .834])
-    set(gca, 'YTickLabels', {'Downbeat', 'Beat', 'Onset'})
+    set(gca, 'YTickLabels', {'downbeat', 'beat', 'onset'})
     pos = get(gca, 'Position');
     set(gca, 'Position', [pos(1) pos(2)+.05 pos(3) pos(4)]);
 

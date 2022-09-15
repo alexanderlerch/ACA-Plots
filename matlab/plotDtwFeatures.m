@@ -16,6 +16,10 @@ function plotDtwFeatures ()
     % file name
     cName = 'originals_splanky.mp3';
 
+    cXLabel = '$t_2\; [\mathrm{s}]$';
+    cYLabel = '$t_1\; [\mathrm{s}]$';
+
+
     % read audio and generate plot data
     [tv1, tv2,Dpc, Drms, Dmfcc,ppc, prms, pmfcc] = getData(cAudioPath, cName);
 
@@ -24,30 +28,30 @@ function plotDtwFeatures ()
     imagesc(tv2, tv1, applyNonlinearity_I(Dpc, 1))
     c = colormap(ax, 'parula');
     colormap(ax, c);
-    xlabel('$t_2 / \mathrm{s}$')
+    xlabel(cXLabel)
     box on;
     hold on; plot(tv2(ppc(:, 2)), tv1(ppc(:, 1)), 'Color', [0 0 0]); 
     hold off
-    ylabel('$t_1 / \mathrm{s}$')
+    ylabel(cYLabel)
 
     ax = subplot(132);
     imagesc(tv2, tv1, applyNonlinearity_I(Drms, 4))
     c = colormap(ax, 'parula');
     colormap(ax, c);
-    xlabel('$t_2 / \mathrm{s}$')
+    xlabel(cXLabel)
     box on;
     hold on; plot(tv2(prms(:, 2)), tv1(prms(:, 1)), 'Color', [0 0 0]); 
     hold off
-    ylabel('$t_1 / \mathrm{s}$')
+    ylabel(cYLabel)
     
     ax = subplot(133);
     imagesc(tv2, tv1, applyNonlinearity_I(Dmfcc, 1))
     c = colormap(ax, 'parula');
     colormap(ax, c);
-    xlabel('$t_2 / \mathrm{s}$')
+    xlabel(cXLabel)
     box on;
     hold on; plot(tv2(pmfcc(:, 2)), tv1(pmfcc(:, 1)), 'Color', [0 0 0]); hold off
-    ylabel('$t_1 / \mathrm{s}$')
+    ylabel(cYLabel)
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)

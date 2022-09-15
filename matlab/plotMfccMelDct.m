@@ -16,7 +16,7 @@ function plotMfccMelDct ()
     [x, H] = getData();
 
     % set the strings of the axis labels
-    cXLabel = '$f / \mathrm{kHz}$';
+    cXLabel = '$f\; [\mathrm{kHz}]$';
     cYLabel = '$H_\mathrm{MFCC}(f)$';
 
     % plot

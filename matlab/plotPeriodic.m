@@ -16,7 +16,7 @@ function plotPeriodic()
 
     %plot
     plot(t, x);
-    xlabel('$t/\mathrm{s}$');
+    xlabel('$t\; [\mathrm{s}]$');
     ylabel('$x_\mathrm{periodic}(t)$');
     set(gca, 'XTickLabel', [])
     set(gca, 'YTickLabel', [])

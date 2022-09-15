@@ -19,7 +19,7 @@ function plotWaveform  ()
     [t3, x3] = getData([cAudioPath, '/', cName3]);
 
     % set the strings of the axis labels
-    cXLabel = '$t / \mathrm{s}$';
+    cXLabel = '$t\; [\mathrm{s}]$';
     cYLabel1 = '$x_\mathrm{speech}(t)$';
     cYLabel2 = '$x_\mathrm{chamber}(t)$';
     cYLabel3 = '$x_\mathrm{pop}(t)$';

@@ -16,13 +16,13 @@ function plotF0AcfOfFft()
     iPlotLength = round(length(f)/4);    
     subplot(211)
     plot(f(1:iPlotLength), X(1:iPlotLength))
-    xlabel('$f / \mathrm{kHz}$')
-    ylabel('$|X(k)|/\mathrm{dB}$')
+    xlabel('$f\; [\mathrm{kHz}]$')
+    ylabel('$|X(k)|\; [\mathrm{dB}]$')
     axis([f(1) f(iPlotLength) -100 0])
     
     subplot(212)
     line(f_0*ones(1, 2), [0 1], 'LineWidth', 2.5, 'Color', getAcaColor('main'))
-    xlabel('$\eta_f/ \mathrm{kHz}$')
+    xlabel('$\eta_f\; [\mathrm{kHz}]$')
     ylabel('$r_\mathrm{XX}(\eta_f)$')
     axis([f(1) f(iPlotLength) 0 1])
     hold on;

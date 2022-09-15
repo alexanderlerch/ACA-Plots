@@ -18,7 +18,7 @@ function plotInstantaneousFreq()
     % plot
     plot(f, X(1, :));
     axis([f(1) f(end) 0 0.6])
-    xlabel('$f / \mathrm{Hz}$');
+    xlabel('$f\; [\mathrm{Hz}]$');
     ylabel('$|X(f)|$');
     annotation('textbox', [0.51, 0.7, 0.2, 0.2], 'String', cLegend, 'FontSize', 6.5, 'EdgeColor', [1 1 1], 'FitBoxToText', 'on', 'Interpreter', 'latex');
 

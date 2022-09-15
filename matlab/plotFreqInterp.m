@@ -13,7 +13,7 @@ function plotFreqInterp()
     [f, X, fi, Xi, Xiz] = getData([cAudioPath, cName]);
  
     % label strings
-    cXLabel = '$f / \mathrm{Hz}$';
+    cXLabel = '$f\; [\mathrm{Hz}]$';
 
     % plot
     range = [1 15];
