@@ -70,7 +70,7 @@ function [v, class, classlabel] = getData(cDatasetPath)
     
     % assuming the same number of files in both directories....
     for i = 1:size(files, 1)
-        v(:, i) = ExtractFeaturesFromFile([files(i).folder '/' files(i).name]);
+        v(:, i) = ExtractFeaturesFromFile([files(i).folder '/' files(i).name], iNumFeatures);
         if (~mod(i-1, 100))
             [path, genre, dummy] = fileparts(files(i).folder);
             classlabel = char(classlabel,genre);
@@ -79,7 +79,7 @@ function [v, class, classlabel] = getData(cDatasetPath)
     classlabel = classlabel(2:end, :);
 end
 
-function [v] = ExtractFeaturesFromFile(cFilePath)
+function [v] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)
 
     cFeatureNames = char('SpectralCentroid',...
     'TimeRms',...
@@ -89,7 +89,7 @@ function [v] = ExtractFeaturesFromFile(cFilePath)
     [x, f_s] = audioread(cFilePath);
     x = x / max(abs(x));
     
-    for i = 1:size(cFeatureNames, 1)
+    for i = 1:iNumFeatures
         feature = ComputeFeature (deblank(cFeatureNames(i, :)), x, f_s);
         v(i, 1) = std(feature(1, :));
     end
