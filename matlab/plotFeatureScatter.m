@@ -3,14 +3,14 @@ function plotFeatureScatter(cDatasetPath)
     if (nargin<1)
         % this script is written for the GTZAN dataset
         % this path needs to be edited
-        cDatasetPath = 'D:\dataset\GTZAN\genres/'; 
+        cDatasetPath = 'D:\dataset\dataset-gtzan\genres/'; 
     end
     % check for dependencies
     if(exist('ComputeFeature') ~= 2)
         error('Please add the ACA scripts (https://github.com/alexanderlerch/ACA-Code) to your path!');
     end
     if ((exist([cDatasetPath 'blues']) ~= 7) || (exist([cDatasetPath 'rock']) ~= 7))
-        error('Dataset path wrong or does not contain music/speech folders!')
+        error('Dataset path wrong or does not contain expected folders!')
     end
 
     % generate new figure
@@ -58,8 +58,10 @@ function [v, class, classlabel] = getData(cDatasetPath)
 
     % read music data
     files = dir([cDatasetPath '/**/*.wav']);
+
+    iNumFeatures = 2;
  
-    v_music = zeros(2, 1000);
+    v_music = zeros(iNumFeatures, 1000);
     class = ones(1, 100);
     for i = 2:10
         class = [class i*ones(1, 100)];
@@ -80,14 +82,26 @@ end
 function [v] = ExtractFeaturesFromFile(cFilePath)
 
     cFeatureNames = char('SpectralCentroid',...
-    'TimeRms');
+    'TimeRms',...
+    'TimeZeroCrossings',...
+    'SpectralRollOff');
 
     [x, f_s] = audioread(cFilePath);
     x = x / max(abs(x));
     
-    feature = ComputeFeature (deblank(cFeatureNames(1, :)), x, f_s);
-    v(1, 1) = std(feature(1, :));
-    
-    feature = ComputeFeature (deblank(cFeatureNames(2, :)), x, f_s);
-    v(2, 1) = std(feature(1, :));
+    for i = 1:size(cFeatureNames, 1)
+        feature = ComputeFeature (deblank(cFeatureNames(i, :)), x, f_s);
+        v(i, 1) = std(feature(1, :));
+    end
+    % feature = ComputeFeature (deblank(cFeatureNames(1, :)), x, f_s);
+    % v(1, 1) = std(feature(1, :));
+    % 
+    % feature = ComputeFeature (deblank(cFeatureNames(2, :)), x, f_s);
+    % v(2, 1) = std(feature(1, :));
+    % 
+    % feature = ComputeFeature (deblank(cFeatureNames(3, :)), x, f_s);
+    % v(3, 1) = std(feature(1, :));
+    % 
+    % feature = ComputeFeature (deblank(cFeatureNames(4, :)), x, f_s);
+    % v(4, 1) = std(feature(1, :));
  end
