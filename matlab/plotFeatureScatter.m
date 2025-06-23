@@ -64,7 +64,7 @@ function plotFeatureScatter(cDatasetPath)
         axis([-3 3 -3 3]); % 3 stds
         box on
     end
-     legend(classlabel, 'Location', 'SouthEast')
+    % legend(classlabel, 'Location', 'SouthEast')
 
 
     % write output file
@@ -104,16 +104,16 @@ function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)
     'TimeRms',...
     'TimeZeroCrossingRate',...
     'SpectralRolloff');
-    cFeatureLabels = char('$\sigma_\mathrm{SC}$',...
-    '$\sigma_\mathrm{RMS}$',...
-    '$\sigma_\mathrm{ZC}$',...
-    '$\sigma_\mathrm{SR}$');
+    cFeatureLabels = char('$\mu_\mathrm{SC}$',...
+    '$\mu_\mathrm{RMS}$',...
+    '$\mu_\mathrm{ZC}$',...
+    '$\mu_\mathrm{SR}$');
 
     [x, f_s] = audioread(cFilePath);
     x = x / max(abs(x));
     
     for i = 1:iNumFeatures
         feature = ComputeFeature (deblank(cFeatureNames(i, :)), x, f_s);
-        v(i, 1) = std(feature(1, :));
+        v(i, 1) = mean(feature(1, :));
     end
 end

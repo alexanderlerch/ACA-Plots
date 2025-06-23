@@ -22,27 +22,40 @@ function plotPcaClassification(cDatasetPath)
 
     % generate plot data
     iNumFeatures = 4; 
-    [fAcc, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures);
+    [fAcc, fCumAcc, cFeatureLabels, cPcLabels, cSelFeatureLabels, cSelPcLabels] = getData(cDatasetPath, iNumFeatures);
 
     % plot
-    subplot(211)
-    b = bar(cellstr(cFeatureLabels), fAcc(:, 1)')
+    subplot(221)
+    b = bar(cellstr(cFeatureLabels), fAcc(:, 1)');
     ylim([0 .4]); 
     ylabel('accuracy')
     box on
 
-    subplot(212)
-    b = bar(cellstr(cPcLabels), fAcc(:, 2)')
+    subplot(222)
+    b = bar(cellstr(cPcLabels), fAcc(:, 2)');
     ylim([0 .4]); 
     ylabel('accuracy')
     box on
 
+    % plot
+    subplot(223)
+    b = bar(cellstr(cSelFeatureLabels), fCumAcc(:, 1)');
+    ylim([0 .4]); 
+    ylabel('accuracy')
+    box on
+
+    % plot
+    subplot(224)
+    b = bar(cellstr(cSelPcLabels), fCumAcc(:, 2)');
+    ylim([0 .4]); 
+    ylabel('accuracy')
+    box on
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
-function [acc, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures)
+function [acc, cum_acc, cFeatureLabels, cPcLabels, cSelFeatureLabels, cSelPcLabels] = getData(cDatasetPath, iNumFeatures)
 
     % read music data
     files = dir([cDatasetPath '/**/*.wav']);
@@ -75,20 +88,31 @@ function [acc, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures)
 
     % run classification
     acc = zeros(iNumFeatures+1, 2);
+    cum_acc = zeros(iNumFeatures, 2);
     iNumFeatures = size(pc, 1);
     for i = 1:iNumFeatures
-        [acc(i, 1), dummy] = ToolLooCrossVal(v(i,:), class-1);
-        [acc(i, 2), dummy] = ToolLooCrossVal(pc(i,:), class-1);
+        [acc(i, 1), ~] = ToolLooCrossVal(v(i,:), class-1);
+        [acc(i, 2), ~] = ToolLooCrossVal(pc(i,:), class-1);
     end
-    [acc(iNumFeatures+1, 1), dummy] = ToolLooCrossVal(v, class-1);
+    [acc(iNumFeatures+1, 1), ~] = ToolLooCrossVal(v, class-1);
     cFeatureLabels = [char(cFeatureLabels,'all')];
-    [acc(iNumFeatures+1, 2), dummy] = ToolLooCrossVal(pc, class-1);    
+    [selvIdx, cum_acc(:, 1)] = ToolSeqFeatureSel(v, class-1, iNumFeatures);
+    cSelFeatureLabels = char(cFeatureLabels(selvIdx(1),:), ...
+        [cFeatureLabels(selvIdx(1),:) '+' cFeatureLabels(selvIdx(2),:)], ...
+        [cFeatureLabels(selvIdx(1),:) '+' cFeatureLabels(selvIdx(2),:) '+' cFeatureLabels(selvIdx(3),:)], ...
+        [cFeatureLabels(selvIdx(1),:) '+' cFeatureLabels(selvIdx(2),:) '+' cFeatureLabels(selvIdx(3),:) '+' cFeatureLabels(selvIdx(4),:)]);
+
+    [acc(iNumFeatures+1, 2), ~] = ToolLooCrossVal(pc, class-1);    
     cPcLabels = char('$pc_\mathrm{1}$',...
     '$pc_\mathrm{2}$',...
     '$pc_\mathrm{3}$',...
     '$pc_\mathrm{4}$',...
     'all');
-
+    [selpcIdx, cum_acc(:, 2)] = ToolSeqFeatureSel(pc, class-1, iNumFeatures);
+    cSelPcLabels = char(cPcLabels(selpcIdx(1),:), ...
+        [cPcLabels(selpcIdx(1),:) '+' cPcLabels(selpcIdx(2),:)], ...
+        [cPcLabels(selpcIdx(1),:) '+' cPcLabels(selpcIdx(2),:) '+' cPcLabels(selpcIdx(3),:)], ...
+        [cPcLabels(selpcIdx(1),:) '+' cPcLabels(selpcIdx(2),:) '+' cPcLabels(selpcIdx(3),:) '+' cPcLabels(selpcIdx(4),:)]);
 
 end
 
@@ -98,16 +122,16 @@ function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)
     'TimeRms',...
     'TimeZeroCrossingRate',...
     'SpectralRolloff');
-    cFeatureLabels = char('$\sigma_\mathrm{SC}$',...
-    '$\sigma_\mathrm{RMS}$',...
-    '$\sigma_\mathrm{ZC}$',...
-    '$\sigma_\mathrm{SR}$');
+    cFeatureLabels = char('$\mu_\mathrm{SC}$',...
+    '$\mu_\mathrm{RMS}$',...
+    '$\mu_\mathrm{ZC}$',...
+    '$\mu_\mathrm{SR}$');
 
     [x, f_s] = audioread(cFilePath);
     x = x / max(abs(x));
     
     for i = 1:iNumFeatures
         feature = ComputeFeature (deblank(cFeatureNames(i, :)), x, f_s);
-        v(i, 1) = std(feature(1, :));
+        v(i, 1) = mean(feature(1, :));
     end
 end

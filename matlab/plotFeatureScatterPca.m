@@ -14,7 +14,7 @@ function plotFeatureScatterPca(cDatasetPath)
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12, 10 ...
+    hFigureHandle = generateFigure(13.12, 12 ...
         );
     
     % set output path relative to script location and to script name
@@ -23,7 +23,7 @@ function plotFeatureScatterPca(cDatasetPath)
 
     % generate plot data
     iNumFeatures = 4; % only works for 2 or 4 atm
-    [v, T, eigenvalues, class, classlabel, cAxisLabel] = getData(cDatasetPath, iNumFeatures);
+    [v, T, eigenvalues, class, classlabel, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures);
 
     iMarkerSize = 6;
     myColorMap = [  getAcaColor('black')
@@ -58,8 +58,8 @@ function plotFeatureScatterPca(cDatasetPath)
                 iMarkerSize, myColorMap(class((i-1)*100+1:i*100), :), 'filled', char(myShape(i,:)), 'MarkerEdgeColor', .85*myColorMap(i,:))
         end
         hold off;
-        ylabel(deblank(cAxisLabel(2*(n-1)+1, :)))
-        xlabel(deblank(cAxisLabel(2*n, :)))
+        ylabel(deblank(cFeatureLabels(2*(n-1)+1, :)))
+        xlabel(deblank(cFeatureLabels(2*n, :)))
         set(gca, 'XTickLabel', [], 'YTickLabel', []);
         hold on;
         axis([-3 3 -3 3]); % 3 stds
@@ -67,6 +67,11 @@ function plotFeatureScatterPca(cDatasetPath)
     end
     subplot(iNumXPlots+1, iNumYPlots, iNumPlots+1);
     imagesc(abs(T)')
+    set(gca, "XTick", [1:iNumFeatures])
+    set(gca, "YTick", [1:iNumFeatures])
+    set(gca, "XTickLabel", cFeatureLabels)
+    set(gca, "YTickLabel", cPcLabels)
+
     xlabel('feature')
     ylabel('component');
     subplot(iNumXPlots+1, iNumYPlots, iNumPlots+2);
@@ -86,7 +91,7 @@ function plotFeatureScatterPca(cDatasetPath)
     printFigure(hFigureHandle, cOutputPath)
 end
 
-function [pc, T, eigenvalues, class, classlabel, cFeatureLabels] = getData(cDatasetPath, iNumFeatures)
+function [pc, T, eigenvalues, class, classlabel, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures)
 
     % read music data
     files = dir([cDatasetPath '/**/*.wav']);
@@ -109,7 +114,7 @@ function [pc, T, eigenvalues, class, classlabel, cFeatureLabels] = getData(cData
     classlabel = classlabel(2:end, :);
 
     % override feature labels for pca
-    cFeatureLabels = char('$pc_\mathrm{1}$',...
+    cPcLabels = char('$pc_\mathrm{1}$',...
     '$pc_\mathrm{2}$',...
     '$pc_\mathrm{3}$',...
     '$pc_\mathrm{4}$');
@@ -119,6 +124,10 @@ function [pc, T, eigenvalues, class, classlabel, cFeatureLabels] = getData(cData
 
     % compute principal components
     [pc, T, eigenvalues] = ToolPca(v);
+
+    % normalize pca output for plotting
+    pc = diag(1./std(pc, [], 2)) * pc;
+
 end
 
 function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)
@@ -127,16 +136,16 @@ function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)
     'TimeRms',...
     'TimeZeroCrossingRate',...
     'SpectralRolloff');
-    cFeatureLabels = char('$\sigma_\mathrm{SC}$',...
-    '$\sigma_\mathrm{RMS}$',...
-    '$\sigma_\mathrm{ZC}$',...
-    '$\sigma_\mathrm{SR}$');
+    cFeatureLabels = char('$\mu_\mathrm{SC}$',...
+    '$\mu_\mathrm{RMS}$',...
+    '$\mu_\mathrm{ZC}$',...
+    '$\mu_\mathrm{SR}$');
 
     [x, f_s] = audioread(cFilePath);
     x = x / max(abs(x));
     
     for i = 1:iNumFeatures
         feature = ComputeFeature (deblank(cFeatureNames(i, :)), x, f_s);
-        v(i, 1) = std(feature(1, :));
+        v(i, 1) = mean(feature(1, :));
     end
 end
