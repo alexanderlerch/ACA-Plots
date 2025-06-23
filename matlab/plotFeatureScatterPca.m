@@ -1,4 +1,4 @@
-function plotFeatureScatter(cDatasetPath)
+function plotFeatureScatterPca(cDatasetPath)
 
     if (nargin<1)
         % this script is written for the GTZAN dataset
@@ -14,7 +14,8 @@ function plotFeatureScatter(cDatasetPath)
     end
 
     % generate new figure
-    hFigureHandle = generateFigure(13.12, 7);
+    hFigureHandle = generateFigure(13.12, 10 ...
+        );
     
     % set output path relative to script location and to script name
     [cPath, cName] = fileparts(mfilename('fullpath'));
@@ -22,7 +23,7 @@ function plotFeatureScatter(cDatasetPath)
 
     % generate plot data
     iNumFeatures = 4; % only works for 2 or 4 atm
-    [v, class, classlabel, cAxisLabel] = getData(cDatasetPath, iNumFeatures);
+    [v, T, eigenvalues, class, classlabel, cAxisLabel] = getData(cDatasetPath, iNumFeatures);
 
     iMarkerSize = 6;
     myColorMap = [  getAcaColor('black')
@@ -38,7 +39,7 @@ function plotFeatureScatter(cDatasetPath)
 
     myShape = char('o', 'o', 'd', 'd', 's', 's', 'o','s', 'd', 'o');
     % plot
-    iNumPlots = ceil(iNumFeatures/2);
+    iNumPlots = ceil(iNumFeatures/2); % + 2; % two additional pca plots
     iNumXPlots = floor(sqrt(iNumPlots));
     iNumYPlots = floor(sqrt(iNumPlots));
     while (iNumXPlots*iNumYPlots < iNumPlots)
@@ -49,7 +50,7 @@ function plotFeatureScatter(cDatasetPath)
         end
     end
     for n=1:iNumPlots
-        subplot(iNumXPlots, iNumYPlots, n)
+        subplot(iNumXPlots+1, iNumYPlots, n)
         for i = 1:size(classlabel, 1)
             hold on;
             scatter(v(2*(n-1)+1, (i-1)*100+1:i*100), ...
@@ -64,14 +65,28 @@ function plotFeatureScatter(cDatasetPath)
         axis([-3 3 -3 3]); % 3 stds
         box on
     end
-     legend(classlabel, 'Location', 'SouthEast')
+    subplot(iNumXPlots+1, iNumYPlots, iNumPlots+1);
+    imagesc(abs(T)')
+    xlabel('feature')
+    ylabel('component');
+    subplot(iNumXPlots+1, iNumYPlots, iNumPlots+2);
+    plot(eigenvalues)
+        grid on
+    hold on; 
+    plot(ones(1, size(v, 1)), 'Color', getAcaColor('mediumgray')); 
+    hold off;
+    xlabel('component')
+    ylabel('eigenvalue');
+    set(gca, 'XTick', 1:length(eigenvalues))
+    axis([1 length(eigenvalues) 0 max(eigenvalues)+.1 ])
 
+    % legend(classlabel, 'Location', 'NorthEastOutside')
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
-function [v, class, classlabel, cFeatureLabels] = getData(cDatasetPath, iNumFeatures)
+function [pc, T, eigenvalues, class, classlabel, cFeatureLabels] = getData(cDatasetPath, iNumFeatures)
 
     % read music data
     files = dir([cDatasetPath '/**/*.wav']);
@@ -91,11 +106,19 @@ function [v, class, classlabel, cFeatureLabels] = getData(cDatasetPath, iNumFeat
             classlabel = char(classlabel,genre);
         end
     end
+    classlabel = classlabel(2:end, :);
+
+    % override feature labels for pca
+    cFeatureLabels = char('$pc_\mathrm{1}$',...
+    '$pc_\mathrm{2}$',...
+    '$pc_\mathrm{3}$',...
+    '$pc_\mathrm{4}$');
 
     % z-score normalization
     v = diag(1./std(v, [], 2)) * (v - mean(v, 2));
 
-    classlabel = classlabel(2:end, :);
+    % compute principal components
+    [pc, T, eigenvalues] = ToolPca(v);
 end
 
 function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)

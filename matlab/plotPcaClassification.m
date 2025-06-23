@@ -1,4 +1,4 @@
-function plotFeatureScatter(cDatasetPath)
+function plotPcaClassification(cDatasetPath)
 
     if (nargin<1)
         % this script is written for the GTZAN dataset
@@ -21,57 +21,28 @@ function plotFeatureScatter(cDatasetPath)
     cOutputPath = [cPath '/../graph/' strrep(cName, 'plot', '')];
 
     % generate plot data
-    iNumFeatures = 4; % only works for 2 or 4 atm
-    [v, class, classlabel, cAxisLabel] = getData(cDatasetPath, iNumFeatures);
+    iNumFeatures = 4; 
+    [fAcc, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures);
 
-    iMarkerSize = 6;
-    myColorMap = [  getAcaColor('black')
-                    getAcaColor('main')
-                    getAcaColor('blue')
-                    getAcaColor('gt')
-                    getAcaColor('lightgray')
-                             1                         0                         0
-                             0                       0.5                         0
-                             0                      0.75                      0.75
-                    getAcaColor('mediumgray')
-                    getAcaColor('lightgray')];
-
-    myShape = char('o', 'o', 'd', 'd', 's', 's', 'o','s', 'd', 'o');
     % plot
-    iNumPlots = ceil(iNumFeatures/2);
-    iNumXPlots = floor(sqrt(iNumPlots));
-    iNumYPlots = floor(sqrt(iNumPlots));
-    while (iNumXPlots*iNumYPlots < iNumPlots)
-        if iNumYPlots < iNumXPlots
-            iNumXPlots = iNumXPlots + 1;
-        else
-            iNumYPlots = iNumYPlots + 1;
-        end
-    end
-    for n=1:iNumPlots
-        subplot(iNumXPlots, iNumYPlots, n)
-        for i = 1:size(classlabel, 1)
-            hold on;
-            scatter(v(2*(n-1)+1, (i-1)*100+1:i*100), ...
-                v(2*n, (i-1)*100+1:i*100), ...
-                iMarkerSize, myColorMap(class((i-1)*100+1:i*100), :), 'filled', char(myShape(i,:)), 'MarkerEdgeColor', .85*myColorMap(i,:))
-        end
-        hold off;
-        ylabel(deblank(cAxisLabel(2*(n-1)+1, :)))
-        xlabel(deblank(cAxisLabel(2*n, :)))
-        set(gca, 'XTickLabel', [], 'YTickLabel', []);
-        hold on;
-        axis([-3 3 -3 3]); % 3 stds
-        box on
-    end
-     legend(classlabel, 'Location', 'SouthEast')
+    subplot(211)
+    b = bar(cellstr(cFeatureLabels), fAcc(:, 1)')
+    ylim([0 .4]); 
+    ylabel('accuracy')
+    box on
+
+    subplot(212)
+    b = bar(cellstr(cPcLabels), fAcc(:, 2)')
+    ylim([0 .4]); 
+    ylabel('accuracy')
+    box on
 
 
     % write output file
     printFigure(hFigureHandle, cOutputPath)
 end
 
-function [v, class, classlabel, cFeatureLabels] = getData(cDatasetPath, iNumFeatures)
+function [acc, cFeatureLabels, cPcLabels] = getData(cDatasetPath, iNumFeatures)
 
     % read music data
     files = dir([cDatasetPath '/**/*.wav']);
@@ -91,11 +62,34 @@ function [v, class, classlabel, cFeatureLabels] = getData(cDatasetPath, iNumFeat
             classlabel = char(classlabel,genre);
         end
     end
+    classlabel = classlabel(2:end, :);
 
     % z-score normalization
     v = diag(1./std(v, [], 2)) * (v - mean(v, 2));
 
-    classlabel = classlabel(2:end, :);
+    % compute principal components
+    [pc, T, eigenvalues] = ToolPca(v);
+
+    % normalize principal components for classification
+    pc = diag(1./std(pc, [], 2)) * pc;
+
+    % run classification
+    acc = zeros(iNumFeatures+1, 2);
+    iNumFeatures = size(pc, 1);
+    for i = 1:iNumFeatures
+        [acc(i, 1), dummy] = ToolLooCrossVal(v(i,:), class-1);
+        [acc(i, 2), dummy] = ToolLooCrossVal(pc(i,:), class-1);
+    end
+    [acc(iNumFeatures+1, 1), dummy] = ToolLooCrossVal(v, class-1);
+    cFeatureLabels = [char(cFeatureLabels,'all')];
+    [acc(iNumFeatures+1, 2), dummy] = ToolLooCrossVal(pc, class-1);    
+    cPcLabels = char('$pc_\mathrm{1}$',...
+    '$pc_\mathrm{2}$',...
+    '$pc_\mathrm{3}$',...
+    '$pc_\mathrm{4}$',...
+    'all');
+
+
 end
 
 function [v, cFeatureLabels] = ExtractFeaturesFromFile(cFilePath, iNumFeatures)
