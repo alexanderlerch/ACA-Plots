@@ -67,8 +67,8 @@ function plotFeatureScatterPca(cDatasetPath)
     end
     subplot(iNumXPlots+1, iNumYPlots, iNumPlots+1);
     imagesc(abs(T)')
-    set(gca, "XTick", [1:iNumFeatures])
-    set(gca, "YTick", [1:iNumFeatures])
+    set(gca, "XTick", [1:size(T', 1)])
+    set(gca, "YTick", [1:size(T', 2)])
     set(gca, "XTickLabel", cFeatureLabels)
     set(gca, "YTickLabel", cPcLabels)
 
